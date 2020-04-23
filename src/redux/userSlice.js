@@ -35,12 +35,12 @@ export const userSlice = createSlice({
     [login.fulfilled]: (state, action) => {
       // Add user to the state array
       if (action.payload != null) {
+        console.log(action.payload)
         state.user = action.payload;
       } else {
         state.error = "False username or password";
       }
       state.isFetching = false;
-      //history.push('/');
     },
     [login.rejected]: (state, action) => {
       state.isFetching = false;

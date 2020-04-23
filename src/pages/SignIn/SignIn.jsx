@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import BlankLayout from "../../layouts/BlankLayout";
 import { Form, Input, Button, Checkbox } from "antd";
 import { Row } from "antd";
@@ -24,6 +25,9 @@ const tailLayout = {
 const SignIn = () => {
   const dispatch = useDispatch();
   const user = useSelector(userSelector);
+  if (user.user) {
+    return <Redirect to="/" />;
+  }
   return (
     <BlankLayout>
       <Row align="middle" justify="center" style={{ padding: "4em" }}>

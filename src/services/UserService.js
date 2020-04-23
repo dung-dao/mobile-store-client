@@ -7,6 +7,6 @@ function timeout(ms) {
 export async function login() {
   //login
   await timeout(1000);
-  throw new Error("something");
+  //throw new Error("something");
   return { username: "John", password: "123" };
 }

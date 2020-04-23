@@ -1,15 +1,14 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-//import { routerMiddleware } from "connected-react-router";
-//import createHistory from "history/createBrowserHistory";
+import { routerMiddleware, connectRouter } from "connected-react-router";
+import { createBrowserHistory } from "history";
 import userSlice from "../redux/userSlice";
 
-//export const history = createHistory();
-
-//const middleware = [...getDefaultMiddleware(), routerMiddleware(history)];
+export const history = createBrowserHistory();
 
 export default configureStore({
   reducer: {
-    user: userSlice
-  }
-  //middleware
+    router: connectRouter(history),
+    user: userSlice,
+  },
+  middleware: [routerMiddleware(history), ...getDefaultMiddleware()],
 });
