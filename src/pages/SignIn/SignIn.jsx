@@ -38,7 +38,7 @@ const SignIn = () => {
             remember: true,
           }}
           onFinish={(values) => {
-            dispatch(login(values.username, values.password));
+            dispatch(login(values));
           }}
         >
           <Form.Item

@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import { ConnectedRouter } from "connected-react-router";
 import * as serviceWorker from "./serviceWorker";
 import { history } from "./app/store";
+import axios from "axios";
 
 ReactDOM.render(
   <React.StrictMode>

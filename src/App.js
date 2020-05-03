@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Switch } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import PublicRoute from "./components/PublicRoute";
 import LoginPage from "./pages/SignIn/SignIn";
 //import logo from "./logo.svg";
 //import { Counter } from "./features/counter/Counter";
 import "./App.css";
+import AppLayout from "./layouts/AppLayout";
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
           path="/signin"
           exact
         />
+        <Route component={AppLayout}></Route>
       </Switch>
     );
   }

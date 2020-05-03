@@ -1,15 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { login as runLogin } from "../services/UserService";
+//import { login as runLogin } from "../services/UserService";
 import { message } from "antd";
 //import { history } from "../app/store";
+import fetch from "../services/http";
 
-export const login = createAsyncThunk(
-  "user/login",
-  async (username, password) => {
-    const response = await runLogin(username, password);
-    return response;
-  }
-);
+export const login = createAsyncThunk("user/login", async (user, thunkAPI) => {
+  let response = null;
+  response = await fetch("post", "http://localhost:3000/login", {
+    name: user.username,
+    password: user.password,
+  });
+  console.log(response);
+});
 
 export const userSlice = createSlice({
   name: "user",
@@ -19,7 +21,7 @@ export const userSlice = createSlice({
     logout: (state) => {
       state.user = null;
       try {
-        localStorage.removeItem("token");
+        //localStorage.removeItem("token");
       } catch (error) {
         //console.log(error);
         return null;
@@ -35,7 +37,7 @@ export const userSlice = createSlice({
     [login.fulfilled]: (state, action) => {
       // Add user to the state array
       if (action.payload != null) {
-        console.log(action.payload)
+        console.log(action.payload);
         state.user = action.payload;
       } else {
         state.error = "False username or password";
