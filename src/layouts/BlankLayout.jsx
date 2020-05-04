@@ -1,14 +1,15 @@
 import React, { Component } from "react";
+import './BlankLayout.css'
 import { Layout } from "antd";
 const { Header, Footer, Content } = Layout;
 
 class BlankLayout extends Component {
   render() {
     return (
-      <Layout>
-        <Header>Header</Header>
-        <Content>{this.props.children}</Content>
-        <Footer /*style={{ position: "absolute", bottom: 0, width: "100%" }}*/>
+      <Layout className="main">
+        <Header className="header">Header</Header>
+        <Content className="content">{this.props.children}</Content>
+        <Footer className="footer" >
           Footer
         </Footer>
       </Layout>

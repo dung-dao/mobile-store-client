@@ -1,21 +1,21 @@
-#components-layout-demo-custom-trigger .trigger {
-  font-size: 18px;
-  line-height: 64px;
-  padding: 0 24px;
-  cursor: pointer;
-  transition: color 0.3s;
+.header {
+  height: 10vh;
 }
 
-#components-layout-demo-custom-trigger .trigger:hover {
-  color: #1890ff;
+.body {
+  height: 90vh;
 }
 
-#components-layout-demo-custom-trigger .logo {
-  height: 32px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 16px;
+.main-layout {
+  max-height: 100vh;
 }
 
-.site-layout .site-layout-background {
-  background: #fff;
+.content {
+  padding: 1.5em;
+  margin: 0;
+}
+
+.menu {
+  border-right: 0;
+  height: 100%;
 }

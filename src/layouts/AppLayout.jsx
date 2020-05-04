@@ -1,133 +1,67 @@
 import React from "react";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Breadcrumb } from "antd";
 import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
   UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
+  LaptopOutlined,
+  NotificationOutlined,
 } from "@ant-design/icons";
+import "./AppLayout.css";
 
-const { Header, Sider, Content } = Layout;
+const { SubMenu } = Menu;
+const { Header, Content, Sider } = Layout;
 
-export default class AppLayout extends React.Component {
-  state = {
-    collapsed: false,
-  };
-
-  toggle = () => {
-    this.setState({
-      collapsed: !this.state.collapsed,
-    });
-  };
-
-  render() {
-    return (
-      <Layout>
-        <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
-          <div className="logo" />
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
-            <Menu.Item key="1">
-              <UserOutlined />
-              <span>nav 1</span>
-            </Menu.Item>
-            <Menu.Item key="2">
-              <VideoCameraOutlined />
-              <span>nav 2</span>
-            </Menu.Item>
-            <Menu.Item key="3">
-              <UploadOutlined />
-              <span>nav 3</span>
-            </Menu.Item>
+const AppLayout = (props) => {
+  return (
+    <Layout className="main-layout">
+      <Header className="header">
+        <div className="logo" />
+        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
+          <Menu.Item key="1">nav 1</Menu.Item>
+          <Menu.Item key="2">nav 2</Menu.Item>
+          <Menu.Item key="3">nav 3</Menu.Item>
+        </Menu>
+      </Header>
+      <Layout className="body">
+        <Sider className="site-layout-background">
+          <Menu
+            mode="inline"
+            defaultSelectedKeys={["1"]}
+            defaultOpenKeys={["sub1"]}
+            className="menu"
+          >
+            <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
+              <Menu.Item key="1">option1</Menu.Item>
+              <Menu.Item key="2">option2</Menu.Item>
+              <Menu.Item key="3">option3</Menu.Item>
+              <Menu.Item key="4">option4</Menu.Item>
+            </SubMenu>
+            <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
+              <Menu.Item key="5">option5</Menu.Item>
+              <Menu.Item key="6">option6</Menu.Item>
+              <Menu.Item key="7">option7</Menu.Item>
+              <Menu.Item key="8">option8</Menu.Item>
+            </SubMenu>
+            <SubMenu
+              key="sub3"
+              icon={<NotificationOutlined />}
+              title="subnav 3"
+            >
+              <Menu.Item key="9">option9</Menu.Item>
+              <Menu.Item key="10">option10</Menu.Item>
+              <Menu.Item key="11">option11</Menu.Item>
+              <Menu.Item key="12">option12</Menu.Item>
+            </SubMenu>
           </Menu>
         </Sider>
-        <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0 }}>
-            <MenuUnfoldOutlined
-              className="trigger"
-              onClick={this.toggle}
-            ></MenuUnfoldOutlined>
-          </Header>
-          <Content
-            className="site-layout-background"
-            style={{
-              margin: "24px 16px",
-              padding: 24,
-              minHeight: 280,
-            }}
-          >
-            Content Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content
-            <br />
-            Content Content Content Content Content Content Content Content
-            Content Content Content Content Content Content Content Content
-            Content Content Content Content Content Content Content Content
-            Content Content Content Content Content Content Content Content
-            Content Content Content Content Content Content Content
+
+        <Layout>
+          <Content className="content">
+            {props.children ? props.children : "Blank Page"}
           </Content>
         </Layout>
       </Layout>
-    );
-  }
-}
+    </Layout>
+  );
+};
+
+export default AppLayout;

@@ -1,0 +1,14 @@
+.main {
+  height: 100vh;
+}
+
+.content {
+  height: 80%;
+}
+
+.footer {
+  height: 10%;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
