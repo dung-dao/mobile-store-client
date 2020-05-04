@@ -1,0 +1,14 @@
+.logo {
+  background-image: url(../app/logo.svg);
+  margin-right: 1em;
+}
+
+.Header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.user-dropdown {
+  margin-left: auto;
+}

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import './BlankLayout.css'
+import "./BlankLayout.css";
 import { Layout } from "antd";
 const { Header, Footer, Content } = Layout;
 
@@ -7,11 +7,8 @@ class BlankLayout extends Component {
   render() {
     return (
       <Layout className="main">
-        <Header className="header">Header</Header>
         <Content className="content">{this.props.children}</Content>
-        <Footer className="footer" >
-          Footer
-        </Footer>
+        <Footer className="footer">Footer</Footer>
       </Layout>
     );
   }
