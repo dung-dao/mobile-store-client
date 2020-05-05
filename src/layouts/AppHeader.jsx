@@ -19,7 +19,6 @@ const AppHeader = (props) => {
     <React.Fragment>
       <Header className="Header">
         <Logo height="48px" width="48px"></Logo>
-        //<div className="logo"></div>
         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
           <Menu.Item key="1">Hi 1</Menu.Item>
           <Menu.Item key="2">nav 2</Menu.Item>

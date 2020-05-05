@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./BlankLayout.css";
 import { Layout } from "antd";
-const { Header, Footer, Content } = Layout;
+const { Footer, Content } = Layout;
 
 class BlankLayout extends Component {
   render() {

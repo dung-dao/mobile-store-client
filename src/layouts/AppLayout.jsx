@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Menu, Breadcrumb } from "antd";
+import { Layout, Menu } from "antd";
 import {
   UserOutlined,
   LaptopOutlined,
@@ -9,7 +9,7 @@ import "./AppLayout.css";
 import AppHeader from "./AppHeader";
 
 const { SubMenu } = Menu;
-const { Content, Sider, Header } = Layout;
+const { Content, Sider } = Layout;
 
 const AppLayout = (props) => {
   return (

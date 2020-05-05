@@ -7,28 +7,25 @@ import { Provider } from "react-redux";
 import { ConnectedRouter } from "connected-react-router";
 import * as serviceWorker from "./serviceWorker";
 import { history } from "./app/store";
-import axios from "axios";
 
 import { Switch, Route } from "react-router-dom";
 import PublicRoute from "./components/PublicRoute";
 import LoginPage from "./pages/SignIn/SignIn";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <Switch>
-          <PublicRoute
-            restricted={true}
-            component={LoginPage}
-            path="/signin"
-            exact
-          />
-          <Route component={App}></Route>
-        </Switch>
-      </ConnectedRouter>
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <Switch>
+        <PublicRoute
+          restricted={true}
+          component={LoginPage}
+          path="/signin"
+          exact
+        />
+        <Route component={App}></Route>
+      </Switch>
+    </ConnectedRouter>
+  </Provider>,
   document.getElementById("root")
 );
 

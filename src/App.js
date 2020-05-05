@@ -1,10 +1,18 @@
 import React, { Component } from "react";
 import "./App.css";
 import AppLayout from "./layouts/AppLayout";
+import IF from "./components/IF";
+import DataTable from "./components/DataTable";
 
 class App extends Component {
   render() {
-    return <AppLayout>hello</AppLayout>;
+    return (
+      <AppLayout>
+        <IF condt={true}>
+          <DataTable></DataTable>
+        </IF>
+      </AppLayout>
+    );
   }
 }
 
