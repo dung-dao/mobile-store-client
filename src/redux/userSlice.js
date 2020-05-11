@@ -2,20 +2,23 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 //import { login as runLogin } from "../services/UserService";
 import { message } from "antd";
 //import { history } from "../app/store";
-import fetch from "../services/http";
+import http from "../services/http";
+import LocalStorageService from "../services/LocalStorageService";
+import jwt from "jsonwebtoken";
+const localStorage = LocalStorageService.getService();
 
 export const login = createAsyncThunk("user/login", async (user, thunkAPI) => {
   let response = null;
-  response = await fetch("post", "http://localhost:3000/login", {
+  response = await http.post("/login", {
     name: user.username,
     password: user.password,
   });
-  console.log(response);
+  localStorage.setToken(response.data);
 });
 
 export const userSlice = createSlice({
   name: "user",
-  initialState: { user: null, isFetching: false, error: null },
+  initialState: { user: null, isFetching: false, isLogged: false },
   reducers: {
     // standard reducer logic, with auto-generated action types per reducer
     logout: (state) => {
@@ -36,18 +39,14 @@ export const userSlice = createSlice({
     },
     [login.fulfilled]: (state, action) => {
       // Add user to the state array
-      if (action.payload != null) {
-        console.log(action.payload);
-        state.user = action.payload;
-      } else {
-        state.error = "False username or password";
-      }
+      state.user = action.payload;
       state.isFetching = false;
+      state.isLogged = true;
     },
     [login.rejected]: (state, action) => {
       state.isFetching = false;
       state.user = null;
-      message.error("False user name or password", 1);
+      message.error("Tên đăng nhập hoặc mật khẩu không hợp lệ", 1);
     },
   },
 });

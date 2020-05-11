@@ -26,8 +26,8 @@ const tailLayout = {
 const SignIn = () => {
   const dispatch = useDispatch();
   const user = useSelector(userSelector);
-  if (user.user) {
-    return <Redirect to="/" />;
+  if (user) {
+    console.log("user :>> ", user);
   }
   return (
     <BlankLayout>
