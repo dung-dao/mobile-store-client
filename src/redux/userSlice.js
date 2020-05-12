@@ -13,7 +13,9 @@ export const login = createAsyncThunk("user/login", async (user, thunkAPI) => {
     name: user.username,
     password: user.password,
   });
-  localStorage.setToken(response.data);
+  console.log("response :>> ", response);
+  return response.data;
+  //localStorage.setToken(response.data);
 });
 
 export const userSlice = createSlice({
@@ -40,6 +42,11 @@ export const userSlice = createSlice({
     [login.fulfilled]: (state, action) => {
       // Add user to the state array
       state.user = action.payload;
+      //console.log("action.payload :>> ", action.payload);
+      const token = action.payload.token;
+      const decode = jwt.decode(token);
+      //console.log("decode :>> ", decode);
+      state.user = { id: decode.id, jwt: token };
       state.isFetching = false;
       state.isLogged = true;
     },

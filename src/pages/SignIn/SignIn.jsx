@@ -26,9 +26,7 @@ const tailLayout = {
 const SignIn = () => {
   const dispatch = useDispatch();
   const user = useSelector(userSelector);
-  if (user) {
-    console.log("user :>> ", user);
-  }
+  if (user && user.isLogged) return <Redirect to="/"></Redirect>;
   return (
     <BlankLayout>
       <Row align="middle" justify="center" style={{ padding: "4em" }}>
