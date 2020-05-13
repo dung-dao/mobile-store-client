@@ -5,10 +5,12 @@ import userSlice from "../redux/userSlice";
 
 export const history = createBrowserHistory();
 
-export default configureStore({
+const store = configureStore({
   reducer: {
     router: connectRouter(history),
     user: userSlice,
   },
   middleware: [routerMiddleware(history), ...getDefaultMiddleware()],
 });
+
+export default store;

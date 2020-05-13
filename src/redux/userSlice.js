@@ -13,15 +13,30 @@ export const login = createAsyncThunk("user/login", async (user, thunkAPI) => {
     name: user.username,
     password: user.password,
   });
-  console.log("response :>> ", response);
   return response.data;
-  //localStorage.setToken(response.data);
 });
 
 export const userSlice = createSlice({
   name: "user",
   initialState: { user: null, isFetching: false, isLogged: false },
   reducers: {
+    relogin: (state) => {
+      console.log("relogin");
+      const token = localStorage.getAccessToken();
+      if (token) {
+        const decode = jwt.decode(token);
+        if (Date.now() >= decode.iat * 1000) {
+          console.log("nnow");
+          state.user = { id: decode.id, jwt: token };
+          state.isLogged = true;
+        } else {
+          localStorage.clearToken();
+          //redirect
+        }
+      } else {
+        //redirect
+      }
+    },
     // standard reducer logic, with auto-generated action types per reducer
     logout: (state) => {
       state.user = null;
@@ -40,12 +55,10 @@ export const userSlice = createSlice({
       state.isFetching = true;
     },
     [login.fulfilled]: (state, action) => {
-      // Add user to the state array
-      state.user = action.payload;
-      //console.log("action.payload :>> ", action.payload);
       const token = action.payload.token;
+      console.log('token', token)
+      localStorage.setToken(token);
       const decode = jwt.decode(token);
-      //console.log("decode :>> ", decode);
       state.user = { id: decode.id, jwt: token };
       state.isFetching = false;
       state.isLogged = true;
@@ -59,5 +72,5 @@ export const userSlice = createSlice({
 });
 
 export const userSelector = (state) => state.user;
-
+export const { relogin, logout } = userSlice.actions;
 export default userSlice.reducer;
