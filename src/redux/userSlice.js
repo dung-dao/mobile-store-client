@@ -40,13 +40,8 @@ export const userSlice = createSlice({
     // standard reducer logic, with auto-generated action types per reducer
     logout: (state) => {
       state.user = null;
-      try {
-        //localStorage.removeItem("token");
-      } catch (error) {
-        //console.log(error);
-        return null;
-      }
-      return null;
+      state.isLogged=false;
+      localStorage.clearToken();
     },
   },
   extraReducers: {
