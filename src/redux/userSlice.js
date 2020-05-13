@@ -40,7 +40,7 @@ export const userSlice = createSlice({
     // standard reducer logic, with auto-generated action types per reducer
     logout: (state) => {
       state.user = null;
-      state.isLogged=false;
+      state.isLogged = false;
       localStorage.clearToken();
     },
   },
@@ -51,7 +51,7 @@ export const userSlice = createSlice({
     },
     [login.fulfilled]: (state, action) => {
       const token = action.payload.token;
-      console.log('token', token)
+      console.log("token", token);
       localStorage.setToken(token);
       const decode = jwt.decode(token);
       state.user = { id: decode.id, jwt: token };

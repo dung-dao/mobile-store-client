@@ -4,17 +4,29 @@ import { Layout, Menu, Dropdown, Button } from "antd";
 import { ReactComponent as Logo } from "../app/logo.svg";
 import "./AppHeader.css";
 import { UserOutlined } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/userSlice";
+import { push } from "connected-react-router";
 const { Header } = Layout;
 
-const userMenu = (
-  <Menu>
-    <Menu.Item>
-      <Link to="SignOut">SignOut</Link>
-    </Menu.Item>
-  </Menu>
-);
-
 const AppHeader = (props) => {
+  const dispatch = useDispatch();
+  const userMenu = (
+    <Menu>
+      <Menu.Item>
+        <Button
+          type="link"
+          onClick={() => {
+            dispatch(logout());
+            dispatch(push("/signin"));
+          }}
+        >
+          Đăng xuất
+        </Button>
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <React.Fragment>
       <Header className="Header">
