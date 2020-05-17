@@ -47,6 +47,7 @@
     ]
   },
   "devDependencies": {
-    "check-peer-dependencies": "^2.0.1"
+    "check-peer-dependencies": "^2.0.1",
+    "prop-types": "^15.7.2"
   }
 }

@@ -1,127 +1,101 @@
 import React from "react";
-import { Button, Row, Space, Table } from "antd";
-import { InfoOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import PropTypes from 'prop-types';
 
-import { Col } from "antd";
+import {Button, Row, Space, Table} from "antd";
+import {InfoOutlined, EditOutlined, DeleteOutlined} from "@ant-design/icons";
+import {Col} from "antd";
 import AdvancedSearchForm from "./SearchForm";
 
-const dataSource = [
-  {
-    key: "1",
-    name: "Mike",
-    age: 32,
-    address: "10 Downing Street",
-  },
-  {
-    key: "2",
-    name: "John",
-    age: 42,
-    address: "10 Downing Street",
-  },
-  {
-    key: "3",
-    name: "John",
-    age: 42,
-    address: "10 Downing Street",
-  },
-  {
-    key: "4",
-    name: "John",
-    age: 42,
-    address: "10 Downing Street",
-  },
-  {
-    key: "5",
-    name: "John",
-    age: 42,
-    address: "10 Downing Street",
-  },
-  {
-    key: "6",
-    name: "John",
-    age: 42,
-    address: "10 Downing Street",
-  },
-  {
-    key: "7",
-    name: "John",
-    age: 42,
-    address: "10 Downing Street",
-  },
-  {
-    key: "8",
-    name: "John",
-    age: 42,
-    address: "10 Downing Street",
-  },
-  {
-    key: "9",
-    name: "John",
-    age: 42,
-    address: "10 Downing Street",
-  },
-  {
-    key: "10",
-    name: "John",
-    age: 42,
-    address: "10 Downing Street",
-  },
-];
+const DataTable = (props) => {
+    return (
+        <React.Fragment>
+            <Row gutter={[16, 16]}>
+                <Col span={24}>
+                    <AdvancedSearchForm
+                        fields={props.columns.map((e) => {
+                            return {
+                                label: e.title,
+                                name: e.key,
+                                placeholder: `Nhập ${e.title.toLowerCase()}`,
+                            };
+                        })}
+                    />
+                </Col>
+                <Col span={24}>
+                    <Table
+                        dataSource={props.dataSource}
+                        columns={[
+                            {
+                                title: "Thao Tác",
+                                key: "action",
+                                render: (record) => (
+                                    <Space>
+                                        <Button shape="circle" type="primary" icon={<InfoOutlined/>}
+                                                onClick={() => {
+                                                    console.log(record)
+                                                    props.onView(record)
+                                                }}/>
+                                        <Button shape="circle" type="primary" icon={<EditOutlined/>}
+                                                onClick={() => {
+                                                    console.log(record)
+                                                    props.onUpdate(record)
+                                                }}/>
+                                        <Button shape="circle" type="danger" icon={<DeleteOutlined/>}
+                                                onClick={() => {
+                                                    console.log(record)
+                                                    props.onDelete(record)
+                                                }}/>
+                                    </Space>
+                                ),
+                            },
+                            ...props.columns
+                        ]}
+                        style={{flexFlow: 1}}
+                        pagination={
+                            {
+                                defaultPageSize: 5,
+                                showSizeChanger: true,
+                                pageSizeOptions: ['5', '10', '20']
+                            }
+                        }
+                    />
+                </Col>
+            </Row>
+        </React.Fragment>
+    );
+};
 
-const columns = [
-  {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "Age",
-    dataIndex: "age",
-    key: "age",
-  },
-  {
-    title: "Address",
-    dataIndex: "address",
-    key: "address",
-  },
-  {
-    title: "Action",
-    key: "action",
-    render: (text, record) => (
-      <Space>
-        <Button shape="circle" type="primary" icon={<InfoOutlined />}></Button>
-        <Button shape="circle" type="primary" icon={<EditOutlined />}></Button>
-        <Button shape="circle" type="danger" icon={<DeleteOutlined />}></Button>
-      </Space>
-    ),
-  },
-];
+DataTable.propTypes = {
+    columns: PropTypes.arrayOf(
+        PropTypes.shape({
+            title: PropTypes.string.isRequired,
+            key: PropTypes.string.isRequired,
+            dataIndex: PropTypes.string,
+            sorter: PropTypes.func //sort function return a - b
+        })
+    ).isRequired,
+    dataSource: PropTypes.array.isRequired,
+    onCreate: PropTypes.func.isRequired,
+    onUpdate: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onView: PropTypes.func.isRequired,
+};
 
-const DataTable = () => {
-  return (
-    <React.Fragment>
-      <Row gutter={[16, 16]}>
-        <Col span={24}>
-          <AdvancedSearchForm
-            fields={columns.map((e) => {
-              return {
-                label: e.title,
-                name: e.key,
-                placeholder: `Nhập ${e.title.toLowerCase()}`,
-              };
-            })}
-          ></AdvancedSearchForm>
-        </Col>
-        <Col span={24}>
-          <Table
-            dataSource={dataSource}
-            columns={columns}
-            style={{ flexFlow: 1 }}
-          />
-        </Col>
-      </Row>
-    </React.Fragment>
-  );
+DataTable.defaultProps = {
+    columns: [],
+    dataSource: [],
+    onCreate: function () {
+        console.log('create')
+    },
+    onUpdate: function () {
+        console.log('update')
+    },
+    onDelete: function () {
+        console.log('delete')
+    },
+    onView: function () {
+        console.log('view')
+    }
 };
 
 export default DataTable;

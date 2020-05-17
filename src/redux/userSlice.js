@@ -16,6 +16,12 @@ export const login = createAsyncThunk("user/login", async (user, thunkAPI) => {
   return response.data;
 });
 
+export  const hello = createAsyncThunk(
+    'user/logut', async () => {
+
+    }
+)
+
 export const userSlice = createSlice({
   name: "user",
   initialState: { user: null, isFetching: false, isLogged: false },

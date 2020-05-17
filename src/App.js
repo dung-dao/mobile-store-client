@@ -7,6 +7,8 @@ import LoginPage from "./pages/SignIn/SignIn";
 import { useDispatch } from "react-redux";
 import { relogin } from "./redux/userSlice";
 import "./App.css";
+import {Button, Space} from "antd";
+import {DeleteOutlined, EditOutlined, InfoOutlined} from "@ant-design/icons";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -24,7 +26,7 @@ const App = () => {
           path="/signin"
           exact
         />
-        <PrivateRoute path="/" component={Dashboard}></PrivateRoute>
+        <PrivateRoute path="/" component={Dashboard}/>
       </Switch>
     </div>
   );
