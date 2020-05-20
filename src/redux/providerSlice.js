@@ -1,11 +1,14 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import {message} from "antd";
-import http from "../services/http";
+// import http from "../services/http";
+import axios from 'axios';
 
 export const searchProvider = createAsyncThunk(
     "providers/search",
     async (provider) => {
         //get request
+        const providers = await axios.get('http://localhost:8080/provider');
+        return providers.data;
     }
 )
 
@@ -32,16 +35,16 @@ export const deleteProvider = createAsyncThunk(
 
 export const providersSlice = createSlice({
     name: "providers",
-    initialState: {providers: [], detailProvider: null, isFetching: false},
+    initialState: {providers: [], detailProvider: null, isFetching: false, filter: {}},
     reducers: {},
     extraReducers: {
         // Add reducers for additional action types here, and handle loading state as needed
         //Search
         [searchProvider.pending]: (state, action) => {
-
+            console.log('fetching provider')
         },
         [searchProvider.fulfilled]: (state, action) => {
-
+            state.providers = action.payload;
         },
         [searchProvider.rejected]: (state, action) => {
 
@@ -84,4 +87,5 @@ export const providersSlice = createSlice({
 
 export const providersSelector = (state) => state.providers;
 export const {} = providersSlice.actions;
-export default providersSlice.reducer;
+const providerRoot = providersSlice.reducer;
+export default providerRoot;

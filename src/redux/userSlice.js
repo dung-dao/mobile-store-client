@@ -60,7 +60,6 @@ export const userSlice = createSlice({
         },
         [login.fulfilled]: (state, action) => {
             const token = action.payload.token;
-            console.log("token", token);
             localStorage.setToken(token);
             const decode = jwt.decode(token);
             state.user = {id: decode.id, jwt: token};
@@ -76,5 +75,5 @@ export const userSlice = createSlice({
 });
 
 export const userSelector = (state) => state.user;
-export const {relogin, logout} = userSlice.actions;
+export const {logout} = userSlice.actions;
 export default userSlice.reducer;

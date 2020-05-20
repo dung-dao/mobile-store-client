@@ -6,9 +6,9 @@ import "./App.css";
 
 import Dashboard from "./Dashboard";
 import LoginPage from "./pages/SignIn/SignIn";
-import Provider from "./pages/Providers/Provider";
 
 import {useDispatch} from "react-redux";
+import ProviderRouting from "./pages/Providers/ProviderRouting";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -21,9 +21,10 @@ const App = () => {
                     component={LoginPage}
                     path="/signin"
                 />
-                <PrivateRoute exact path="/providers" component={Provider}/>
+                <PrivateRoute path="/providers">
+                    <ProviderRouting/>
+                </PrivateRoute>
                 <PrivateRoute path="/" component={Dashboard}/>
-
             </Switch>
         </div>
     );
