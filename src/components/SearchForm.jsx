@@ -3,8 +3,11 @@ import {Form, Row, Col, Input, Button, Space} from "antd";
 import {DownOutlined, UpOutlined} from "@ant-design/icons";
 import PropTypes from "prop-types";
 import IF from "./IF";
+import {push} from "connected-react-router";
+import {useDispatch} from "react-redux";
 
 const AdvancedSearchForm = (props) => {
+    const dispatch = useDispatch();
     const [expand, setExpand] = useState(false);
     const [form] = Form.useForm();
 
@@ -52,7 +55,17 @@ const AdvancedSearchForm = (props) => {
                     }}
                 >
                     <Space style={{marginBottom: "1em"}}>
-                        <Button type="primary">
+                        <Button
+                            type="primary"
+                            onClick={() => {
+                                dispatch(
+                                    push(
+                                        `/${props.resourceName}/create`,
+                                        {action: "create"}
+                                    )
+                                )
+                            }}
+                        >
                             Thêm mới
                         </Button>
                         <Button type="primary" htmlType="submit" onClick={(event) => {
@@ -82,6 +95,7 @@ const AdvancedSearchForm = (props) => {
 };
 
 AdvancedSearchForm.propTypes = {
+    resourceName: PropTypes.string.isRequired,
     fields: PropTypes.arrayOf(
         PropTypes.shape({
             label: PropTypes.string.isRequired,

@@ -12,6 +12,9 @@ const ProviderRouting = (props) => {
             <Route path={`${match.path}/:id`}>
                 <ProviderDetail/>
             </Route>
+            <Route path={`${match.path}/create`}>
+                <ProviderDetail/>
+            </Route>
             <Route path="/" component={Provider}/>
         </Switch>
     );

@@ -23,6 +23,8 @@ export const updateProvider = createAsyncThunk(
     "providers/update",
     async (provider) => {
         //put request
+        //da duoc truyen vao
+        console.log(provider)
     }
 )
 
@@ -30,6 +32,7 @@ export const deleteProvider = createAsyncThunk(
     "providers/delete",
     async (provider) => {
         //delete request
+        //Provider object da duoc truyen vao
     }
 )
 

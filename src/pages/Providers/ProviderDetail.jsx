@@ -1,19 +1,23 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Form, Input, Button, Card} from 'antd';
 import AppLayout from "../../layouts/AppLayout";
-import {useSelector} from "react-redux";
-import {providersSelector} from "../../redux";
+import {useDispatch, useSelector} from "react-redux";
+import {deleteProvider, login, providersSelector, updateProvider} from "../../redux";
 import {useParams, useLocation} from 'react-router-dom';
 import IF from "../../components/IF";
 
 const ProviderDetail = (props) => {
-    const providers = useSelector(providersSelector).providers;
+    const dispatch = useDispatch();
     const location = useLocation();
-    const readOnly = location.state.action === "view" ? true : false;
-    let inputConfig = {};
-    const {id} = useParams();
-    let provider = {id: "", name: "", phone: "", address: ""};
-    provider = providers.find(e => e.id === id);
+    const pageState = location.state;
+
+    //Config
+    const readOnly = pageState.action === "view";
+    const provider = pageState.payload;
+
+    const onSubmit = () => {
+
+    };
 
     return (
         <AppLayout>
@@ -21,9 +25,12 @@ const ProviderDetail = (props) => {
                 title={"Chi Tiết Nhà Cung Cấp"}>
                 <Form
                     initialValues={provider}
-                    labelCol={{span: 4, offset: 4}}
+                    labelCol={{span: 4}}
                     labelAlign={"left"}
                     wrapperCol={{span: 12}}
+                    onFinish={(values) => {
+                        dispatch(updateProvider(values))
+                    }}
                 >
                     <Form.Item
                         label="ID"
@@ -48,6 +55,14 @@ const ProviderDetail = (props) => {
                         name="address"
                     >
                         <Input readOnly={readOnly}/>
+                    </Form.Item>
+                    <Form.Item>
+                        <Button htmlType="button" style={{marginRight: "1em"}}>
+                            Làm mới
+                        </Button>
+                        <Button type="primary" htmlType="submit">
+                            Lưu lại
+                        </Button>
                     </Form.Item>
                 </Form>
             </Card>

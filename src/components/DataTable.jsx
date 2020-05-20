@@ -1,12 +1,13 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-import {Button, Row, Space, Table} from "antd";
+import {Button, Popconfirm, Row, Space, Table} from "antd";
 import {InfoOutlined, EditOutlined, DeleteOutlined} from "@ant-design/icons";
 import {Col} from "antd";
 import AdvancedSearchForm from "./SearchForm";
 import {useDispatch} from "react-redux";
 import {push} from 'connected-react-router';
+import {deleteProvider} from "../redux";
 
 const DataTable = (props) => {
     const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const DataTable = (props) => {
             <Row gutter={[16, 16]}>
                 <Col span={24}>
                     <AdvancedSearchForm
+                        resourceName={props.resourceName}
                         fields={props.columns.map((e) => {
                             return {
                                 label: e.title,
@@ -36,19 +38,28 @@ const DataTable = (props) => {
                                         <Button shape="circle" type="primary" icon={<InfoOutlined/>}
                                                 onClick={() => {
                                                     dispatch(
-                                                        push(`/providers/${record.id}`, {action: "view"})
+                                                        push(
+                                                            `/${props.resourceName}/${record.id}`,
+                                                            {action: "view", payload: record}
+                                                        )
                                                     )
                                                 }}/>
                                         <Button shape="circle" type="primary" icon={<EditOutlined/>}
                                                 onClick={() => {
                                                     dispatch(
-                                                        push(`/providers/${record.id}`, {action: "edit"})
+                                                        push(
+                                                            `/${props.resourceName}/${record.id}`,
+                                                            {action: "edit", payload: record}
+                                                        )
                                                     )
                                                 }}/>
-                                        <Button shape="circle" type="danger" icon={<DeleteOutlined/>}
-                                                onClick={() => {
-                                                    //Delete
-                                                }}/>
+                                        <Popconfirm
+                                            title={"Bạn có chắc muốn xóa?"}
+                                            onConfirm={() => {
+                                                dispatch(props.onDelete(record));
+                                            }}>
+                                            <Button shape="circle" type="danger" icon={<DeleteOutlined/>}/>
+                                        </Popconfirm>
                                     </Space>
                                 ),
                             },
@@ -70,6 +81,7 @@ const DataTable = (props) => {
 };
 
 DataTable.propTypes = {
+    resourceName: PropTypes.string,
     columns: PropTypes.arrayOf(
         PropTypes.shape({
             title: PropTypes.string.isRequired,
