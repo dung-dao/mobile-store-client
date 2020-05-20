@@ -5,7 +5,7 @@ import {
 import Provider from "./Provider";
 import ProviderDetail from "./ProviderDetail";
 
-const ProviderRouting = () => {
+const ProviderRouting = (props) => {
     const match = useRouteMatch();
     return (
         <Switch>

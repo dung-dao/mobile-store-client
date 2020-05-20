@@ -4,17 +4,16 @@ import {userSelector} from "../redux";
 import {useSelector} from "react-redux";
 
 const PrivateRoute = ({component: Component, ...rest}) => {
-    const userSlice = useSelector(userSelector);
-    console.log(userSlice.isLogged)
+    // const userSlice = useSelector(userSelector);
     return (
         <Route
             {...rest}
             render={(props) =>
-                userSlice.isLogged ? (
+                // userSlice.isLogged ? (
                     <Component {...props} />
-                ) : (
-                    <Redirect to="/signin"/>
-                )
+                // ) : (
+                //     <Redirect to="/signin"/>
+                // )
             }
         />
     );

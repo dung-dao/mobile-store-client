@@ -5,8 +5,11 @@ import {Button, Row, Space, Table} from "antd";
 import {InfoOutlined, EditOutlined, DeleteOutlined} from "@ant-design/icons";
 import {Col} from "antd";
 import AdvancedSearchForm from "./SearchForm";
+import {useDispatch} from "react-redux";
+import {push} from 'connected-react-router';
 
 const DataTable = (props) => {
+    const dispatch = useDispatch();
     return (
         <React.Fragment>
             <Row gutter={[16, 16]}>
@@ -32,18 +35,19 @@ const DataTable = (props) => {
                                     <Space>
                                         <Button shape="circle" type="primary" icon={<InfoOutlined/>}
                                                 onClick={() => {
-                                                    console.log(record)
-                                                    props.onView(record)
+                                                    dispatch(
+                                                        push(`/providers/${record.id}`, {action: "view"})
+                                                    )
                                                 }}/>
                                         <Button shape="circle" type="primary" icon={<EditOutlined/>}
                                                 onClick={() => {
-                                                    console.log(record)
-                                                    props.onUpdate(record)
+                                                    dispatch(
+                                                        push(`/providers/${record.id}`, {action: "edit"})
+                                                    )
                                                 }}/>
                                         <Button shape="circle" type="danger" icon={<DeleteOutlined/>}
                                                 onClick={() => {
-                                                    console.log(record)
-                                                    props.onDelete(record)
+                                                    //Delete
                                                 }}/>
                                     </Space>
                                 ),

@@ -41,13 +41,18 @@ export const providersSlice = createSlice({
         // Add reducers for additional action types here, and handle loading state as needed
         //Search
         [searchProvider.pending]: (state, action) => {
+            state.isFetching = true;
             console.log('fetching provider')
         },
         [searchProvider.fulfilled]: (state, action) => {
+            state.isFetching = false;
+            if (JSON.stringify(state.providers) === JSON.stringify(action.payload))
+                return;
             state.providers = action.payload;
         },
         [searchProvider.rejected]: (state, action) => {
-
+            state.isFetching = false;
+            message.error('Error occur');
         },
 
         //Create
