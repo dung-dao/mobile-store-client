@@ -4,9 +4,9 @@ import AppLayout from "../../layouts/AppLayout";
 import {useDispatch, useSelector} from "react-redux";
 import {createProvider, deleteProvider, login, providersSelector, updateProvider} from "../../redux";
 import {useParams, useLocation} from 'react-router-dom';
-import IF from "../../components/IF";
+import PropTypes from 'prop-types';
 
-const ProviderDetail = (props) => {
+const DetailPage = (props) => {
     const dispatch = useDispatch();
     const location = useLocation();
     const pageState = location.state;
@@ -22,24 +22,23 @@ const ProviderDetail = (props) => {
     return (
         <AppLayout>
             <Card
-                title={"Chi Tiết Nhà Cung Cấp"}>
+                title={props.pageTitle}>
                 <Form
-                    initialValues={provider}
+                    initialValues={props.initialValues}
                     labelCol={{span: 4}}
                     labelAlign={"left"}
                     wrapperCol={{span: 12}}
                     onFinish={(values) => {
                         if (pageState.action === "edit")
-                            dispatch(updateProvider(values));
+                            dispatch(props.updateAction(values));
                         else if (pageState.action === "create") {
-                            dispatch(createProvider(values));
+                            dispatch(props.createAction(values));
                         }
-
-                    }}
-                >
+                    }}>
                     <Form.Item
                         label="ID"
                         name="id"
+
                     >
                         <Input readOnly={readOnly}/>
                     </Form.Item>
@@ -75,4 +74,11 @@ const ProviderDetail = (props) => {
     );
 };
 
-export default ProviderDetail;
+DetailPage.propTypes = {
+    initialValues: PropTypes.object.isRequired,
+    pageTitle: PropTypes.string.isRequired,
+    updateAction: PropTypes.func.isRequired,
+    createAction: PropTypes.func.isRequired,
+
+};
+export default DetailPage;

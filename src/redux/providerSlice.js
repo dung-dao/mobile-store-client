@@ -16,6 +16,8 @@ export const createProvider = createAsyncThunk(
     "providers/create",
     async (provider) => {
         //post request
+        //Ok
+        console.log('create provider', provider)
     }
 )
 

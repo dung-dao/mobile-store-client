@@ -81,7 +81,7 @@ const DataTable = (props) => {
 };
 
 DataTable.propTypes = {
-    resourceName: PropTypes.string,
+    resourceName: PropTypes.string.isRequired,
     columns: PropTypes.arrayOf(
         PropTypes.shape({
             title: PropTypes.string.isRequired,
