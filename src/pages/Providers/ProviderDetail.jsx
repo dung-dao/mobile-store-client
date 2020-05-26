@@ -17,17 +17,20 @@ const ProviderDetail = (props) => {
     const readOnly = pageState.action === "view";
     const provider = pageState.payload;
 
-    const onSubmit = () => {
-
-    };
-
     return (
         <AppLayout>
             <Card
                 title={
-                    <Space>
-                        <ArrowLeftOutlined />
-                        <h3>Chi Tiết Nhà Cung Cấp</h3>
+                    <Space align={"center"}>
+                        <Button
+                            shape={"circle"}
+                            onClick={
+                                () => dispatch(push('/providers'))
+                            }
+                        >
+                            <ArrowLeftOutlined />
+                        </Button>
+                        <h3 style={{margin:0}}>Chi Tiết Nhà Cung Cấp</h3>
                     </Space>
                 }>
                 <Form
@@ -42,7 +45,6 @@ const ProviderDetail = (props) => {
                             dispatch(createProvider(values));
                         }
                         dispatch(push('/providers'));
-
                     }}
                 >
                     <IF condt={pageState.action !== 'create'}>
@@ -72,14 +74,16 @@ const ProviderDetail = (props) => {
                     >
                         <Input readOnly={readOnly}/>
                     </Form.Item>
-                    <Form.Item>
-                        <Button htmlType="button" style={{marginRight: "1em"}}>
-                            Làm mới
-                        </Button>
-                        <Button type="primary" htmlType="submit">
-                            Lưu lại
-                        </Button>
-                    </Form.Item>
+                    <IF condt={pageState.action !== "view"}>
+                        <Form.Item>
+                            <Button htmlType="button" style={{marginRight: "1em"}}>
+                                Làm mới
+                            </Button>
+                            <Button type="primary" htmlType="submit">
+                                Lưu lại
+                            </Button>
+                        </Form.Item>
+                    </IF>
                 </Form>
             </Card>
         </AppLayout>
