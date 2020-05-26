@@ -102,10 +102,7 @@ DataTable.propTypes = {
     })
   ).isRequired,
   dataSource: PropTypes.array.isRequired,
-  onCreate: PropTypes.func.isRequired,
-  onUpdate: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
-  onView: PropTypes.func.isRequired,
 };
 
 DataTable.defaultProps = {

@@ -1,13 +1,12 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import {message} from "antd";
-// import http from "../services/http";
+import http from "../services/http";
 import axios from 'axios';
 
 export const searchProvider = createAsyncThunk(
     "providers/search",
     async (provider) => {
-        //get request
-        const providers = await axios.get('http://localhost:8080/provider');
+        const providers = await http.get('/providers');
         return providers.data;
     }
 )
@@ -15,82 +14,89 @@ export const searchProvider = createAsyncThunk(
 export const createProvider = createAsyncThunk(
     "providers/create",
     async (provider) => {
-        //post request
-        //Ok
-        console.log('create provider', provider)
+        return await http.post('/provider', provider);
     }
 )
 
 export const updateProvider = createAsyncThunk(
     "providers/update",
     async (provider) => {
-        //put request
-        //da duoc truyen vao
-        console.log(provider)
+        return await http.put(`/provider/${provider.id}`, provider);
     }
 )
 
 export const deleteProvider = createAsyncThunk(
     "providers/delete",
     async (provider) => {
-        //delete request
-        //Provider object da duoc truyen vao
+        return await http.delete(`/provider/${provider.id}`);
     }
 )
 
 export const providersSlice = createSlice({
     name: "providers",
-    initialState: {providers: [], detailProvider: null, isFetching: false, filter: {}},
+    initialState: {
+        providers: [],
+        detailProvider: null,
+        isFetching: false,
+        filter: {},
+        upToDate:false
+        },
     reducers: {},
     extraReducers: {
         // Add reducers for additional action types here, and handle loading state as needed
         //Search
         [searchProvider.pending]: (state, action) => {
             state.isFetching = true;
-            console.log('fetching provider')
         },
         [searchProvider.fulfilled]: (state, action) => {
             state.isFetching = false;
-            if (JSON.stringify(state.providers) === JSON.stringify(action.payload))
-                return;
             state.providers = action.payload;
+            state.upToDate = true;
         },
         [searchProvider.rejected]: (state, action) => {
             state.isFetching = false;
-            message.error('Error occur');
+            message.error('Đã xảy ra lỗi');
         },
 
         //Create
         [createProvider.pending]: (state, action) => {
-
+            state.isFetching = true;
+            console.log('creating provider')
         },
         [createProvider.fulfilled]: (state, action) => {
-
+            state.isFetching = false;
+            state.upToDate = false;
         },
         [createProvider.rejected]: (state, action) => {
-
+            state.isFetching = false;
+            message.error('Đã xảy ra lỗi');
         },
 
         //Update
         [updateProvider.pending]: (state, action) => {
-
+            state.isFetching = true;
+            console.log('updating provider')
         },
         [updateProvider.fulfilled]: (state, action) => {
-
+            state.isFetching = false;
+            state.upToDate = false;
         },
         [updateProvider.rejected]: (state, action) => {
-
+            state.isFetching = false;
+            message.error('Đã xảy ra lỗi');
         },
 
         //Delete
         [deleteProvider.pending]: (state, action) => {
-
+            state.isFetching = true;
         },
         [deleteProvider.fulfilled]: (state, action) => {
-
+            state.isFetching = false;
+            state.upToDate = false;
         },
         [deleteProvider.rejected]: (state, action) => {
-
+            state.isFetching = false;
+            message.error('Đã xảy ra lỗi');
         },
     },
 });
