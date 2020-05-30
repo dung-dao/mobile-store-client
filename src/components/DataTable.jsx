@@ -17,6 +17,7 @@ const DataTable = (props) => {
         <Col span={24}>
           <AdvancedSearchForm
             resourceName={props.resourceName}
+            onSearch={props.onSearch}
             fields={props.columns.map((e) => {
               return {
                 label: e.title,
@@ -103,6 +104,7 @@ DataTable.propTypes = {
   ).isRequired,
   dataSource: PropTypes.array.isRequired,
   onDelete: PropTypes.func.isRequired,
+  onSearch:PropTypes.func.isRequired
 };
 
 DataTable.defaultProps = {

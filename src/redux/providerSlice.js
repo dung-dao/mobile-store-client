@@ -1,36 +1,36 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import {message} from "antd";
 import http from "../services/http";
-import axios from 'axios';
 
 export const searchProvider = createAsyncThunk(
     "providers/search",
     async (provider) => {
+        console.log('provider:', provider);
         const providers = await http.get('/providers');
         return providers.data;
     }
-)
+);
 
 export const createProvider = createAsyncThunk(
     "providers/create",
     async (provider) => {
         return await http.post('/provider', provider);
     }
-)
+);
 
 export const updateProvider = createAsyncThunk(
     "providers/update",
     async (provider) => {
         return await http.put(`/provider/${provider.id}`, provider);
     }
-)
+);
 
 export const deleteProvider = createAsyncThunk(
     "providers/delete",
     async (provider) => {
         return await http.delete(`/provider/${provider.id}`);
     }
-)
+);
 
 export const providersSlice = createSlice({
     name: "providers",

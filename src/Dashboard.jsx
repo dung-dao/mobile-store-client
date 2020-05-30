@@ -94,11 +94,11 @@ const columns = [
 const Dashboard = () => {
     return (
         <div>
-            <AppLayout>
+            <React.Fragment>
                 <IF condt={true}>
                     <DataTable columns={columns} dataSource={dataSource}/>
                 </IF>
-            </AppLayout>
+            </React.Fragment>
         </div>
     );
 };

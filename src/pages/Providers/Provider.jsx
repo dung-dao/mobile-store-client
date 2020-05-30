@@ -14,7 +14,7 @@ const Provider = (props) => {
         }
     })
     return (
-        <AppLayout>
+        <React.Fragment>
             <DataTable
                 columns={[
                     {
@@ -41,8 +41,11 @@ const Provider = (props) => {
                 dataSource={provider_selector.providers}
                 resourceName={"providers"}
                 onDelete={deleteProvider}
+                onSearch={(provider) => {
+                    dispatch(searchProvider(provider));
+                }}
             />
-        </AppLayout>
+        </React.Fragment>
     );
 };
 

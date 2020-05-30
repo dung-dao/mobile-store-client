@@ -18,7 +18,7 @@ const ProviderDetail = (props) => {
     const provider = pageState.payload;
 
     return (
-        <AppLayout>
+        <React.Fragment>
             <Card
                 title={
                     <Space align={"center"}>
@@ -86,7 +86,7 @@ const ProviderDetail = (props) => {
                     </IF>
                 </Form>
             </Card>
-        </AppLayout>
+        </React.Fragment>
     );
 };
 

@@ -16,7 +16,7 @@ const AdvancedSearchForm = (props) => {
         let children = [];
         if (expand) {
             children = props.fields
-                .filter((e) => e.name !== "action")
+                .filter((e) => e.name !== "action" && e.name!== "id")
                 .map((field, index) => (
                     <Col span={6} key={index}>
                         <Form.Item
@@ -38,6 +38,7 @@ const AdvancedSearchForm = (props) => {
 
     const onFinish = (values) => {
         console.log("Received values of form: ", values);
+        props.onSearch(values);
     };
 
     return (
