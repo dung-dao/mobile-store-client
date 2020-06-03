@@ -79,8 +79,8 @@ const columns = [
         title: "Age",
         dataIndex: "age",
         key: "age",
-        sorter: function () {
-            //return 1;
+        sorter: function (a, b) {
+            return a > b;
         }
     },
     {
@@ -94,11 +94,11 @@ const columns = [
 const Dashboard = () => {
     return (
         <div>
-            <AppLayout>
+            <React.Fragment>
                 <IF condt={true}>
                     <DataTable columns={columns} dataSource={dataSource}/>
                 </IF>
-            </AppLayout>
+            </React.Fragment>
         </div>
     );
 };
