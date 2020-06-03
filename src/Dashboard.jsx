@@ -79,8 +79,8 @@ const columns = [
         title: "Age",
         dataIndex: "age",
         key: "age",
-        sorter: function () {
-            //return 1;
+        sorter: function (a, b) {
+            return a > b;
         }
     },
     {

@@ -2,11 +2,14 @@ import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import {message} from "antd";
 import http from "../services/http";
 
+const resourceUrl = "/providers";
+
 export const searchProvider = createAsyncThunk(
     "providers/search",
     async (provider) => {
-        console.log('provider:', provider);
-        const providers = await http.get('/providers');
+        const providers = await http.get(resourceUrl, {
+            params: {...provider}
+        });
         return providers.data;
     }
 );
@@ -14,21 +17,21 @@ export const searchProvider = createAsyncThunk(
 export const createProvider = createAsyncThunk(
     "providers/create",
     async (provider) => {
-        return await http.post('/provider', provider);
+        return await http.post(resourceUrl, provider);
     }
 );
 
 export const updateProvider = createAsyncThunk(
     "providers/update",
     async (provider) => {
-        return await http.put(`/provider/${provider.id}`, provider);
+        return await http.put(`${resourceUrl}/${provider.id}`, provider);
     }
 );
 
 export const deleteProvider = createAsyncThunk(
     "providers/delete",
     async (provider) => {
-        return await http.delete(`/provider/${provider.id}`);
+        return await http.delete(`${resourceUrl}/${provider.id}`);
     }
 );
 
@@ -39,8 +42,8 @@ export const providersSlice = createSlice({
         detailProvider: null,
         isFetching: false,
         filter: {},
-        upToDate:false
-        },
+        upToDate: false
+    },
     reducers: {},
     extraReducers: {
         // Add reducers for additional action types here, and handle loading state as needed

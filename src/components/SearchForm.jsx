@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 import IF from "./IF";
 import {push} from "connected-react-router";
 import {useDispatch} from "react-redux";
+import RedoOutlined from "@ant-design/icons/lib/icons/RedoOutlined";
+import Tooltip from "antd/es/tooltip";
 
 const AdvancedSearchForm = (props) => {
     const dispatch = useDispatch();
@@ -16,7 +18,7 @@ const AdvancedSearchForm = (props) => {
         let children = [];
         if (expand) {
             children = props.fields
-                .filter((e) => e.name !== "action" && e.name!== "id")
+                .filter((e) => e.name !== "action" && e.name !== "id")
                 .map((field, index) => (
                     <Col span={6} key={index}>
                         <Form.Item
@@ -37,7 +39,6 @@ const AdvancedSearchForm = (props) => {
     };
 
     const onFinish = (values) => {
-        console.log("Received values of form: ", values);
         props.onSearch(values);
     };
 
@@ -56,6 +57,16 @@ const AdvancedSearchForm = (props) => {
                     }}
                 >
                     <Space style={{marginBottom: "1em"}}>
+                        <Tooltip title="Tải lại dữ liệu">
+                            <Button
+                                type="primary"
+                                shape="circle"
+                                icon={<RedoOutlined/>}
+                                onClick={() => {
+                                    props.onSearch();
+                                }}
+                            />
+                        </Tooltip>
                         <Button
                             type="primary"
                             onClick={() => {
@@ -69,12 +80,15 @@ const AdvancedSearchForm = (props) => {
                         >
                             Thêm mới
                         </Button>
-                        <Button type="primary" htmlType="submit" onClick={(event) => {
-                            if (!expand) {
-                                event.preventDefault();
-                                setExpand(true);
-                            }
-                        }}>
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            onClick={(event) => {
+                                if (!expand) {
+                                    event.preventDefault();
+                                    setExpand(true);
+                                }
+                            }}>
                             Tìm kiếm
                         </Button>
                         <IF condt={expand}>

@@ -33,6 +33,9 @@ const AppLayout = (props) => {
                             <Menu.Item key="2">
                                 <Link to={"/providers"}>Nhà cung cấp</Link>
                             </Menu.Item>
+                            <Menu.Item>
+                                <Link to={"/products"}>Sản phẩm</Link>
+                            </Menu.Item>
                         </SubMenu>
                     </Menu>
                 </Sider>
