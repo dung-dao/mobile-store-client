@@ -1,16 +1,12 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {Switch, Route} from "react-router-dom";
+import "./App.css";
+import {useDispatch} from "react-redux";
+
 import PublicRoute from "./components/PublicRoute";
 import PrivateRoute from "./components/PrivateRoute";
-import "./App.css";
-
-import Dashboard from "./Dashboard";
-import LoginPage from "./pages/SignIn/SignIn";
-
-import {useDispatch} from "react-redux";
-import ProviderRouting from "./pages/Providers/ProviderRouting";
-import {searchProvider} from "./redux";
 import AppPage from "./pages/AppPage/AppPage";
+import LoginPage from "./pages/SignIn/SignIn";
 
 const App = (props) => {
     const dispatch = useDispatch();

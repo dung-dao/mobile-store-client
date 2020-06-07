@@ -1,12 +1,14 @@
 import React from "react";
 import DataTable from "../../components/DataTable";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteProvider, providersSelector, searchProvider} from "../../redux";
+import {customerSelector, deleteCustomer, searchCustomer} from "../../redux";
 import {sort} from "../../utils/sort";
 
-const Provider = (props) => {
-    const selector = useSelector(providersSelector);
+const resourceName = 'customers';
 
+const Customer = (props) => {
+    const dispatch = useDispatch();
+    const selector = useSelector(customerSelector);
     return (
         <React.Fragment>
             <DataTable
@@ -18,7 +20,7 @@ const Provider = (props) => {
                         sorter: sort('id')
                     },
                     {
-                        title: "Tên",
+                        title: "Tên khách hàng",
                         key: "name",
                         dataIndex: "name",
                         sorter: sort('name')
@@ -35,14 +37,21 @@ const Provider = (props) => {
                         dataIndex: "address",
                         sorter: sort('address')
                     },
+                    {
+                        title: "Email",
+                        key: "email",
+                        dataIndex: "email",
+                        sorter: sort('email')
+                    }
                 ]}
-                dataSource={selector.providers}
-                resourceName={"providers"}
-                deleteAC={deleteProvider}
-                searchAC={searchProvider}
+                dataSource={selector[resourceName]}
+                resourceName={resourceName}
+                deleteAC={deleteCustomer}
+                searchAC={searchCustomer}
+                //}}
             />
         </React.Fragment>
     );
 };
 
-export default Provider;
+export default Customer;

@@ -1,11 +1,10 @@
-import React, {useEffect} from "react";
-import {Link} from "react-router-dom";
+import React from "react";
 import {Layout, Menu, Dropdown, Button} from "antd";
 import {ReactComponent as Logo} from "../app/logo.svg";
 import "./AppHeader.css";
 import {UserOutlined} from "@ant-design/icons";
-import {useDispatch, useSelector} from "react-redux";
-import {logout, userSelector} from "../redux/userSlice";
+import {useDispatch} from "react-redux";
+import {logout} from "../redux/userSlice";
 import {push} from "connected-react-router";
 
 const {Header} = Layout;

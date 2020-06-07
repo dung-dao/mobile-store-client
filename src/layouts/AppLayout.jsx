@@ -9,6 +9,7 @@ import "./AppLayout.css";
 import AppHeader from "./AppHeader";
 import {Link} from 'react-router-dom';
 import HomeOutlined from "@ant-design/icons/lib/icons/HomeOutlined";
+import BankOutlined from "@ant-design/icons/lib/icons/BankOutlined";
 
 const {SubMenu} = Menu;
 const {Content, Sider} = Layout;
@@ -31,10 +32,15 @@ const AppLayout = (props) => {
                         </Menu.Item>
                         <SubMenu key="manage" icon={<UserOutlined/>} title="Manage">
                             <Menu.Item key="2">
+                                <BankOutlined />
                                 <Link to={"/providers"}>Nhà cung cấp</Link>
                             </Menu.Item>
+                            {/*<Menu.Item>*/}
+                            {/*    <Link to={"/products"}>Sản phẩm</Link>*/}
+                            {/*</Menu.Item>*/}
                             <Menu.Item>
-                                <Link to={"/products"}>Sản phẩm</Link>
+                                <UserOutlined />
+                                <Link to={"/customers"}>Khách hàng</Link>
                             </Menu.Item>
                         </SubMenu>
                     </Menu>
