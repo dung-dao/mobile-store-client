@@ -19,7 +19,7 @@ const ProviderRouting = (props) => {
                 <ProviderDetail/>
             </Route>
             <Route path="/" render={(props) => {
-                dispatch(searchProvider)
+                dispatch(searchProvider())
                 return <Provider/>
             }}/>
         </Switch>

@@ -48,7 +48,6 @@ const Customer = (props) => {
                 resourceName={resourceName}
                 deleteAC={deleteCustomer}
                 searchAC={searchCustomer}
-                //}}
             />
         </React.Fragment>
     );

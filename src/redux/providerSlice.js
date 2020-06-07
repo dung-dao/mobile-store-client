@@ -4,6 +4,11 @@ import http from "../services/http";
 
 const resourceUrl = "/providers";
 
+const getAll = async () => {
+    const providers = await http.get(resourceUrl);
+    return providers.data;
+}
+
 export const searchProvider = createAsyncThunk(
     "providers/search",
     async (provider) => {
@@ -31,7 +36,8 @@ export const updateProvider = createAsyncThunk(
 export const deleteProvider = createAsyncThunk(
     "providers/delete",
     async (provider) => {
-        return await http.delete(`${resourceUrl}/${provider.id}`);
+        await http.delete(`${resourceUrl}/${provider.id}`);
+        return await getAll();
     }
 );
 
@@ -41,8 +47,7 @@ export const providersSlice = createSlice({
         providers: [],
         detailProvider: null,
         isFetching: false,
-        filter: {},
-        upToDate: false
+        filter: {}
     },
     reducers: {},
     extraReducers: {
@@ -54,7 +59,6 @@ export const providersSlice = createSlice({
         [searchProvider.fulfilled]: (state, action) => {
             state.isFetching = false;
             state.providers = action.payload;
-            state.upToDate = true;
         },
         [searchProvider.rejected]: (state, action) => {
             state.isFetching = false;
@@ -82,7 +86,6 @@ export const providersSlice = createSlice({
         },
         [updateProvider.fulfilled]: (state, action) => {
             state.isFetching = false;
-            state.upToDate = false;
         },
         [updateProvider.rejected]: (state, action) => {
             state.isFetching = false;
@@ -95,7 +98,7 @@ export const providersSlice = createSlice({
         },
         [deleteProvider.fulfilled]: (state, action) => {
             state.isFetching = false;
-            state.upToDate = false;
+            state.providers = action.payload;
         },
         [deleteProvider.rejected]: (state, action) => {
             state.isFetching = false;

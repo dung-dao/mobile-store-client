@@ -39,7 +39,7 @@ const AdvancedSearchForm = (props) => {
     };
 
     const onFinish = (values) => {
-        props.onSearch(values);
+        dispatch(props.searchAC(values));
     };
 
     return (
@@ -63,7 +63,7 @@ const AdvancedSearchForm = (props) => {
                                 shape="circle"
                                 icon={<RedoOutlined/>}
                                 onClick={() => {
-                                    props.onSearch();
+                                    dispatch(props.searchAC())
                                 }}
                             />
                         </Tooltip>
@@ -111,6 +111,7 @@ const AdvancedSearchForm = (props) => {
 
 AdvancedSearchForm.propTypes = {
     resourceName: PropTypes.string.isRequired,
+    searchAC: PropTypes.func.isRequired,
     fields: PropTypes.arrayOf(
         PropTypes.shape({
             label: PropTypes.string.isRequired,

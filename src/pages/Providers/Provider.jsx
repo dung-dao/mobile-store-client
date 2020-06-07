@@ -1,12 +1,11 @@
 import React from "react";
 import DataTable from "../../components/DataTable";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {deleteProvider, providersSelector, searchProvider} from "../../redux";
 import {sort} from "../../utils/sort";
 
 const Provider = (props) => {
     const selector = useSelector(providersSelector);
-
     return (
         <React.Fragment>
             <DataTable

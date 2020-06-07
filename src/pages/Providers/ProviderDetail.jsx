@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Form, Input, Button, Card, Space} from 'antd';
 import AppLayout from "../../layouts/AppLayout";
 import {useDispatch, useSelector} from "react-redux";
-import {createProvider, deleteProvider, login, providersSelector, updateProvider} from "../../redux";
+import {createProvider, deleteProvider, login, providersSelector, searchProvider, updateProvider} from "../../redux";
 import {useParams, useLocation} from 'react-router-dom';
 import {push} from 'connected-react-router';
 import IF from "../../components/IF";
@@ -25,12 +25,14 @@ const ProviderDetail = (props) => {
                         <Button
                             shape={"circle"}
                             onClick={
-                                () => dispatch(push('/providers'))
+                                () => {
+                                    dispatch(push('/providers'));
+                                }
                             }
                         >
-                            <ArrowLeftOutlined />
+                            <ArrowLeftOutlined/>
                         </Button>
-                        <h3 style={{margin:0}}>Chi Tiết Nhà Cung Cấp</h3>
+                        <h3 style={{margin: 0}}>Chi Tiết Nhà Cung Cấp</h3>
                     </Space>
                 }>
                 <Form
@@ -44,6 +46,7 @@ const ProviderDetail = (props) => {
                         else if (pageState.action === "create") {
                             dispatch(createProvider(values));
                         }
+                        dispatch(searchProvider);
                         dispatch(push('/providers'));
                     }}
                 >
@@ -52,7 +55,7 @@ const ProviderDetail = (props) => {
                             label="ID"
                             name="id"
                         >
-                            <Input readOnly={readOnly || pageState.action ==="edit"}/>
+                            <Input readOnly={readOnly || pageState.action === "edit"}/>
                         </Form.Item>
                     </IF>
 

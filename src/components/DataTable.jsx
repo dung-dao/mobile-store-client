@@ -16,9 +16,7 @@ const DataTable = (props) => {
                 <Col span={24}>
                     <AdvancedSearchForm
                         resourceName={props.resourceName}
-                        onSearch={() => {
-                            dispatch(props.searchAC)
-                        }}
+                        searchAC={props.searchAC}
                         fields={props.columns.map((e) => {
                             return {
                                 label: e.title,
