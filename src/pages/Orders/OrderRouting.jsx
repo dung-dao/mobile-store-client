@@ -2,9 +2,7 @@ import React from 'react';
 import {
     Route, Switch, useRouteMatch, useParams
 } from "react-router-dom";
-import Order from "./Order";
-import {useDispatch} from "react-redux";
-import {searchProvider} from "../../redux";
+import OrderList from "./OrderList";
 
 const resourceName = 'customers';
 
@@ -15,7 +13,7 @@ const OrderRouting = (props) => {
         <Switch>
             <Route path="/" render={(props) => {
                 // dispatch(searchProvider)
-                return <Order/>
+                return <OrderList/>
             }}/>
         </Switch>
     );
