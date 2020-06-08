@@ -1,12 +1,14 @@
 import React from "react";
-import DataTable from "../../components/DataTable";
+import DataTable from "../../components/common/DataTable";
 import {useDispatch, useSelector} from "react-redux";
 import {customerSelector, deleteCustomer, searchCustomer} from "../../redux";
 import {sort} from "../../utils/sort";
+import PropTypes, {bool} from "prop-types";
+import CustomerInputs from "../../components/forms/CustomerInputs";
 
 const resourceName = 'customers';
 
-const Customer = (props) => {
+const CustomerList = (props) => {
     const dispatch = useDispatch();
     const selector = useSelector(customerSelector);
     return (
@@ -48,9 +50,16 @@ const Customer = (props) => {
                 resourceName={resourceName}
                 deleteAC={deleteCustomer}
                 searchAC={searchCustomer}
+                selectHandler={() => {
+
+                }}
             />
         </React.Fragment>
     );
 };
 
-export default Customer;
+CustomerList.propTypes = {
+    isToSelect: PropTypes.bool.isRequired
+};
+
+export default CustomerList;

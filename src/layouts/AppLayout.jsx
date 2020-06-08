@@ -11,6 +11,8 @@ import {Link} from 'react-router-dom';
 import HomeOutlined from "@ant-design/icons/lib/icons/HomeOutlined";
 import BankOutlined from "@ant-design/icons/lib/icons/BankOutlined";
 import MobileOutlined from "@ant-design/icons/lib/icons/MobileOutlined";
+import ReconciliationOutlined from "@ant-design/icons/lib/icons/ReconciliationOutlined";
+import TeamOutlined from "@ant-design/icons/lib/icons/TeamOutlined";
 
 const {SubMenu} = Menu;
 const {Content, Sider} = Layout;
@@ -41,12 +43,16 @@ const AppLayout = (props) => {
                             <Link to={"/products"}>Sản phẩm</Link>
                         </Menu.Item>
                         <Menu.Item key={4}>
-                            <UserOutlined />
+                            <TeamOutlined />
                             <Link to={"/customers"}>Khách hàng</Link>
                         </Menu.Item>
                         <Menu.Item key={5}>
                             <UserOutlined />
-                            <Link to={"/customers"}>Tài khoản</Link>
+                            <Link to={"/"}>Tài khoản</Link>
+                        </Menu.Item>
+                        <Menu.Item key={6}>
+                            <ReconciliationOutlined />
+                            <Link to={"/orders"}>Đơn hàng</Link>
                         </Menu.Item>
                     </Menu>
                 </Sider>

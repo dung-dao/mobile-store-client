@@ -1,7 +1,7 @@
 import React from 'react';
 import DataTable from "../../components/common/DataTable";
 
-const OrderViewer = () => {
+const OrderDetail = () => {
     return (
         <React.Fragment>
             <DataTable resourceName={'orders'} searchAC={null}></DataTable>
@@ -9,4 +9,4 @@ const OrderViewer = () => {
     );
 };
 
-export default OrderViewer;
+export default OrderDetail;

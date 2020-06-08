@@ -2,7 +2,7 @@ import React from 'react';
 import {
     Route, Switch, useRouteMatch, useParams
 } from "react-router-dom";
-import Customer from "./Customer";
+import CustomerList from "./CustomerList";
 import CustomerDetail from "./CustomerDetail";
 import {useDispatch} from "react-redux";
 import {searchProvider} from "../../redux";
@@ -29,7 +29,7 @@ const CustomerRouting = (props) => {
             />
             <Route path="/" render={(props) => {
                 dispatch(searchProvider)
-                return <Customer/>
+                return <CustomerList/>
             }}/>
         </Switch>
     );

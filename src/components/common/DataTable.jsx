@@ -36,6 +36,20 @@ const DataTable = (props) => {
                                 render: (record) => (
                                     <Space>
                                         <Button
+                                            type="primary"
+                                            icon={<InfoOutlined/>}
+                                            onClick={() => {
+                                                dispatch(
+                                                    push(`/${props.resourceName}/${record.id}`, {
+                                                        action: "view",
+                                                        payload: record,
+                                                    })
+                                                );
+                                            }}
+                                        >
+                                            Chọn
+                                        </Button>
+                                        <Button
                                             shape="circle"
                                             type="primary"
                                             icon={<InfoOutlined/>}
@@ -103,7 +117,8 @@ DataTable.propTypes = {
     ).isRequired,
     dataSource: PropTypes.array.isRequired,
     deleteAC: PropTypes.func.isRequired,
-    searchAC: PropTypes.func.isRequired
+    searchAC: PropTypes.func.isRequired,
+    selectHandler: PropTypes.func,
 };
 
 DataTable.defaultProps = {

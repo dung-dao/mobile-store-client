@@ -1,5 +1,5 @@
 import React from "react";
-import DataTable from "../../components/DataTable";
+import DataTable from "../../components/common/DataTable";
 import {useSelector} from "react-redux";
 import {deleteProvider, providersSelector, searchProvider} from "../../redux";
 import {sort} from "../../utils/sort";
