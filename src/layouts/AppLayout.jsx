@@ -1,5 +1,5 @@
 import React from "react";
-import {Layout, Menu} from "antd";
+import {Divider, Layout, Menu} from "antd";
 import {
     UserOutlined,
     LaptopOutlined,
@@ -10,6 +10,7 @@ import AppHeader from "./AppHeader";
 import {Link} from 'react-router-dom';
 import HomeOutlined from "@ant-design/icons/lib/icons/HomeOutlined";
 import BankOutlined from "@ant-design/icons/lib/icons/BankOutlined";
+import MobileOutlined from "@ant-design/icons/lib/icons/MobileOutlined";
 
 const {SubMenu} = Menu;
 const {Content, Sider} = Layout;
@@ -30,19 +31,23 @@ const AppLayout = (props) => {
                             <HomeOutlined/>
                             <Link to={"/"}>Trang chủ</Link>
                         </Menu.Item>
-                        <SubMenu key="manage" icon={<UserOutlined/>} title="Manage">
-                            <Menu.Item key="2">
-                                <BankOutlined />
-                                <Link to={"/providers"}>Nhà cung cấp</Link>
-                            </Menu.Item>
-                            {/*<Menu.Item>*/}
-                            {/*    <Link to={"/products"}>Sản phẩm</Link>*/}
-                            {/*</Menu.Item>*/}
-                            <Menu.Item>
-                                <UserOutlined />
-                                <Link to={"/customers"}>Khách hàng</Link>
-                            </Menu.Item>
-                        </SubMenu>
+                        <Divider/>
+                        <Menu.Item key={2}>
+                            <BankOutlined />
+                            <Link to={"/providers"}>Nhà cung cấp</Link>
+                        </Menu.Item>
+                        <Menu.Item key={3}>
+                            <MobileOutlined />
+                            <Link to={"/products"}>Sản phẩm</Link>
+                        </Menu.Item>
+                        <Menu.Item key={4}>
+                            <UserOutlined />
+                            <Link to={"/customers"}>Khách hàng</Link>
+                        </Menu.Item>
+                        <Menu.Item key={5}>
+                            <UserOutlined />
+                            <Link to={"/customers"}>Tài khoản</Link>
+                        </Menu.Item>
                     </Menu>
                 </Sider>
 

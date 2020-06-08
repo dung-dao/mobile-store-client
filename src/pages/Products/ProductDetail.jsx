@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Form, Input, Button, Card, Space, Row, Col} from 'antd';
-import {useDispatch, useSelector} from "react-redux";
+// import {useDispatch, useSelector} from "react-redux";
 // import {createProvider, deleteProvider, login, providersSelector, updateProvider} from "../../redux";
 import {useParams, useLocation} from 'react-router-dom';
 import {push} from 'connected-react-router';
@@ -8,16 +8,16 @@ import IF from "../../components/IF";
 import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
 import {numberRegex, vietnameseRegex} from "../../utils/validate";
 import {createCustomer, searchCustomer, updateCustomer} from "../../redux";
-import OrderViewer from "./OrderViewer";
+import ProductViewer from "./ProductViewer";
 
-const CustomerDetail = (props) => {
-    const dispatch = useDispatch();
+const ProductDetail = (props) => {
+    // const dispatch = useDispatch();
     const location = useLocation();
     const action = location.state.action;
 
     const back = () => {
-        dispatch(push('/customers'));
-        dispatch(searchCustomer());
+        // dispatch(push('/customers'));
+        // dispatch(searchCustomer());
     }
 
     //Config
@@ -47,9 +47,9 @@ const CustomerDetail = (props) => {
                             wrapperCol={{span: 16}}
                             onFinish={(values) => {
                                 if (action === "edit") {
-                                    dispatch(updateCustomer(values));
+                                    // dispatch(updateCustomer(values));
                                 } else if (action === "create") {
-                                    dispatch(createCustomer(values));
+                                    // dispatch(createCustomer(values));
                                 }
                                 back();
                             }}
@@ -133,7 +133,7 @@ const CustomerDetail = (props) => {
                 </Col>
                 <Col span={24}>
                     <Card title={"Lịch sử đặt hàng"}>
-                        <OrderViewer/>
+                        <ProductViewer/>
                     </Card>
                 </Col>
             </Row>
@@ -146,4 +146,4 @@ const CustomerDetail = (props) => {
     );
 };
 
-export default CustomerDetail;
+export default ProductDetail;
