@@ -6,6 +6,7 @@ import {UserOutlined} from "@ant-design/icons";
 import {useDispatch} from "react-redux";
 import {logout} from "../redux/userSlice";
 import {push} from "connected-react-router";
+import Avatar from "antd/es/avatar";
 
 const {Header} = Layout;
 
@@ -36,9 +37,7 @@ const AppHeader = (props) => {
                     placement="bottomLeft"
                     className="user-dropdown"
                 >
-                    <Button type="primary" icon={<UserOutlined></UserOutlined>}>
-                        User
-                    </Button>
+                    <Avatar size={46} icon={<UserOutlined />} />
                 </Dropdown>
             </Header>
         </React.Fragment>

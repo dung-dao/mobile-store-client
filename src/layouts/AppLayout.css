@@ -1,21 +1,22 @@
 .header {
-  height: 10vh;
+    height: 10vh;
 }
 
 .body {
-  height: 90vh;
+    height: 90vh;
 }
 
 .main-layout {
-  max-height: 100vh;
+    max-height: 100vh;
 }
 
 .content {
-  padding: 1.5em;
-  margin: 0;
+    padding: 1.5em;
+    margin: 0;
 }
 
 .menu {
-  border-right: 0;
-  height: 100%;
+    border-right: 0;
+    height: 100%;
 }
+
