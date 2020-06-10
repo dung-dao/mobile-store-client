@@ -19,10 +19,19 @@ export const searchProvider = createAsyncThunk(
     }
 );
 
+export const getProviderById = createAsyncThunk(
+    "providers/getById",
+    async (id) => {
+        const provider = await http.get(`${resourceUrl}/${id}`);
+        return provider.data;
+    }
+);
+
 export const createProvider = createAsyncThunk(
     "providers/create",
     async (provider) => {
-        return await http.post(resourceUrl, provider);
+        await http.post(resourceUrl, provider);
+        return await getAll();
     }
 );
 
@@ -45,6 +54,7 @@ export const providersSlice = createSlice({
     name: "providers",
     initialState: {
         providers: [],
+        currentProvider: null,
         detailProvider: null,
         isFetching: false,
         filter: {}
@@ -72,7 +82,7 @@ export const providersSlice = createSlice({
         },
         [createProvider.fulfilled]: (state, action) => {
             state.isFetching = false;
-            state.upToDate = false;
+            state.providers = action.payload;
         },
         [createProvider.rejected]: (state, action) => {
             state.isFetching = false;
@@ -102,6 +112,19 @@ export const providersSlice = createSlice({
         },
         [deleteProvider.rejected]: (state, action) => {
             state.isFetching = false;
+            message.error('Đã xảy ra lỗi');
+        },
+
+        //View Detail
+        [getProviderById.pending]: (state, action) => {
+            state.isFetching = true;
+        },
+        [getProviderById.fulfilled]: (state, action) => {
+            state.currentProvider = action.payload;
+            state.isFetching = false;
+        },
+        [getProviderById.rejected]: (state, action) => {
+            // state.isFetching = false;
             message.error('Đã xảy ra lỗi');
         },
     },

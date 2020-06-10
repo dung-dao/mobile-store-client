@@ -1,110 +1,131 @@
 import React, {useState} from "react";
-import PropTypes from "prop-types";
-
-import {Button, Popconfirm, Row, Space, Table} from "antd";
-import {InfoOutlined, EditOutlined, DeleteOutlined} from "@ant-design/icons";
-import {Col} from "antd";
-import AdvancedSearchForm from "./SearchForm";
 import {useDispatch} from "react-redux";
 import {push} from "connected-react-router";
+import PropTypes from "prop-types";
+import {Button, Popconfirm, Row, Space, Table, Typography, Col, Card} from "antd";
+import {InfoOutlined, EditOutlined, DeleteOutlined, PlusOutlined} from "@ant-design/icons";
+
+import AdvancedSearchForm from "./SearchForm";
 import IF from "./IF";
+
+const {Title} = Typography;
 
 const DataTable = (props) => {
     const [selectedItem, setSelectedItem] = useState(null);
     const dispatch = useDispatch();
     return (
         <React.Fragment>
-            <Row gutter={[16, 16]}>
-                <Col span={24}>
-                    <AdvancedSearchForm
-                        resourceName={props.resourceName}
-                        searchAC={props.searchAC}
-                        fields={props.columns.map((e) => {
-                            return {
-                                label: e.title,
-                                name: e.key,
-                                placeholder: `Nhập ${e.title.toLowerCase()}`,
-                            };
-                        })}
-                    />
-                </Col>
-                <IF condt={selectedItem}>
+            <div>
+                <Row gutter={[16, 16]}>
                     <Col span={24}>
-                        <Row justify="end">
-                            <Col>
-                                <Space>
-                                    <Button
-                                        type="primary"
-                                        icon={<InfoOutlined/>}
-                                        onClick={() => {
-                                            dispatch(
-                                                push(`/${props.resourceName}/${selectedItem.id}`, {
-                                                    action: "view",
-                                                    payload: selectedItem,
-                                                })
-                                            );
-                                        }}
-                                    >Chi tiết</Button>
-                                    <Button
-                                        type="primary"
-                                        icon={<EditOutlined/>}
-                                        onClick={() => {
-                                            dispatch(
-                                                push(`/${props.resourceName}/${selectedItem.id}`, {
-                                                    action: "edit",
-                                                    payload: selectedItem,
-                                                })
-                                            );
-                                        }}
-                                    >Chỉnh sửa</Button>
-                                    <Popconfirm
-                                        title={"Bạn có chắc muốn xóa?"}
-                                        onConfirm={() => {
-                                            dispatch(props.deleteAC(selectedItem));
-                                        }}
-                                    >
-                                        <Button
-                                            type="danger"
-                                            icon={<DeleteOutlined/>}
-                                        >
-                                            Xóa
-                                        </Button>
-                                    </Popconfirm>
-                                </Space>
-                            </Col>
-                        </Row>
+                        <AdvancedSearchForm
+                            resourceName={props.resourceName}
+                            searchAC={props.searchAC}
+                            fields={props.columns.map((e) => {
+                                return {
+                                    label: e.title,
+                                    name: e.key,
+                                    placeholder: `Nhập ${e.title.toLowerCase()}`,
+                                };
+                            })}
+                        />
                     </Col>
-                </IF>
-                <Col span={24}>
-                    <Row>
-                        <Col span={24}>
-                            <Table
-                                rowSelection={{
-                                    type: "radio",
-                                    onChange: (selectedRowKeys, selectedRows) => {
-                                        console.log('selectedRows: ', selectedRows);
-                                        setSelectedItem({...selectedRows[0]});
-                                    }
-                                }}
-                                dataSource={props.dataSource}
-                                columns={props.columns ? props.columns : []}
-                                style={{flexFlow: 1}}
-                                pagination={{
-                                    defaultPageSize: 5,
-                                    showSizeChanger: true,
-                                    pageSizeOptions: ["5", "10", "20"],
-                                }}
-                            />
-                        </Col>
-                    </Row>
-                </Col>
-            </Row>
+                    <Col span={24}>
+                        <Card>
+                            <Row>
+                                <Col span={24}>
+                                    <Row justify="space-between">
+                                        <Col>
+                                            <Title level={4}>{props.title}</Title>
+                                        </Col>
+                                        <Col>
+                                            <Row justify="end">
+                                                <Col>
+                                                    <Space>
+                                                        <IF condt={!!selectedItem}>
+                                                            <Space>
+                                                                <Button
+                                                                    type="primary"
+                                                                    icon={<InfoOutlined/>}
+                                                                    onClick={() => {
+                                                                        dispatch(push(`/${props.resourceName}/${selectedItem.id}`));
+                                                                    }}
+                                                                >Chi tiết</Button>
+                                                                <Button
+                                                                    type="primary"
+                                                                    icon={<EditOutlined/>}
+                                                                    onClick={() => {
+                                                                        dispatch(
+                                                                            push(`/${props.resourceName}/${selectedItem.id}/update`));
+                                                                    }}
+                                                                >Chỉnh sửa</Button>
+                                                                <Popconfirm
+                                                                    title={"Bạn có chắc muốn xóa?"}
+                                                                    onConfirm={() => {
+                                                                        dispatch(props.deleteAC(selectedItem));
+                                                                    }}
+                                                                >
+                                                                    <Button
+                                                                        type="danger"
+                                                                        icon={<DeleteOutlined/>}
+                                                                    >
+                                                                        Xóa
+                                                                    </Button>
+                                                                </Popconfirm>
+                                                            </Space>
+                                                        </IF>
+                                                        <Button
+                                                            type="primary"
+                                                            icon={<PlusOutlined/>}
+                                                            onClick={() => {
+                                                                dispatch(
+                                                                    push(`/${props.resourceName}/create`, {
+                                                                        action: "ADD"
+                                                                    })
+                                                                );
+                                                            }}
+                                                        >Thêm mới</Button>
+                                                    </Space>
+                                                </Col>
+                                            </Row>
+                                        </Col>
+                                    </Row>
+                                </Col>
+                                <Col span={24}>
+                                    <Row>
+                                        <Col span={24}>
+                                            <Table
+                                                rowSelection={{
+                                                    type: "radio",
+                                                    onChange: (selectedRowKeys, selectedRows) => {
+                                                        console.log('selectedRows: ', selectedRows);
+                                                        setSelectedItem({...selectedRows[0]});
+                                                    }
+                                                }}
+                                                dataSource={props.dataSource}
+                                                columns={props.columns ? props.columns : []}
+                                                style={{flexFlow: 1}}
+                                                pagination={{
+                                                    defaultPageSize: 5,
+                                                    showSizeChanger: true,
+                                                    pageSizeOptions: ["5", "10", "20"],
+                                                }}
+                                            />
+                                        </Col>
+                                    </Row>
+                                </Col>
+                            </Row>
+                        </Card>
+                    </Col>
+                </Row>
+            </div>
         </React.Fragment>
     );
 };
 
 DataTable.propTypes = {
     resourceName: PropTypes.string.isRequired,
+    title: PropTypes.string,
     columns: PropTypes.arrayOf(
         PropTypes.shape({
             title: PropTypes.string.isRequired,

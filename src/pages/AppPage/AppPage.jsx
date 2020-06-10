@@ -16,14 +16,14 @@ const AppPage = (props) => {
             <Switch>
                 <Route
                     path={"/providers"} render={(props) => {
-                    dispatch(searchProvider());
+                    // dispatch(searchProvider());
                     return <ProviderRouting {...props}/>
                 }}
                 />
                 <Route
                     path={"/customers"}
                     render={(props) => {
-                        dispatch(searchCustomer());
+                        // dispatch(searchCustomer());
                         return <CustomerRouting {...props}/>
                     }}/>
                 <Route

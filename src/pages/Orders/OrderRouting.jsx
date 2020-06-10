@@ -3,6 +3,7 @@ import {
     Route, Switch, useRouteMatch, useParams
 } from "react-router-dom";
 import OrderList from "./OrderList";
+import OrderDetail from "./OrderDetail";
 
 const resourceName = 'customers';
 
@@ -13,7 +14,7 @@ const OrderRouting = (props) => {
         <Switch>
             <Route path="/" render={(props) => {
                 // dispatch(searchProvider)
-                return <OrderList/>
+                return <OrderDetail/>
             }}/>
         </Switch>
     );

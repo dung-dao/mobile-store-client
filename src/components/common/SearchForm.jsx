@@ -13,6 +13,7 @@ const AdvancedSearchForm = (props) => {
     const dispatch = useDispatch();
     const [expand, setExpand] = useState(false);
     const [form] = Form.useForm();
+    const {searchAC} = props;
 
     const getFields = () => {
         const count = expand ? 10 : 6;
@@ -23,13 +24,8 @@ const AdvancedSearchForm = (props) => {
                     <Form.Item
                         name={field.name}
                         label={field.label}
-                        rules={[
-                            {
-                                message: "Input something!",
-                            },
-                        ]}
                     >
-                        <Input placeholder={field.placeholder}/>
+                        <Input maxLength={1000} placeholder={field.placeholder}/>
                     </Form.Item>
                 </Col>
             ));
@@ -48,12 +44,13 @@ const AdvancedSearchForm = (props) => {
     };
 
     const onFinish = (values) => {
-        dispatch(props.searchAC(values));
+        // console.log(values);
+        dispatch(searchAC(values));
     };
 
     const fields = getFields();
     return (
-        <Card>
+        <div style={{backgroundColor: "white", paddingLeft: "1.5em", paddingTop: "1.5em", paddingRight: "1.5em"}}>
             <Form
                 form={form}
                 name="advanced_search"
@@ -61,7 +58,6 @@ const AdvancedSearchForm = (props) => {
                 onFinish={onFinish}
             >
                 <Row gutter={24}>
-                    {/*Search Fields*/}
                     {fields}
                     <Col span={8}>
                         <Row justify={expand ? "end" : "start"}>
@@ -69,16 +65,11 @@ const AdvancedSearchForm = (props) => {
                                 <Button
                                     type="primary"
                                     htmlType="submit"
-                                    onClick={(event) => {
-                                        if (!expand) {
-                                            event.preventDefault();
-                                            setExpand(true);
-                                        }
-                                    }}>
+                                >
                                     Tìm kiếm
                                 </Button>
-                                <Link
-                                    style={{fontSize: 12}}
+                                <Button
+                                    style={{fontSize: "1em"}}
                                     onClick={() => {
                                         setExpand(!expand);
                                     }}
@@ -88,13 +79,13 @@ const AdvancedSearchForm = (props) => {
                                     </React.Fragment> : <React.Fragment>
                                         <DownOutlined/> Hiện tất cả
                                     </React.Fragment>}
-                                </Link>
+                                </Button>
                             </Space>
                         </Row>
                     </Col>
                 </Row>
             </Form>
-        </Card>
+        </div>
     );
 };
 
