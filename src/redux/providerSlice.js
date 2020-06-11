@@ -38,7 +38,8 @@ export const createProvider = createAsyncThunk(
 export const updateProvider = createAsyncThunk(
     "providers/update",
     async (provider) => {
-        return await http.put(`${resourceUrl}/${provider.id}`, provider);
+        await http.put(`${resourceUrl}/${provider.id}`, provider);
+        return provider;
     }
 );
 
@@ -95,6 +96,8 @@ export const providersSlice = createSlice({
             console.log('updating provider')
         },
         [updateProvider.fulfilled]: (state, action) => {
+            const updated = action.payload;
+            state.providers = state.providers.map(item => item.id === updated.id ? updated : item);
             state.isFetching = false;
         },
         [updateProvider.rejected]: (state, action) => {
