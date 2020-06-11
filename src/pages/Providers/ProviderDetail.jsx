@@ -87,7 +87,7 @@ const ProviderDetail = (props) => {
                                 label="ID"
                                 name="id"
                             >
-                                <Input readOnly={readOnly || action === "UPDATE"}/>
+                                <Input readOnly={true}/>
                             </Form.Item>
                         </IF>
 

@@ -7,22 +7,46 @@ import {push} from 'connected-react-router';
 import IF from "../../components/common/IF";
 import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
 import {numberRegex, vietnameseRegex} from "../../utils/validate";
-import {createCustomer, searchCustomer, updateCustomer} from "../../redux";
+import {createCustomer, getProviderById, providersSelector, searchCustomer, updateCustomer} from "../../redux";
 import OrderViewer from "./OrderViewer";
+import ContentPageLayout from "../../components/common/ContentPageLayout";
+import CustomerInput from "../../components/FormInputs/CustomerInput";
 
 const CustomerDetail = (props) => {
+    //Hooks
     const dispatch = useDispatch();
-    const location = useLocation();
-    const action = location.state.action;
+    const {id} = useParams();
 
+    //Init data Hook
+    const [init, setInit] = useState(false);
+    useEffect(() => {
+        if (!init && id) {
+            dispatch(getProviderById(id));
+            setInit(true);
+        }
+    });
+
+    //Get Params
+    const {action} = props;
+    const selector = useSelector(providersSelector);
+
+    //Local variables
+    const readOnly = action === "VIEW";
+    if (!selector.isFetching)
+        console.log(selector);
+
+    // const dispatch = useDispatch();
+    // const location = useLocation();
+    // const action = location.state.action;
+    //
     const back = () => {
         dispatch(push('/customers'));
-        dispatch(searchCustomer());
     }
-
-    //Config
-    const readOnly = action === "view";
-    const provider = location.state.payload;
+    //
+    // //Config
+    // const readOnly = action === "view";
+    // const provider = location.state.payload;
+    const provider = null;
 
     return (
         <React.Fragment>
@@ -31,12 +55,12 @@ const CustomerDetail = (props) => {
                     <Card
                         title={
                             <Space align={"center"}>
-                                {/*<Button*/}
-                                {/*    shape={"circle"}*/}
-                                {/*    onClick={back}*/}
-                                {/*>*/}
-                                {/*    <ArrowLeftOutlined/>*/}
-                                {/*</Button>*/}
+                                <Button
+                                    shape="circle-outline"
+                                    onClick={back}
+                                >
+                                    <ArrowLeftOutlined/>
+                                </Button>
                                 <h3 style={{margin: 0}}>Thông tin khách hàng</h3>
                             </Space>
                         }>
@@ -45,74 +69,9 @@ const CustomerDetail = (props) => {
                             labelCol={{span: 8}}
                             labelAlign={"left"}
                             wrapperCol={{span: 16}}
-                            onFinish={(values) => {
-                                if (action === "edit") {
-                                    dispatch(updateCustomer(values));
-                                } else if (action === "create") {
-                                    dispatch(createCustomer(values));
-                                }
-                                back();
-                            }}
                         >
                             <Row gutter={16}>
-                                <IF condt={action !== 'create'}>
-                                    <Col>
-
-                                        <Form.Item
-                                            label="ID"
-                                            name="id"
-                                        >
-                                            <Input readOnly={readOnly || action === "edit"}/>
-                                        </Form.Item>
-
-                                    </Col>
-                                </IF>
-                                <Col xs={24} md={12}>
-                                    <Form.Item
-                                        label="Họ và tên"
-                                        name="name"
-                                        rules={[
-                                            {required: true, message: 'Vui lòng nhập họ tên'},
-                                            {max: 255, message: 'Tên vượt quá độ dài cho phép'},
-                                            {pattern: vietnameseRegex, message: 'Họ tên không hợp lệ'}
-                                        ]}
-                                    >
-                                        <Input readOnly={readOnly}/>
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} md={12}>
-                                    <Form.Item
-                                        label="Số Điện Thoại"
-                                        name="phone"
-                                        rules={[
-                                            {pattern: numberRegex, message: 'Số điện thoại chỉ gồm số'},
-                                            {required: true, message: 'Số điện thoại không được để trống'},
-                                            {max: 12, message: 'Số điện thoại không hợp lệ'},
-                                        ]}
-                                    >
-                                        <Input readOnly={readOnly}/>
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} md={12}>
-                                    <Form.Item
-                                        label="Địa Chỉ"
-                                        name="address"
-                                    >
-                                        <Input readOnly={readOnly}/>
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} md={12}>
-                                    <Form.Item
-                                        label="Địa chỉ email"
-                                        name="email"
-                                        rules={[
-                                            {type: "email", message: "Email không hợp lệ"},
-                                            {required: true, message: 'Số điện thoại không được để trống'}
-                                        ]}
-                                    >
-                                        <Input readOnly={readOnly}/>
-                                    </Form.Item>
-                                </Col>
+                                <CustomerInput span={12} readOnly={readOnly} action={action}/>
                             </Row>
                             <Row justify="end" style={{marginBottom: 0}}>
                                 <IF condt={action !== "view"}>
@@ -131,17 +90,12 @@ const CustomerDetail = (props) => {
                         </Form>
                     </Card>
                 </Col>
-                <Col span={24}>
-                    <Card title={"Lịch sử đặt hàng"}>
-                        <OrderViewer/>
-                    </Card>
-                </Col>
+                {/*<Col span={24}>*/}
+                {/*    <Card title="Lịch sử đặt hàng">*/}
+                {/*        <OrderViewer/>*/}
+                {/*    </Card>*/}
+                {/*</Col>*/}
             </Row>
-            <Row>
-
-            </Row>
-
-
         </React.Fragment>
     );
 };

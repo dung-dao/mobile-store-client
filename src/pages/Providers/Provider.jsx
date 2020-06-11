@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import DataTable from "../../components/common/DataTable";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteProvider, getProviderById, providersSelector, searchProvider} from "../../redux";
+import {deleteProvider, getProviderById, providersSelector, searchCustomer, searchProvider} from "../../redux";
 import {sort} from "../../utils/sort";
-import {mapWithKey} from "../../utils/addKey";
+import {generateKey} from "../../utils/ObjectUtils";
 import LoadingPage from "../../components/common/LoadingPage";
 
 const Provider = (props) => {
@@ -13,7 +13,7 @@ const Provider = (props) => {
     const [init, setInit] = useState(false);
     useEffect(() => {
         if (!init) {
-            dispatch(searchProvider());
+            dispatch(searchCustomer());
             setInit(true);
         }
     });
@@ -50,7 +50,7 @@ const Provider = (props) => {
                         sorter: sort('address')
                     },
                 ]}
-                dataSource={mapWithKey(selector.providers)}
+                dataSource={generateKey(selector.providers)}
                 resourceName={"providers"}
                 deleteAC={deleteProvider}
                 searchAC={searchProvider}

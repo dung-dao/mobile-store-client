@@ -8,6 +8,7 @@ import {useDispatch} from "react-redux";
 import CustomerRouting from "../Customers/CustomerRouting";
 import ProductRouting from "../Products/ProductRouting";
 import OrderRouting from "../Orders/OrderRouting";
+import LoadingPage from "../../components/common/LoadingPage";
 
 const AppPage = (props) => {
     const dispatch = useDispatch();
@@ -38,8 +39,7 @@ const AppPage = (props) => {
                         // dispatch(searchCustomer());
                         return <OrderRouting {...props}/>
                     }}/>
-                <PrivateRoute path="/" component={ProviderRouting}/>
-                <PrivateRoute path="/" component={ProviderRouting}/>
+                <PrivateRoute path="/" component={LoadingPage}/>
             </Switch>
         </AppLayout>
     );

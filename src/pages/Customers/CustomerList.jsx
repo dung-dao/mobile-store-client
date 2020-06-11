@@ -1,19 +1,32 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import DataTable from "../../components/common/DataTable";
 import {useDispatch, useSelector} from "react-redux";
 import {customerSelector, deleteCustomer, searchCustomer} from "../../redux";
 import {sort} from "../../utils/sort";
 import PropTypes, {bool} from "prop-types";
-import CustomerInputs from "../../components/forms/CustomerInputs";
+import LoadingPage from "../../components/common/LoadingPage";
 
 const resourceName = 'customers';
 
 const CustomerList = (props) => {
+    //Data Hook
     const dispatch = useDispatch();
     const selector = useSelector(customerSelector);
+    const [init, setInit] = useState(false);
+    useEffect(() => {
+        if (!init) {
+            dispatch(searchCustomer());
+            setInit(true);
+        }
+    });
+
+    if (selector.isFetching)
+        return <LoadingPage/>
+
     return (
         <React.Fragment>
             <DataTable
+                title="Danh sách khách hàng"
                 columns={[
                     {
                         title: "ID",
@@ -46,13 +59,10 @@ const CustomerList = (props) => {
                         sorter: sort('email')
                     }
                 ]}
-                dataSource={selector[resourceName]}
+                dataSource={selector['items']}
                 resourceName={resourceName}
                 deleteAC={deleteCustomer}
                 searchAC={searchCustomer}
-                selectHandler={() => {
-
-                }}
             />
         </React.Fragment>
     );

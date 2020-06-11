@@ -1,14 +1,29 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import DataTable from "../../components/common/DataTable";
-// import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 // import {customerSelector, deleteCustomer, searchCustomer} from "../../redux";
 import {sort} from "../../utils/sort";
+import {providersSelector, searchProvider} from "../../redux";
+import LoadingPage from "../../components/common/LoadingPage";
+import {productSelector, searchProduct} from "../../redux/productSlice";
 
-const resourceName = 'customers';
+const resourceName = 'products';
 
 const Product = (props) => {
-    // const dispatch = useDispatch();
-    // const selector = useSelector(customerSelector);
+    //Data Hook
+    const dispatch = useDispatch();
+    const selector = useSelector(productSelector);
+    const [init, setInit] = useState(false);
+    useEffect(() => {
+        if (!init) {
+            dispatch(searchProduct());
+            setInit(true);
+        }
+    });
+
+    if (selector.isFetching)
+        return <LoadingPage/>
+
     return (
         <React.Fragment>
             <DataTable
@@ -20,28 +35,28 @@ const Product = (props) => {
                         sorter: sort('id')
                     },
                     {
-                        title: "Tên khách hàng",
+                        title: "Tên sản phẩm",
                         key: "name",
                         dataIndex: "name",
                         sorter: sort('name')
                     },
                     {
-                        title: "Số điện thoại",
-                        key: "phone",
-                        dataIndex: "phone",
-                        sorter: sort('phone')
+                        title: "Tên mã",
+                        key: "name",
+                        dataIndex: "name",
+                        sorter: sort('name')
                     },
                     {
-                        title: "Địa chỉ",
-                        key: "address",
-                        dataIndex: "address",
-                        sorter: sort('address')
+                        title: "Giá",
+                        key: "amount",
+                        dataIndex: "amount",
+                        sorter: sort('amount')
                     },
                     {
-                        title: "Email",
-                        key: "email",
-                        dataIndex: "email",
-                        sorter: sort('email')
+                        title: "Mô tả chi tiết",
+                        key: "description",
+                        dataIndex: "description",
+                        sorter: sort('description')
                     }
                 ]}
                 // dataSource={selector[resourceName]}

@@ -8,22 +8,19 @@ import PropTypes from "prop-types";
 const CustomerInputs = (props) => {
     const span = {span: 6};
     const readOnly = props.action !== 'INPUT';
-    const ExtendedNode = props.children;
     return (
         <React.Fragment>
             <Row gutter={16}>
-                <IF condt={readOnly}>
-                    <Col xs={24} md={12}>
-                        <Form.Item
-                            label="ID"
-                            name="id"
-                            labelCol={span}
-                            labelAlign="left"
-                        >
-                            <Input readOnly={true}/>
-                        </Form.Item>
-                    </Col>
-                </IF>
+                <Col xs={24} md={12}>
+                    <Form.Item
+                        label="ID"
+                        name="id"
+                        labelCol={span}
+                        labelAlign="left"
+                    >
+                        <Input readOnly={true}/>
+                    </Form.Item>
+                </Col>
                 <Col xs={24} md={12}>
                     <Form.Item
                         label="Họ và tên"
