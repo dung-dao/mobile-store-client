@@ -1,13 +1,17 @@
-import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 import {
     createERBase,
-    createThunkBase, deleteERBase,
-    deleteThunkBase, getByIdERBase,
+    createThunkBase,
+    deleteERBase,
+    deleteThunkBase,
+    getByIdERBase,
     getByIdThunkBase,
-    initialStateBase, searchERBase,
-    searchThunkBase, updateERBase,
+    initialStateBase,
+    searchERBase,
+    searchThunkBase,
+    updateERBase,
     updateThunkBase
-} from "./baseReducers";
+} from "./ReduxSliceBase";
 
 const resourceName = 'customers';
 
@@ -20,14 +24,14 @@ export const deleteCustomer = deleteThunkBase(resourceName);
 
 export const customerSlice = createSlice({
     name: resourceName,
-    initialState: initialStateBase(),
+    initialState: {...initialStateBase()},
     reducers: {},
     extraReducers: {
         ...searchERBase(searchCustomer),
-        ...getByIdERBase(searchCustomer),
-        ...createERBase(searchCustomer),
-        ...updateERBase(searchCustomer),
-        ...deleteERBase(searchCustomer)
+        ...getByIdERBase(getCustomerById),
+        ...createERBase(createCustomer),
+        ...updateERBase(updateCustomer),
+        ...deleteERBase(deleteCustomer)
     }
 });
 

@@ -13,12 +13,6 @@ const CustomerList = (props) => {
     const dispatch = useDispatch();
     const selector = useSelector(customerSelector);
     const [init, setInit] = useState(false);
-    useEffect(() => {
-        if (!init) {
-            dispatch(searchCustomer());
-            setInit(true);
-        }
-    });
 
     if (selector.isFetching)
         return <LoadingPage/>

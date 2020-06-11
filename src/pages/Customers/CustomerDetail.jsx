@@ -1,16 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {Form, Input, Button, Card, Space, Row, Col} from 'antd';
 import {useDispatch, useSelector} from "react-redux";
-// import {createProvider, deleteProvider, login, providersSelector, updateProvider} from "../../redux";
 import {useParams, useLocation} from 'react-router-dom';
 import {push} from 'connected-react-router';
 import IF from "../../components/common/IF";
 import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
-import {numberRegex, vietnameseRegex} from "../../utils/validate";
-import {createCustomer, getProviderById, providersSelector, searchCustomer, updateCustomer} from "../../redux";
-import OrderViewer from "./OrderViewer";
-import ContentPageLayout from "../../components/common/ContentPageLayout";
+import {
+    createCustomer,
+    customerSelector,
+    getCustomerById, updateCustomer,
+} from "../../redux";
 import CustomerInput from "../../components/FormInputs/CustomerInput";
+import LoadingPage from "../../components/common/LoadingPage";
 
 const CustomerDetail = (props) => {
     //Hooks
@@ -21,32 +22,46 @@ const CustomerDetail = (props) => {
     const [init, setInit] = useState(false);
     useEffect(() => {
         if (!init && id) {
-            dispatch(getProviderById(id));
+            dispatch(getCustomerById(id));
             setInit(true);
         }
     });
 
     //Get Params
     const {action} = props;
-    const selector = useSelector(providersSelector);
+    const selector = useSelector(customerSelector);
 
     //Local variables
     const readOnly = action === "VIEW";
     if (!selector.isFetching)
         console.log(selector);
 
-    // const dispatch = useDispatch();
-    // const location = useLocation();
-    // const action = location.state.action;
-    //
     const back = () => {
         dispatch(push('/customers'));
     }
-    //
-    // //Config
-    // const readOnly = action === "view";
-    // const provider = location.state.payload;
-    const provider = null;
+
+    const onFinish = (values) => {
+        switch (action) {
+            case "CREATE":
+                dispatch(createCustomer(values));
+                back();
+                break;
+            case "UPDATE":
+                dispatch(updateCustomer(values));
+                back();
+                break;
+            default:
+                console.log('Unreachable code');
+
+        }
+    }
+
+    const detailItem = selector.detailItem;
+
+    if (action !== 'CREATE' && !detailItem) {
+        console.log(action);
+        return <LoadingPage/>;
+    }
 
     return (
         <React.Fragment>
@@ -65,10 +80,11 @@ const CustomerDetail = (props) => {
                             </Space>
                         }>
                         <Form
-                            initialValues={provider}
+                            initialValues={detailItem}
                             labelCol={{span: 8}}
                             labelAlign={"left"}
                             wrapperCol={{span: 16}}
+                            onFinish={values => onFinish(values)}
                         >
                             <Row gutter={16}>
                                 <CustomerInput span={12} readOnly={readOnly} action={action}/>

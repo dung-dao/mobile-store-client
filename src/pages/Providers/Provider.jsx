@@ -13,7 +13,7 @@ const Provider = (props) => {
     const [init, setInit] = useState(false);
     useEffect(() => {
         if (!init) {
-            dispatch(searchCustomer());
+            dispatch(searchProvider());
             setInit(true);
         }
     });

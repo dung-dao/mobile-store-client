@@ -4,10 +4,10 @@ import {message} from "antd";
 import {searchCustomer} from "./customerSlice";
 import {generateKey} from "../utils/ObjectUtils";
 
-export const getAll = async (resourceUrl) => {
-    const items = await http.get(resourceUrl);
-    return generateKey(items.data);
-}
+// export const getAll = async (resourceUrl) => {
+//     const items = await http.get(resourceUrl);
+//     return generateKey(items.data);
+// }
 
 export const searchThunkBase = (resourceName) => createAsyncThunk(
     `${resourceName}/search`,
@@ -55,11 +55,11 @@ export const getByIdERBase = (thunk) => ({
     },
 });
 
+//CREATE
 export const createThunkBase = (resourceName) => createAsyncThunk(
     `${resourceName}/create`,
-    async (provider) => {
-        await http.post("/" + resourceName, provider);
-        return await getAll();
+    async (item) => {
+        return (await http.post("/" + resourceName, item)).data;
     }
 );
 
@@ -68,7 +68,7 @@ export const createERBase = (thunk) => ({
         state.isFetching = true;
     },
     [thunk.fulfilled]: (state, action) => {
-        state.items = action.payload;
+        state.items.push({...action.payload});
         state.isFetching = false;
     },
     [thunk.rejected]: (state, action) => {
@@ -80,8 +80,7 @@ export const createERBase = (thunk) => ({
 export const updateThunkBase = (resourceName) => createAsyncThunk(
     `${resourceName}/update`,
     async (item) => {
-        await http.put(`${"/" + resourceName}/${item['id']}`, item);
-        return await getAll();
+        return (await http.put(`${"/" + resourceName}/${item['id']}`, item)).data;
     }
 );
 
@@ -91,6 +90,8 @@ export const updateERBase = (thunk) => ({
         state.isFetching = true;
     },
     [thunk.fulfilled]: (state, action) => {
+        const update = action.payload;
+        state.items = state.items.map(item => (item.id === update.id ? update : item));
         state.isFetching = false;
     },
     [thunk.rejected]: (state, action) => {
@@ -102,8 +103,7 @@ export const updateERBase = (thunk) => ({
 export const deleteThunkBase = (resourceName) => createAsyncThunk(
     `${resourceName}/delete`,
     async (item) => {
-        await http.delete(`${"/" + resourceName}/${item['id']}`);
-        return await getAll();
+        return (await http.delete(`${"/" + resourceName}/${item['id']}`)).data;
     }
 );
 
@@ -112,11 +112,13 @@ export const deleteERBase = (thunk) => ({
         state.isFetching = true;
     },
     [thunk.fulfilled]: (state, action) => {
-        state.items = action.payload;
+        const deletedItem = action.payload;
+        state.items = state.items.filter(item => (item.id.toString() !== deletedItem.id));
         state.isFetching = false;
     },
     [thunk.rejected]: (state, action) => {
         state.isFetching = false;
+        console.log(state, action);
         message.error('Đã xảy ra lỗi');
     },
 });
