@@ -19,17 +19,27 @@ export const searchProvider = createAsyncThunk(
     }
 );
 
+export const getProviderById = createAsyncThunk(
+    "providers/getById",
+    async (id) => {
+        const provider = await http.get(`${resourceUrl}/${id}`);
+        return provider.data;
+    }
+);
+
 export const createProvider = createAsyncThunk(
     "providers/create",
     async (provider) => {
-        return await http.post(resourceUrl, provider);
+        await http.post(resourceUrl, provider);
+        return await getAll();
     }
 );
 
 export const updateProvider = createAsyncThunk(
     "providers/update",
     async (provider) => {
-        return await http.put(`${resourceUrl}/${provider.id}`, provider);
+        await http.put(`${resourceUrl}/${provider.id}`, provider);
+        return provider;
     }
 );
 
@@ -45,6 +55,7 @@ export const providersSlice = createSlice({
     name: "providers",
     initialState: {
         providers: [],
+        currentProvider: null,
         detailProvider: null,
         isFetching: false,
         filter: {}
@@ -72,7 +83,7 @@ export const providersSlice = createSlice({
         },
         [createProvider.fulfilled]: (state, action) => {
             state.isFetching = false;
-            state.upToDate = false;
+            state.providers = action.payload;
         },
         [createProvider.rejected]: (state, action) => {
             state.isFetching = false;
@@ -85,6 +96,8 @@ export const providersSlice = createSlice({
             console.log('updating provider')
         },
         [updateProvider.fulfilled]: (state, action) => {
+            const updated = action.payload;
+            state.providers = state.providers.map(item => item.id === updated.id ? updated : item);
             state.isFetching = false;
         },
         [updateProvider.rejected]: (state, action) => {
@@ -102,6 +115,19 @@ export const providersSlice = createSlice({
         },
         [deleteProvider.rejected]: (state, action) => {
             state.isFetching = false;
+            message.error('Đã xảy ra lỗi');
+        },
+
+        //View Detail
+        [getProviderById.pending]: (state, action) => {
+            state.isFetching = true;
+        },
+        [getProviderById.fulfilled]: (state, action) => {
+            state.currentProvider = action.payload;
+            state.isFetching = false;
+        },
+        [getProviderById.rejected]: (state, action) => {
+            // state.isFetching = false;
             message.error('Đã xảy ra lỗi');
         },
     },

@@ -4,7 +4,7 @@ import {Form, Input, Button, Card, Space, Row, Col} from 'antd';
 // import {createProvider, deleteProvider, login, providersSelector, updateProvider} from "../../redux";
 import {useParams, useLocation} from 'react-router-dom';
 import {push} from 'connected-react-router';
-import IF from "../../components/IF";
+import IF from "../../components/common/IF";
 import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
 import {numberRegex, vietnameseRegex} from "../../utils/validate";
 import {createCustomer, searchCustomer, updateCustomer} from "../../redux";

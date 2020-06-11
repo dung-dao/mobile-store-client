@@ -1,17 +1,26 @@
-import React from "react";
-import DataTable from "../../components/DataTable";
+import React, {useEffect, useState} from "react";
+import DataTable from "../../components/common/DataTable";
 import {useDispatch, useSelector} from "react-redux";
 import {customerSelector, deleteCustomer, searchCustomer} from "../../redux";
 import {sort} from "../../utils/sort";
+import PropTypes, {bool} from "prop-types";
+import LoadingPage from "../../components/common/LoadingPage";
 
 const resourceName = 'customers';
 
-const Customer = (props) => {
+const CustomerList = (props) => {
+    //Data Hook
     const dispatch = useDispatch();
     const selector = useSelector(customerSelector);
+    const [init, setInit] = useState(false);
+
+    if (selector.isFetching)
+        return <LoadingPage/>
+
     return (
         <React.Fragment>
             <DataTable
+                title="Danh sách khách hàng"
                 columns={[
                     {
                         title: "ID",
@@ -44,7 +53,7 @@ const Customer = (props) => {
                         sorter: sort('email')
                     }
                 ]}
-                dataSource={selector[resourceName]}
+                dataSource={selector['items']}
                 resourceName={resourceName}
                 deleteAC={deleteCustomer}
                 searchAC={searchCustomer}
@@ -53,4 +62,8 @@ const Customer = (props) => {
     );
 };
 
-export default Customer;
+CustomerList.propTypes = {
+    isToSelect: PropTypes.bool.isRequired
+};
+
+export default CustomerList;

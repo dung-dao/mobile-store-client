@@ -1,5 +1,5 @@
 import React from "react";
-import {userSelector} from "../redux";
+import {userSelector} from "../../redux";
 import {useSelector} from "react-redux";
 import {Route, Redirect} from "react-router-dom";
 

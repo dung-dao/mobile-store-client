@@ -1,11 +1,26 @@
-import React from "react";
-import DataTable from "../../components/DataTable";
-import {useSelector} from "react-redux";
-import {deleteProvider, providersSelector, searchProvider} from "../../redux";
+import React, {useEffect, useState} from "react";
+import DataTable from "../../components/common/DataTable";
+import {useDispatch, useSelector} from "react-redux";
+import {deleteProvider, getProviderById, providersSelector, searchCustomer, searchProvider} from "../../redux";
 import {sort} from "../../utils/sort";
+import {generateKey} from "../../utils/ObjectUtils";
+import LoadingPage from "../../components/common/LoadingPage";
 
 const Provider = (props) => {
+    //Data Hook
+    const dispatch = useDispatch();
     const selector = useSelector(providersSelector);
+    const [init, setInit] = useState(false);
+    useEffect(() => {
+        if (!init) {
+            dispatch(searchProvider());
+            setInit(true);
+        }
+    });
+
+    if(selector.isFetching)
+        return <LoadingPage/>
+
     return (
         <React.Fragment>
             <DataTable
@@ -35,10 +50,12 @@ const Provider = (props) => {
                         sorter: sort('address')
                     },
                 ]}
-                dataSource={selector.providers}
+                dataSource={generateKey(selector.providers)}
                 resourceName={"providers"}
                 deleteAC={deleteProvider}
                 searchAC={searchProvider}
+                getDetailObjectAC={getProviderById}
+                title="Danh sách nhà cung cấp"
             />
         </React.Fragment>
     );

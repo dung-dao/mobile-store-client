@@ -9,19 +9,37 @@ import {searchProvider} from "../../redux";
 
 const ProviderRouting = (props) => {
     const match = useRouteMatch();
-    const dispatch = useDispatch();
     return (
         <Switch>
-            <Route path={`${match.path}/:id`}>
-                <ProviderDetail/>
-            </Route>
-            <Route path={`${match.path}/create`}>
-                <ProviderDetail/>
-            </Route>
-            <Route path="/" render={(props) => {
-                dispatch(searchProvider())
-                return <Provider/>
-            }}/>
+            <Route
+                exact
+                path={`${match.path}/create`}
+                render={(props => {
+                    return <ProviderDetail action="CREATE"/>;
+                })}
+            />
+
+            <Route
+                exact
+                path={`${match.path}/:id/update`}
+                render={(props => {
+                    return <ProviderDetail action="UPDATE"/>;
+                })}
+            />
+
+            <Route
+                exact
+                path={`${match.path}/:id`}
+                render={(props => {
+                    return <ProviderDetail action="VIEW"/>;
+                })}
+            />
+
+            <Route
+                path={`${match.path}/`}
+                render={(props) => {
+                    return <Provider/>
+                }}/>
         </Switch>
     );
 };

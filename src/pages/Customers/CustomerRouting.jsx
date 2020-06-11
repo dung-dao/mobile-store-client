@@ -2,10 +2,10 @@ import React from 'react';
 import {
     Route, Switch, useRouteMatch, useParams
 } from "react-router-dom";
-import Customer from "./Customer";
+import CustomerList from "./CustomerList";
 import CustomerDetail from "./CustomerDetail";
 import {useDispatch} from "react-redux";
-import {searchProvider} from "../../redux";
+import {searchCustomer, searchProvider} from "../../redux";
 
 const resourceName = 'customers';
 
@@ -17,19 +17,26 @@ const CustomerRouting = (props) => {
             <Route
                 path={`/${resourceName}/create`}
                 render={() => {
-                    return <CustomerDetail/>
+                    return <CustomerDetail action="CREATE"/>
+                }}
+                exact
+            />
+            <Route
+                path={`/${resourceName}/:id/update`}
+                render={() => {
+                    return <CustomerDetail action="UPDATE"/>
                 }}
                 exact
             />
             <Route
                 path={`/${resourceName}/:id`}
                 render={() => {
-                    return <CustomerDetail/>;
+                    return <CustomerDetail action="VIEW"/>;
                 }}
             />
             <Route path="/" render={(props) => {
-                dispatch(searchProvider)
-                return <Customer/>
+                dispatch(searchCustomer());
+                return <CustomerList/>
             }}/>
         </Switch>
     );

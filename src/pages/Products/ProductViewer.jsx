@@ -1,5 +1,5 @@
 import React from 'react';
-import DataTable from "../../components/DataTable";
+import DataTable from "../../components/common/DataTable";
 
 const ProductViewer = () => {
     return (

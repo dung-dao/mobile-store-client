@@ -4,6 +4,7 @@ import {createBrowserHistory} from "history";
 import userSlice from "../redux/userSlice";
 import providerRoot from "../redux/providerSlice";
 import customerRoot from "../redux/customerSlice";
+import productRoot from "../redux/productSlice";
 
 export const history = createBrowserHistory();
 
@@ -12,7 +13,8 @@ const store = configureStore({
         router: connectRouter(history),
         user: userSlice,
         providers: providerRoot,
-        customers:customerRoot
+        customers:customerRoot,
+        products: productRoot
     },
     middleware: [routerMiddleware(history), ...getDefaultMiddleware()],
 });

@@ -3,8 +3,8 @@ import {Switch, Route} from "react-router-dom";
 import "./App.css";
 import {useDispatch} from "react-redux";
 
-import PublicRoute from "./components/PublicRoute";
-import PrivateRoute from "./components/PrivateRoute";
+import PublicRoute from "./components/common/PublicRoute";
+import PrivateRoute from "./components/common/PrivateRoute";
 import AppPage from "./pages/AppPage/AppPage";
 import LoginPage from "./pages/SignIn/SignIn";
 
