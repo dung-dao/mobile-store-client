@@ -48,7 +48,7 @@ const AppLayout = (props) => {
                         </Menu.Item>
                         <Menu.Item key={5}>
                             <UserOutlined />
-                            <Link to={"/"}>Tài khoản</Link>
+                            <Link to={"/users"}>Tài khoản</Link>
                         </Menu.Item>
                         <Menu.Item key={6}>
                             <ReconciliationOutlined />
