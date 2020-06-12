@@ -95,6 +95,8 @@ const DataTable = (props) => {
                                     <Row>
                                         <Col span={24}>
                                             <Table
+                                                locale={{emptyText: 'Chưa có dữ liệu'}}
+                                                showSorterTooltip={false}
                                                 rowSelection={{
                                                     type: "radio",
                                                     onChange: (selectedRowKeys, selectedRows) => {

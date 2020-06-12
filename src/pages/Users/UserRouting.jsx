@@ -7,6 +7,8 @@ import UserDetail from "./UserDetail";
 import {useDispatch} from "react-redux";
 import {searchCustomer, searchProvider} from "../../redux";
 import {searchUser} from "../../redux/allUsersSlice";
+import UserRegister from "./UserRegister";
+import UserRegisterv2 from "./UserRegisterv2";
 
 const resourceName = 'users';
 

@@ -79,7 +79,8 @@ export const createERBase = (thunk) => ({
 export const updateThunkBase = (resourceName, resourceURL) => createAsyncThunk(
     `${resourceName}/update`,
     async (item) => {
-        return (await http.put(`${!resourceURL ? "/" + resourceName : resourceURL}/${item['id']}`, item)).data;
+        await http.put(`${!resourceURL ? "/" + resourceName : resourceURL}/${item['id']}`, item);
+        return item;
     }
 );
 
@@ -90,7 +91,8 @@ export const updateERBase = (thunk) => ({
     },
     [thunk.fulfilled]: (state, action) => {
         const update = action.payload;
-        state.items = state.items.map(item => (item.id === update.id ? update : item));
+        if (state.items)
+            state.items = state.items.map(item => (item.id === update.id ? update : item));
         state.detailItem = null;
         state.isFetching = false;
     },
@@ -104,24 +106,24 @@ export const updateERBase = (thunk) => ({
 export const deleteThunkBase = (resourceName, resourceURL) => createAsyncThunk(
     `${resourceName}/delete`,
     async (item) => {
-        return (await http.delete(`${!resourceURL ? "/" + resourceName : resourceURL}/${item['id']}`)).data;
+        await http.delete(`${!resourceURL ? "/" + resourceName : resourceURL}/${item['id']}`);
+        return item;
     }
 );
 
 export const deleteERBase = (thunk) => ({
     [thunk.pending]: (state, action) => {
+        state.detailItem = null;
         state.isFetching = true;
     },
     [thunk.fulfilled]: (state, action) => {
         const deletedItem = action.payload;
-        state.items = state.items.filter(item => (item.id.toString() !== deletedItem.id));
-        state.detailItem = null;
+        if (state.items)
+            state.items = state.items.filter(item => (item.id !== deletedItem.id));
         state.isFetching = false;
     },
     [thunk.rejected]: (state, action) => {
         state.isFetching = false;
-        // console.log(state, action);
-        state.detailItem = null;
         message.error('Đã xảy ra lỗi');
     },
 });
