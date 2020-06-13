@@ -73,18 +73,17 @@ const Dashboard = () => {
             </Col>
             <Col span={24}>
                 <Card style={{width: "100%", height: "100%"}}>
-                    <Row gutter={32}>
+                    <Row gutter={[16,16]}>
                         <Col span={24}>
                             <Row justify="space-between">
                                 <Typography.Title level={4}>Tình hình doanh thu</Typography.Title>
                                 <DatePicker.RangePicker/>
                             </Row>
-                            <Divider/>
                         </Col>
                         <Col span={16}>
                             <Tabs defaultActiveKey="1" onChange={callback}>
                                 <Tabs.TabPane tab="Thống kê doanh thu" key="chart">
-                                    <Chart scale={scale} width={600} height={400} data={fakeData.map(e => {
+                                    <Chart autoFit={true} scale={scale} width={600} height={400} data={fakeData.map(e => {
                                         const res = e;
                                         e.month = `${e.month}`;
                                         return res;

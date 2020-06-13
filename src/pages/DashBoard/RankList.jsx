@@ -1,5 +1,5 @@
 import React from 'react';
-import {Avatar, Card, List} from "antd";
+import {Avatar, Card, Col, Divider, List, Row} from "antd";
 
 const data = [
     {
@@ -19,19 +19,27 @@ const data = [
 const RankList = () => {
     return (
         <React.Fragment>
-            <List
-                itemLayout="horizontal"
-                dataSource={data}
-                renderItem={item => (
-                    <List.Item>
-                        <List.Item.Meta
-                            avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>}
-                            title={<a href="https://ant.design">{item.title}</a>}
-                            description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                        />
-                    </List.Item>
-                )}
-            />
+            <Row>
+                <Col span={24}>
+                    Sản phẩm doanh thu cao nhất
+                    <Divider/>
+                </Col>
+                <Col span={24}>
+                    <List
+                        itemLayout="horizontal"
+                        dataSource={data}
+                        renderItem={item => (
+                            <List.Item>
+                                <List.Item.Meta
+                                    avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>}
+                                    title={<a href="https://ant.design">{item.title}</a>}
+                                    description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                                />
+                            </List.Item>
+                        )}
+                    />
+                </Col>
+            </Row>
         </React.Fragment>
     );
 };
