@@ -1,7 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import http from "../services/http";
 import {message} from "antd";
-import {searchCustomer} from "./customerSlice";
+import {searchCustomer} from "./CustomerSlice";
 import {generateKey} from "../utils/ObjectUtils";
 
 export const searchThunkBase = (resourceName, resourceURL) => createAsyncThunk(

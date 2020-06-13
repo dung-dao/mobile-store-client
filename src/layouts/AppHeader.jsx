@@ -4,7 +4,7 @@ import {ReactComponent as Logo} from "../app/logo.svg";
 import "./AppHeader.css";
 import {UserOutlined} from "@ant-design/icons";
 import {useDispatch} from "react-redux";
-import {logout} from "../redux/userSlice";
+import {logout} from "../redux/UserSlice";
 import {push} from "connected-react-router";
 import Avatar from "antd/es/avatar";
 

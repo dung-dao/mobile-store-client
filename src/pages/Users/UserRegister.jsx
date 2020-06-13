@@ -6,7 +6,7 @@ import IF from "../../components/common/IF";
 import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
 import UserRegisterInput from "../../components/FormInputs/UserRegisterInput";
 import FormLayout from "../../components/common/FormLayout";
-import {createUser} from "../../redux/allUsersSlice";
+import {createUser} from "../../redux/AllUsersSlice";
 
 const UserRegister = (props) => {
     //Hooks

@@ -8,7 +8,7 @@ import {
     updateThunkBase
 } from "./ReduxSliceBase";
 import {createSlice} from "@reduxjs/toolkit";
-import {customerSlice} from "./customerSlice";
+import {customerSlice} from "./CustomerSlice";
 
 const resourceName = 'users';
 

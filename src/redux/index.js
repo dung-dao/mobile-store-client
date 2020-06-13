@@ -1,3 +1,3 @@
-export * from './userSlice';
-export * from './providerSlice';
-export * from './customerSlice';
+export * from './UserSlice';
+export * from './ProviderSlice';
+export * from './CustomerSlice';

@@ -1,18 +1,14 @@
 import React from 'react';
 import {
-    Route, Switch, useRouteMatch, useParams
+    Route, Switch, useRouteMatch
 } from "react-router-dom";
-import UserList from "./UserList";
-import UserDetail from "./UserDetail";
+import ProductList from "./ProductList";
+import ProductDetail from "./ProductDetail";
 import {useDispatch} from "react-redux";
-import {searchCustomer, searchProvider} from "../../redux";
-import {searchUser} from "../../redux/AllUsersSlice";
-import UserRegister from "./UserRegister";
-import UserRegisterv2 from "./UserRegisterv2";
+import {resourceName} from "./Config";
+import {searchProduct} from "../../redux/ProductSlice";
 
-const resourceName = 'users';
-
-const UserRouting = (props) => {
+const ProductRouting = (props) => {
     const match = useRouteMatch();
     const dispatch = useDispatch();
     return (
@@ -20,29 +16,29 @@ const UserRouting = (props) => {
             <Route
                 path={`/${resourceName}/create`}
                 render={() => {
-                    return <UserDetail action="CREATE"/>
+                    return <ProductDetail action="CREATE"/>
                 }}
                 exact
             />
             <Route
                 path={`/${resourceName}/:id/update`}
                 render={() => {
-                    return <UserDetail action="UPDATE"/>
+                    return <ProductDetail action="UPDATE"/>
                 }}
                 exact
             />
             <Route
                 path={`/${resourceName}/:id`}
                 render={() => {
-                    return <UserDetail action="VIEW"/>;
+                    return <ProductDetail action="VIEW"/>;
                 }}
             />
             <Route path="/" render={(props) => {
-                dispatch(searchUser());
-                return <UserList/>
+                dispatch(searchProduct());
+                return <ProductList/>
             }}/>
         </Switch>
     );
 };
 
-export default UserRouting;
+export default ProductRouting;

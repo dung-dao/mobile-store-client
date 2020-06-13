@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {Form, Input, Button, Card, Space, Row, Col} from 'antd';
 import {useDispatch, useSelector} from "react-redux";
-import {useParams, useLocation} from 'react-router-dom';
-import {push, goBack} from 'connected-react-router';
+import {useParams} from 'react-router-dom';
+import {goBack} from 'connected-react-router';
 import LoadingPage from "../../components/common/LoadingPage";
 import {allUsersSelector, createUser, getUserById, updateUser} from "../../redux/AllUsersSlice";
 import FormLayout from "../../components/common/FormLayout";
 import UserRegisterInput from "../../components/FormInputs/UserRegisterInput";
+import {createAC, detailPageTitle, getByIdAC, updateAC} from "./Config";
 
-const UserDetail = (props) => {
+const ProductDetail = (props) => {
     //Hooks
     const dispatch = useDispatch();
     const {id} = useParams();
@@ -17,7 +18,7 @@ const UserDetail = (props) => {
     const [init, setInit] = useState(false);
     useEffect(() => {
         if (!init && id) {
-            dispatch(getUserById(id));
+            dispatch(getByIdAC(id));
             setInit(true);
         }
     });
@@ -36,10 +37,10 @@ const UserDetail = (props) => {
         console.log('values', values);
         switch (action) {
             case "CREATE":
-                dispatch(createUser(values));
+                dispatch(createAC(values));
                 break;
             case "UPDATE":
-                dispatch(updateUser(values));
+                dispatch(updateAC(values));
                 break;
             default:
                 console.log('Unreachable code');
@@ -55,7 +56,7 @@ const UserDetail = (props) => {
     }
 
     return (
-        <FormLayout title="Đăng ký tài khoản">
+        <FormLayout title={detailPageTitle}>
             <Form
                 initialValues={detailItem}
                 labelCol={{span: 8}}
@@ -130,4 +131,4 @@ const UserDetail = (props) => {
     // );
 };
 
-export default UserDetail;
+export default ProductDetail;

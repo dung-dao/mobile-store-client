@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {sort} from "../../utils/sort";
 import PropTypes, {bool} from "prop-types";
 import LoadingPage from "../../components/common/LoadingPage";
-import {allUsersSelector, deleteUser, searchUser} from "../../redux/allUsersSlice";
+import {allUsersSelector, deleteUser, searchUser} from "../../redux/AllUsersSlice";
 
 const resourceName = 'users';
 
