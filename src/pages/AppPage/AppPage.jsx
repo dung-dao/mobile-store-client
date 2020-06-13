@@ -9,6 +9,7 @@ import CustomerRouting from "../Customers/CustomerRouting";
 import ProductRouting from "../Products/ProductRouting";
 import OrderRouting from "../Orders/OrderRouting";
 import LoadingPage from "../../components/common/LoadingPage";
+import Dashboard from "../DashBoard/Dashboard";
 
 const AppPage = (props) => {
     const dispatch = useDispatch();
@@ -39,7 +40,7 @@ const AppPage = (props) => {
                         // dispatch(searchCustomer());
                         return <OrderRouting {...props}/>
                     }}/>
-                <PrivateRoute path="/" component={LoadingPage}/>
+                <PrivateRoute path="/" component={Dashboard}/>
             </Switch>
         </AppLayout>
     );
