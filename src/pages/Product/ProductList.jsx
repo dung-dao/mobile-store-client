@@ -6,11 +6,19 @@ import PropTypes, {bool} from "prop-types";
 import LoadingPage from "../../components/common/LoadingPage";
 import {resourceName} from "./Config";
 import {deleteProduct, productSelector, searchProduct} from "../../redux/ProductSlice";
+import {mapNestedObject} from "../../utils/ObjectUtils";
 
 const ProductList = (props) => {
     //Data Hook
     const dispatch = useDispatch();
     const selector = useSelector(productSelector);
+    const products = selector['items'] ? selector['items'].map(item => {
+        return mapNestedObject(item, [
+            {key: 'manufactureName', path: ['manufacture', 'name']},
+            {key: 'categoryName', path: ['category', 'name']},
+        ])
+    }) : [];
+    console.log('products', products);
 
     if (selector.isFetching)
         return <LoadingPage/>
@@ -40,16 +48,23 @@ const ProductList = (props) => {
                     },
                     {
                         title: "Hãng sản xuất",
-                        key: "manufactureId",
-                        dataIndex: "manufactureId",
-                        sorter: sort('manufactureId')
+                        key: "manufactureName",
+                        dataIndex: "manufactureName",
+                        sorter: sort('manufactureName')
+                    },
+                    {
+                        title: "Danh mục",
+                        key: "categoryName",
+                        dataIndex: "categoryName",
+                        sorter: sort('categoryName')
                     },
                 ]}
                 //id	name	codeName	description	madeIn	amount	createdAt	updatedAt	categoryId	manufactureId
-                dataSource={selector['items']}
+                dataSource={products}
                 resourceName={resourceName}
                 deleteAC={deleteProduct}
                 searchAC={searchProduct}
+                disableFields={['amount', 'manufactureName', 'categoryName']}
             />
         </React.Fragment>
     );

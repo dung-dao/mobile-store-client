@@ -16,9 +16,11 @@ const AdvancedSearchForm = (props) => {
     const {searchAC} = props;
 
     const getFields = () => {
+        const disableFields = props.disableFields;
+
         const count = expand ? 10 : 6;
         let children = props.fields
-            .filter((e) => e.name !== "action" && e.name !== "id")
+            .filter((e) => e.name !== "id" && disableFields ? !disableFields.find(item => item === e.name) : true)
             .map((field, index) => (
                 <Col span={8} key={index}>
                     <Form.Item
@@ -68,18 +70,20 @@ const AdvancedSearchForm = (props) => {
                                 >
                                     Tìm kiếm
                                 </Button>
-                                <Button
-                                    style={{fontSize: "1em"}}
-                                    onClick={() => {
-                                        setExpand(!expand);
-                                    }}
-                                >
-                                    {expand ? <React.Fragment>
-                                        <UpOutlined/> Ẩn bớt
-                                    </React.Fragment> : <React.Fragment>
-                                        <DownOutlined/> Hiện tất cả
-                                    </React.Fragment>}
-                                </Button>
+                                <IF condt={props.fields.length - (props.disableFields ? props.disableFields.length : 0) > 2}>
+                                    <Button
+                                        style={{fontSize: "1em"}}
+                                        onClick={() => {
+                                            setExpand(!expand);
+                                        }}
+                                    >
+                                        {expand ? <React.Fragment>
+                                            <UpOutlined/> Ẩn bớt
+                                        </React.Fragment> : <React.Fragment>
+                                            <DownOutlined/> Hiện tất cả
+                                        </React.Fragment>}
+                                    </Button>
+                                </IF>
                             </Space>
                         </Row>
                     </Col>
@@ -92,6 +96,7 @@ const AdvancedSearchForm = (props) => {
 AdvancedSearchForm.propTypes = {
     resourceName: PropTypes.string.isRequired,
     searchAC: PropTypes.func.isRequired,
+    disableFields: PropTypes.array,
     fields: PropTypes.arrayOf(
         PropTypes.shape({
             label: PropTypes.string.isRequired,

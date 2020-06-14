@@ -43,7 +43,6 @@ const UserInput = (props) => {
                         {required: true, message: 'Vui lòng nhập vai trò'},
                     ]}
                 >
-                    {/*TODO: Thêm Role chính xác*/}
                     <Select
                         options={[
                             {label: "Admin", value: "admin"},

@@ -1,7 +1,8 @@
-import {createProduct, getProductById, updateProduct} from "../../redux/ProductSlice";
+import {createProduct, getProductById, productSelector, updateProduct} from "../../redux/ProductSlice";
 
 export const resourceName = "products";
 export const detailPageTitle = "Chi tiết sản phẩm";
-export const createAC = createProduct;
-export const updateAC = updateProduct;
-export const getByIdAC = getProductById;
+export const _selector = productSelector;
+export const _createAC = createProduct;
+export const _updateAC = updateProduct;
+export const _getByIdAC = getProductById;

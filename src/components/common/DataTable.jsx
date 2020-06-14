@@ -19,6 +19,7 @@ const DataTable = (props) => {
                 <Row gutter={[16, 16]}>
                     <Col span={24}>
                         <AdvancedSearchForm
+                            disableFields={props.disableFields}
                             resourceName={props.resourceName}
                             searchAC={props.searchAC}
                             fields={props.columns.map((e) => {
@@ -36,7 +37,8 @@ const DataTable = (props) => {
                                 <Col span={24}>
                                     <Row justify="space-between">
                                         <Col>
-                                            <Title level={4}>{props.title}</Title>
+                                            {typeof props.title === "string" ?
+                                                <Title level={4}>{props.title}</Title> : props.title}
                                         </Col>
                                         <Col>
                                             <Row justify="end">
@@ -127,7 +129,7 @@ const DataTable = (props) => {
 
 DataTable.propTypes = {
     resourceName: PropTypes.string.isRequired,
-    title: PropTypes.string,
+    title: PropTypes.any.isRequired,
     columns: PropTypes.arrayOf(
         PropTypes.shape({
             title: PropTypes.string.isRequired,
@@ -136,6 +138,7 @@ DataTable.propTypes = {
             sorter: PropTypes.func, //sort function return a - b
         })
     ).isRequired,
+    disableFields: PropTypes.array,
     dataSource: PropTypes.array.isRequired,
     deleteAC: PropTypes.func.isRequired,
     searchAC: PropTypes.func.isRequired,
