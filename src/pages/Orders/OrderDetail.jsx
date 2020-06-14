@@ -1,6 +1,6 @@
 import React from "react";
 import {AutoComplete, Card, Col, Divider, Form, Input, Row, Typography, Table} from 'antd';
-import CustomerInputs from "../../components/forms/CustomerInputs";
+import CustomerInputs from "../../components/FormInputs/CustomerInputs";
 
 const {Title} = Typography;
 

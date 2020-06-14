@@ -1,18 +1,13 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import http from "../services/http";
 import {message} from "antd";
-import {searchCustomer} from "./customerSlice";
+import {searchCustomer} from "./CustomerSlice";
 import {generateKey} from "../utils/ObjectUtils";
 
-// export const getAll = async (resourceUrl) => {
-//     const items = await http.get(resourceUrl);
-//     return generateKey(items.data);
-// }
-
-export const searchThunkBase = (resourceName) => createAsyncThunk(
+export const searchThunkBase = (resourceName, resourceURL) => createAsyncThunk(
     `${resourceName}/search`,
     async (item) => {
-        const items = await http.get("/" + resourceName, {
+        const items = await http.get(!resourceURL ? "/" + resourceName : resourceURL, {
             params: {...item}
         });
         return generateKey(items.data);
@@ -26,17 +21,19 @@ export const searchERBase = (thunk) => ({
     [thunk.fulfilled]: (state, action) => {
         state.isFetching = false;
         state.items = action.payload;
+        state.detailItem = null;
     },
     [thunk.rejected]: (state, action) => {
         state.isFetching = false;
+        state.detailItem = null;
         message.error('Đã xảy ra lỗi');
     },
 });
 
-export const getByIdThunkBase = (resourceName) => createAsyncThunk(
+export const getByIdThunkBase = (resourceName, resourceURL) => createAsyncThunk(
     `${resourceName}/getById`,
     async (id) => {
-        const item = await http.get(`${"/" + resourceName}/${id}`);
+        const item = await http.get(`${!resourceURL ? "/" + resourceName : resourceURL}/${id}`);
         return item.data;
     }
 );
@@ -56,10 +53,10 @@ export const getByIdERBase = (thunk) => ({
 });
 
 //CREATE
-export const createThunkBase = (resourceName) => createAsyncThunk(
+export const createThunkBase = (resourceName, resourceURL) => createAsyncThunk(
     `${resourceName}/create`,
     async (item) => {
-        return (await http.post("/" + resourceName, item)).data;
+        return (await http.post(!resourceURL ? "/" + resourceName : resourceURL, item)).data;
     }
 );
 
@@ -69,18 +66,21 @@ export const createERBase = (thunk) => ({
     },
     [thunk.fulfilled]: (state, action) => {
         state.items.push({...action.payload});
+        state.detailItem = null;
         state.isFetching = false;
     },
     [thunk.rejected]: (state, action) => {
         state.isFetching = false;
+        state.detailItem = null;
         message.error('Đã xảy ra lỗi');
     },
 });
 
-export const updateThunkBase = (resourceName) => createAsyncThunk(
+export const updateThunkBase = (resourceName, resourceURL) => createAsyncThunk(
     `${resourceName}/update`,
     async (item) => {
-        return (await http.put(`${"/" + resourceName}/${item['id']}`, item)).data;
+        await http.put(`${!resourceURL ? "/" + resourceName : resourceURL}/${item['id']}`, item);
+        return item;
     }
 );
 
@@ -91,34 +91,39 @@ export const updateERBase = (thunk) => ({
     },
     [thunk.fulfilled]: (state, action) => {
         const update = action.payload;
-        state.items = state.items.map(item => (item.id === update.id ? update : item));
+        if (state.items)
+            state.items = state.items.map(item => (item.id === update.id ? update : item));
+        state.detailItem = null;
         state.isFetching = false;
     },
     [thunk.rejected]: (state, action) => {
         state.isFetching = false;
+        state.detailItem = null;
         message.error('Đã xảy ra lỗi');
     },
 });
 
-export const deleteThunkBase = (resourceName) => createAsyncThunk(
+export const deleteThunkBase = (resourceName, resourceURL) => createAsyncThunk(
     `${resourceName}/delete`,
     async (item) => {
-        return (await http.delete(`${"/" + resourceName}/${item['id']}`)).data;
+        await http.delete(`${!resourceURL ? "/" + resourceName : resourceURL}/${item['id']}`);
+        return item;
     }
 );
 
 export const deleteERBase = (thunk) => ({
     [thunk.pending]: (state, action) => {
+        state.detailItem = null;
         state.isFetching = true;
     },
     [thunk.fulfilled]: (state, action) => {
         const deletedItem = action.payload;
-        state.items = state.items.filter(item => (item.id.toString() !== deletedItem.id));
+        if (state.items)
+            state.items = state.items.filter(item => (item.id !== deletedItem.id));
         state.isFetching = false;
     },
     [thunk.rejected]: (state, action) => {
         state.isFetching = false;
-        console.log(state, action);
         message.error('Đã xảy ra lỗi');
     },
 });
