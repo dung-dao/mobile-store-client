@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {customerSelector, filterCustomer, selectCustomer} from "../../redux";
 import {addProduct, filterProduct, productSelector, selectProduct} from "../../redux/ProductSlice";
 import _ from "lodash";
+import {sort} from "../../utils/sort";
 
 const {Title} = Typography;
 
@@ -29,11 +30,15 @@ const OrderDetail = (props) => {
     const customerSchema = _customerSelector.detailItem;
 
     //##Products
-    const products = (!_productSelector.items.length == 0) ? _productSelector.items.map(iProduct => ({
+    const products = (!_productSelector.items.length == 0) ? _productSelector.items : [];
+    const autoProducts = products.map(iProduct => ({
         label: `${iProduct.name} - ${iProduct.codeName}`,
         value: `${iProduct.name} - ${iProduct.codeName}`
-    })) : [];
-    console.log('products', products);
+    }));
+    console.log('products', autoProducts);
+
+    const orderProducts = (!_productSelector.orderProductList.length == 0) ? _productSelector.orderProductList : [];
+
 
     //Event Handler
     //Customers
@@ -46,8 +51,13 @@ const OrderDetail = (props) => {
     };
 
     //Products
-    const handleAddToProductList = () => {
-        dispatch(addProduct());
+    const handleAddToProductList = (values) => {
+        console.log(values);
+        const codeName = values.product.split(' - ')[1];
+        console.log(codeName);
+        const product = products.find(item => item.codeName === codeName);
+        console.log(product);
+        dispatch(addProduct({product, quantity: values.quantity}));
     }
 
     const autocompleteFilterHandler = (inputValue, option) =>
@@ -172,9 +182,7 @@ const OrderDetail = (props) => {
                                 <Form
                                     form={form}
                                     layout={{wrapperCol: {span: 8}}}
-                                    onFinish={(values => {
-                                        console.log('finish values', values);
-                                    })}>
+                                    onFinish={handleAddToProductList}>
                                     <Row gutter={[16, 16]}>
                                         <Col span={8}>
                                             <Form.Item
@@ -183,7 +191,7 @@ const OrderDetail = (props) => {
                                                 rules={[
                                                     {
                                                         validator: (_, value) => {
-                                                            const prod = products.find(item => item.value === value);
+                                                            const prod = autoProducts.find(item => item.value === value);
                                                             return prod ? Promise.resolve() : Promise.reject('Sản phẩm không hợp lệ')
                                                         }
                                                     },
@@ -192,7 +200,7 @@ const OrderDetail = (props) => {
                                                 <AutoComplete
                                                     size="large"
                                                     filterOption={autocompleteFilterHandler}
-                                                    options={products}
+                                                    options={autoProducts}
                                                     dropdownMatchSelectWidth={252}
                                                     size="large"
                                                     placeholder="Nhập tên hoặc mã sản phẩm"
@@ -228,8 +236,49 @@ const OrderDetail = (props) => {
                         </Row>
                         <Row>
                             <Col span={24} style={{marginTop: "1em"}}>
-                                <Table></Table>
+                                <Table
+                                    pagination={false}
+                                    columns={[
+                                        {
+                                            title: "Tên mã",
+                                            key: "codeName",
+                                            dataIndex: "codeName",
+                                            sorter: sort('codeName')
+                                        },
+                                        {
+                                            title: "Tên sản phẩm",
+                                            key: "name",
+                                            dataIndex: "name",
+                                            sorter: sort('name')
+                                        },
+                                        {
+                                            title: "Số lượng",
+                                            key: "quantity",
+                                            dataIndex: "quantity",
+                                            sorter: sort('quantity')
+                                        },
+                                        {
+                                            title: "Đơn giá",
+                                            key: "amount",
+                                            dataIndex: "amount",
+                                            sorter: sort('amount')
+                                        },
+                                        {
+                                            title: "Thành tiền",
+                                            key: "totalUnit",
+                                            dataIndex: "totalUnit",
+                                            sorter: sort('totalUnit')
+                                        },
+
+                                    ]}
+                                    dataSource={orderProducts}
+                                />
                             </Col>
+                        </Row>
+                        <Row justify="end">
+                            <Typography.Text style={{margin: "1em"}}>
+                                {`Tổng cộng: ${_.sum(orderProducts.map(item => item.totalUnit))}`}
+                            </Typography.Text>
                         </Row>
                     </Card>
                 </Col>

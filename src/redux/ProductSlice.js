@@ -28,26 +28,24 @@ export const productSlice = createSlice({
     name: resourceName,
     initialState: {...initialStateBase(), orderProductList: []},
     reducers: {
-        // selectProduct: ((state, action) => {
-        //     // console.log('values', action.payload);
-        //     // console.log('values', action.payload);
-        //     try {
-        //         const codeName = action.payload.split(' - ')[1];
-        //         const product = state.items.find(item => item.codeName == codeName);
-        //         if (product)
-        //             state.detailItem = product;
-        //     } catch (e) {
-        //         console.log(e);
-        //     }
-        // }),
         clearInputs: (state, action) => {
             state.filteredItems = [];
             state.orderProductList = [];
         },
-        addProduct: state => {
-            if (state.detailItem)
-                state.orderProductList.push(state.detailItem);
-            state.detailItem = null;
+        addProduct: (state, action) => {
+            if (!action.payload)
+                return;
+            const detail = {...action.payload};
+            console.log(detail);
+            state.orderProductList = [...state.orderProductList, {
+                ...detail.product,
+                quantity: detail.quantity,
+                totalUnit: detail.product.amount * detail.quantity
+            }];
+            //     state => {
+            // if (state.detailItem)
+            //     state.orderProductList.push(state.detailItem);
+            // state.detailItem = null;
         }
     },
     extraReducers: {
