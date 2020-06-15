@@ -36,7 +36,6 @@ export const customerSlice = createSlice({
                     return _.includes(`${item.name} - ${item.phone}`, filterString);
                 }), 0, 10);
             }
-            // console.log('redux heere');
             // console.log(filterString);
         },
         selectCustomer: ((state, action) => {

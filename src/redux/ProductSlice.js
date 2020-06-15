@@ -13,6 +13,8 @@ import {
     updateThunkBase
 } from "./ReduxSliceBase";
 
+import _ from 'lodash';
+
 const resourceName = 'products';
 
 //Action creator
@@ -24,8 +26,30 @@ export const deleteProduct = deleteThunkBase(resourceName);
 
 export const productSlice = createSlice({
     name: resourceName,
-    initialState: {...initialStateBase()},
-    reducers: {},
+    initialState: {...initialStateBase(), orderProductList: []},
+    reducers: {
+        // selectProduct: ((state, action) => {
+        //     // console.log('values', action.payload);
+        //     // console.log('values', action.payload);
+        //     try {
+        //         const codeName = action.payload.split(' - ')[1];
+        //         const product = state.items.find(item => item.codeName == codeName);
+        //         if (product)
+        //             state.detailItem = product;
+        //     } catch (e) {
+        //         console.log(e);
+        //     }
+        // }),
+        clearInputs: (state, action) => {
+            state.filteredItems = [];
+            state.orderProductList = [];
+        },
+        addProduct: state => {
+            if (state.detailItem)
+                state.orderProductList.push(state.detailItem);
+            state.detailItem = null;
+        }
+    },
     extraReducers: {
         ...searchERBase(searchProduct),
         ...getByIdERBase(getProductById),
@@ -36,7 +60,7 @@ export const productSlice = createSlice({
 });
 
 //Export
-// export const {} = productSlice.actions;
+export const {clearInputs, selectProduct, filterProduct, addProduct} = productSlice.actions;
 export const productSelector = (state) => state[resourceName];
 const productRoot = productSlice.reducer;
 export default productRoot;

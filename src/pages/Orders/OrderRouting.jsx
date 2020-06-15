@@ -6,6 +6,7 @@ import OrderList from "./OrderList";
 import OrderDetail from "./OrderDetail";
 import {searchCustomer} from "../../redux";
 import {useDispatch} from "react-redux";
+import {searchProduct} from "../../redux/ProductSlice";
 
 const resourceName = 'customers';
 
@@ -15,7 +16,8 @@ const OrderRouting = (props) => {
     return (
         <Switch>
             <Route path="/" render={(props) => {
-                dispatch(searchCustomer())
+                dispatch(searchCustomer());
+                dispatch(searchProduct());
                 return <OrderDetail/>
             }}/>
         </Switch>
