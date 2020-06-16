@@ -1,97 +1,62 @@
-import React from "react";
-import {AutoComplete, Card, Col, Input, Row, Typography, Table, Button, Form, InputNumber} from 'antd';
-import {useDispatch, useSelector} from "react-redux";
-import {customerSelector, filterCustomer, selectCustomer} from "../../redux";
-import {addProduct, filterProduct, productSelector, selectProduct} from "../../redux/ProductSlice";
+import React, {useState} from "react";
 import _ from "lodash";
+import {Card, Col, Input, Row, Typography, Table, Button, Form, InputNumber} from 'antd';
+import {useSelector} from "react-redux";
+import {customerSelector} from "../../redux";
+import {productSelector} from "../../redux/ProductSlice";
 import {sort} from "../../utils/sort";
+import ProductSelect from "./ProductSelect";
+import CustomerSelect from "./CustomerSelect";
 
 const {Title} = Typography;
 
 const OrderDetail = (props) => {
+    //State
+    const [customer, setCustomer] = useState(null);
+    const [orderDetails, setOrderdetails] = useState([]);
+
     //Hooks
-    const dispatch = useDispatch();
     const _customerSelector = useSelector(customerSelector);
     const _productSelector = useSelector(productSelector);
 
-    const [form] = Form.useForm();
-
-    //Constants
-    const span = {span: 6};
-    const readOnly = true;
-
     //#Map data
-    //##Customer
-    const __customers = _customerSelector ? _customerSelector.filteredItems : [];
-    const viewCustomers = __customers.map(cus => ({
-        label: `${cus.name} - ${cus.phone}`,
-        value: `${cus.name} - ${cus.phone}`
-    }));
-    const customerSchema = _customerSelector.detailItem;
-
-    //##Products
+    const customers = _customerSelector ? _customerSelector.items : [];
     const products = (!_productSelector.items.length == 0) ? _productSelector.items : [];
-    const autoProducts = products.map(iProduct => ({
-        label: `${iProduct.name} - ${iProduct.codeName}`,
-        value: `${iProduct.name} - ${iProduct.codeName}`
-    }));
-    console.log('products', autoProducts);
-
-    const orderProducts = (!_productSelector.orderProductList.length == 0) ? _productSelector.orderProductList : [];
-
 
     //Event Handler
     //Customers
-    const handleCustomerSearch = (searchText) => {
-        dispatch(filterCustomer(searchText))
-    };
-
-    const handleCustomerSelect = (value, option) => {
-        dispatch(selectCustomer(value));
-    };
+    const handleSelectCustomer = (_customer) => {
+        console.log('values', _customer);
+        setCustomer(_customer);
+    }
 
     //Products
     const handleAddToProductList = (values) => {
-        console.log(values);
-        const codeName = values.product.split(' - ')[1];
-        console.log(codeName);
-        const product = products.find(item => item.codeName === codeName);
-        console.log(product);
-        dispatch(addProduct({product, quantity: values.quantity}));
+        setOrderdetails([...orderDetails, values]);
     }
-
-    const autocompleteFilterHandler = (inputValue, option) =>
-        _.includes(option.value.toLowerCase(), inputValue.toLowerCase())
-
     return (
         <React.Fragment>
             <Row gutter={[16, 16]}>
                 <Col span={24}>
-                    <Title level={4} style={{margin: 0}}>Thông tin đơn hàng</Title>
+                    <Title level={3} style={{margin: 0}}>Thông tin đơn hàng</Title>
                 </Col>
                 <Col span={24}>
                     <Card
                         title={
-                            // Search Customer Bar
+                            // Customer Bar @Customer
                             <Row>
                                 <Col md={8} xs={24}>
                                     <Title level={4}>Khách hàng</Title>
                                 </Col>
-                                <Col md={8} xs={24}>
-                                    <AutoComplete
-                                        onSearch={handleCustomerSearch}
-                                        options={viewCustomers}
-                                        onSelect={handleCustomerSelect}
-                                        dropdownMatchSelectWidth={252}
-                                    >
-                                        <Input.Search size="large" placeholder="Nhập tên hoặc SĐT"
-                                                      enterButton/>
-                                    </AutoComplete>
+                                <Col md={16} xs={24}>
+                                    <CustomerSelect
+                                        customers={customers}
+                                        handleFinish={handleSelectCustomer}
+                                    />
                                 </Col>
                             </Row>
                         }
                     >
-                        {/*Customer Input*/}
                         <Row style={{paddingBottom: "1em"}}>
                             <Col span={24}>
                                 <Row gutter={[16, 16]}>
@@ -102,7 +67,7 @@ const OrderDetail = (props) => {
                                             </Col>
                                             <Col span={18}>
                                                 <Input
-                                                    value={customerSchema ? customerSchema.id : ''}
+                                                    value={customer ? customer.id : ''}
                                                     readOnly={true}/>
                                             </Col>
                                         </Row>
@@ -114,7 +79,7 @@ const OrderDetail = (props) => {
                                             </Col>
                                             <Col span={18}>
                                                 <Input
-                                                    value={customerSchema ? customerSchema.name : ''}
+                                                    value={customer ? customer.name : ''}
                                                     readOnly={true}/>
                                             </Col>
                                         </Row>
@@ -127,7 +92,7 @@ const OrderDetail = (props) => {
                                             </Col>
                                             <Col span={18}>
                                                 <Input
-                                                    value={customerSchema ? customerSchema.phone : ''}
+                                                    value={customer ? customer.phone : ''}
                                                     readOnly={true}/>
                                             </Col>
                                         </Row>
@@ -140,7 +105,7 @@ const OrderDetail = (props) => {
                                             </Col>
                                             <Col span={18}>
                                                 <Input
-                                                    value={customerSchema ? customerSchema.address : ''}
+                                                    value={customer ? customer.address : ''}
                                                     readOnly={true}/>
                                             </Col>
                                         </Row>
@@ -153,7 +118,7 @@ const OrderDetail = (props) => {
                                             </Col>
                                             <Col span={18}>
                                                 <Input
-                                                    value={customerSchema ? customerSchema.email : ''}
+                                                    value={customer ? customer.email : ''}
                                                     readOnly={true}/>
                                             </Col>
                                         </Row>
@@ -179,59 +144,7 @@ const OrderDetail = (props) => {
                     >
                         <Row>
                             <Col span={24}>
-                                <Form
-                                    form={form}
-                                    layout={{wrapperCol: {span: 8}}}
-                                    onFinish={handleAddToProductList}>
-                                    <Row gutter={[16, 16]}>
-                                        <Col span={8}>
-                                            <Form.Item
-                                                name="product"
-                                                wrapperCol={{span: 24}}
-                                                rules={[
-                                                    {
-                                                        validator: (_, value) => {
-                                                            const prod = autoProducts.find(item => item.value === value);
-                                                            return prod ? Promise.resolve() : Promise.reject('Sản phẩm không hợp lệ')
-                                                        }
-                                                    },
-                                                ]}
-                                            >
-                                                <AutoComplete
-                                                    size="large"
-                                                    filterOption={autocompleteFilterHandler}
-                                                    options={autoProducts}
-                                                    dropdownMatchSelectWidth={252}
-                                                    size="large"
-                                                    placeholder="Nhập tên hoặc mã sản phẩm"
-                                                    notFoundContent="Không tìm thấy"
-                                                />
-                                            </Form.Item>
-                                        </Col>
-                                        <Col span={8}>
-                                            <Form.Item name="quantity" wrapperCol={24}>
-                                                <InputNumber
-                                                    style={{width: "100%"}}
-                                                    min={1}
-                                                    max={10000}
-                                                    size="large"
-                                                    placeholder="Nhập số lượng"
-                                                />
-                                            </Form.Item>
-                                        </Col>
-                                        <Col span={8}>
-                                            <Form.Item>
-                                                <Button
-                                                    htmlType="submit"
-                                                    size="large"
-                                                    type="primary"
-                                                >
-                                                    Thêm sản phẩm
-                                                </Button>
-                                            </Form.Item>
-                                        </Col>
-                                    </Row>
-                                </Form>
+                                <ProductSelect products={products} handleFinish={handleAddToProductList}/>
                             </Col>
                         </Row>
                         <Row>
@@ -271,14 +184,17 @@ const OrderDetail = (props) => {
                                         },
 
                                     ]}
-                                    dataSource={orderProducts}
+                                    dataSource={orderDetails}
                                 />
                             </Col>
                         </Row>
                         <Row justify="end">
-                            <Typography.Text style={{margin: "1em"}}>
-                                {`Tổng cộng: ${_.sum(orderProducts.map(item => item.totalUnit))}`}
+                            <Typography.Text style={{margin: "1em", fontWeight: "bold"}}>
+                                {`Tổng cộng: ${_.sum(orderDetails.map(item => item.totalUnit))}`}
                             </Typography.Text>
+                        </Row>
+                        <Row justify="end">
+                            <Button type="primary" size="large">Tạo đơn hàng</Button>
                         </Row>
                     </Card>
                 </Col>

@@ -26,28 +26,8 @@ export const deleteProduct = deleteThunkBase(resourceName);
 
 export const productSlice = createSlice({
     name: resourceName,
-    initialState: {...initialStateBase(), orderProductList: []},
-    reducers: {
-        clearInputs: (state, action) => {
-            state.filteredItems = [];
-            state.orderProductList = [];
-        },
-        addProduct: (state, action) => {
-            if (!action.payload)
-                return;
-            const detail = {...action.payload};
-            console.log(detail);
-            state.orderProductList = [...state.orderProductList, {
-                ...detail.product,
-                quantity: detail.quantity,
-                totalUnit: detail.product.amount * detail.quantity
-            }];
-            //     state => {
-            // if (state.detailItem)
-            //     state.orderProductList.push(state.detailItem);
-            // state.detailItem = null;
-        }
-    },
+    initialState: {...initialStateBase()},
+    reducers: {},
     extraReducers: {
         ...searchERBase(searchProduct),
         ...getByIdERBase(getProductById),
@@ -58,7 +38,7 @@ export const productSlice = createSlice({
 });
 
 //Export
-export const {clearInputs, selectProduct, filterProduct, addProduct} = productSlice.actions;
+// export const {clearInputs, selectProduct, addProduct} = productSlice.actions;
 export const productSelector = (state) => state[resourceName];
 const productRoot = productSlice.reducer;
 export default productRoot;
