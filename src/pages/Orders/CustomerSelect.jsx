@@ -42,13 +42,10 @@ const CustomerSelect = (props) => {
                                 },
                             ]}
                         >
-                            {/*@Product*/}
                             <AutoComplete
-                                size="large"
                                 filterOption={autocompleteFilterHandler}
                                 options={viewData}
                                 dropdownMatchSelectWidth={252}
-                                size="large"
                                 placeholder="Nhập tên hoặc số điện thoại"
                                 notFoundContent="Không tìm thấy"
                             />
@@ -58,7 +55,6 @@ const CustomerSelect = (props) => {
                         <Form.Item>
                             <Button
                                 htmlType="submit"
-                                size="large"
                                 type="primary"
                             >
                                 Chọn

@@ -7,7 +7,7 @@ import {
     deleteProvider,
     getProviderById,
     login,
-    providersSelector,
+    providerSelector,
     searchProvider,
     updateProvider
 } from "../../redux";
@@ -34,7 +34,7 @@ const ProviderDetail = (props) => {
 
     //Get Params
     const {action} = props;
-    const selector = useSelector(providersSelector);
+    const selector = useSelector(providerSelector);
 
     //Local variables
     const readOnly = action === "VIEW";

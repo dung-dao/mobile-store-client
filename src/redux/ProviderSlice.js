@@ -133,7 +133,7 @@ export const providersSlice = createSlice({
     },
 });
 
-export const providersSelector = (state) => state.providers;
+export const providerSelector = (state) => state.providers;
 export const {} = providersSlice.actions;
 const providerRoot = providersSlice.reducer;
 export default providerRoot;

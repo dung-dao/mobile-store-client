@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Form, Input, Button, Card} from 'antd';
 import AppLayout from "../../layouts/AppLayout";
 import {useDispatch, useSelector} from "react-redux";
-import {createProvider, deleteProvider, login, providersSelector, updateProvider} from "../../redux";
+import {createProvider, deleteProvider, login, providerSelector, updateProvider} from "../../redux";
 import {useParams, useLocation} from 'react-router-dom';
 import PropTypes from 'prop-types';
 

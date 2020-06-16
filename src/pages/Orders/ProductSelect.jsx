@@ -42,23 +42,20 @@ const ProductSelect = (props) => {
                         >
                             {/*@Product*/}
                             <AutoComplete
-                                size="large"
                                 filterOption={autocompleteFilterHandler}
                                 options={autoProducts}
                                 dropdownMatchSelectWidth={252}
-                                size="large"
                                 placeholder="Nhập tên hoặc mã sản phẩm"
                                 notFoundContent="Không tìm thấy"
                             />
                         </Form.Item>
                     </Col>
-                    <Col span={8}>
+                    <Col span={4}>
                         <Form.Item name="quantity" wrapperCol={24}>
                             <InputNumber
                                 style={{width: "100%"}}
                                 min={1}
                                 max={10000}
-                                size="large"
                                 placeholder="Nhập số lượng"
                             />
                         </Form.Item>
@@ -67,7 +64,6 @@ const ProductSelect = (props) => {
                         <Form.Item>
                             <Button
                                 htmlType="submit"
-                                size="large"
                                 type="primary"
                             >
                                 Thêm sản phẩm
