@@ -107,12 +107,17 @@ const Dashboard = () => {
                             </Row>
                         </Col>
                         <Col span={16}>
-                            <Chart autoFit={true} scale={scale} width={600} height={400}
-                                   data={fakeData.map(e => {
-                                       const res = e;
-                                       e.month = `${e.month}`;
-                                       return res;
-                                   })}>
+                            <Chart
+                                style={{color: '#faad14'}}
+                                autoFit={true}
+                                scale={scale}
+                                width={600}
+                                height={400}
+                                data={fakeData.map(e => {
+                                    const res = e;
+                                    e.month = `${e.month}`;
+                                    return res;
+                                })}>
                                 <Axis name="month" position="bottom" title/>
                                 <Axis name="revenue" position="left" title/>
                                 <Tooltip/>

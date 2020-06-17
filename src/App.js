@@ -1,6 +1,6 @@
 import React from "react";
 import {Switch, Route} from "react-router-dom";
-import "./App.css";
+import "./App.less";
 import {useDispatch} from "react-redux";
 
 import PublicRoute from "./components/common/PublicRoute";
