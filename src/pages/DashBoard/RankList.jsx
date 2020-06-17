@@ -1,18 +1,19 @@
 import React from 'react';
-import {Avatar, Card, Col, Divider, List, Row} from "antd";
+import {Badge, Col, Divider, List, Row} from "antd";
+import './RankList.css';
 
 const data = [
     {
-        title: 'Ant Design Title 1',
+        title: 'Iphone X1',
     },
     {
-        title: 'Ant Design Title 2',
+        title: 'Google Quantum A',
     },
     {
-        title: 'Ant Design Title 3',
+        title: 'IBM L1 Mark II',
     },
     {
-        title: 'Ant Design Title 4',
+        title: 'Tesla Phantom X',
     },
 ];
 
@@ -31,9 +32,12 @@ const RankList = () => {
                         renderItem={item => (
                             <List.Item>
                                 <List.Item.Meta
-                                    avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>}
+                                    avatar={(data.indexOf(item) < 3 ?
+                                        <Badge className="site-badge-count-4" count={data.indexOf(item) + 1}/>
+                                        :
+                                        null)}
                                     title={<a href="https://ant.design">{item.title}</a>}
-                                    description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                                    description="100000000"
                                 />
                             </List.Item>
                         )}

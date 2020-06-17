@@ -1,14 +1,11 @@
 import React from 'react';
-import {Switch, Route} from 'react-router-dom';
-import {searchCustomer, searchProvider} from "../../redux";
+import {Route, Switch} from 'react-router-dom';
 import ProviderRouting from "../Providers/ProviderRouting";
-import PrivateRoute from "../../components/common/PrivateRoute";
 import AppLayout from "../../layouts/AppLayout";
 import {useDispatch} from "react-redux";
 import CustomerRouting from "../Customers/CustomerRouting";
 import ProductRouting from "../Products/ProductRouting";
 import OrderRouting from "../Orders/OrderRouting";
-import LoadingPage from "../../components/common/LoadingPage";
 import Dashboard from "../DashBoard/Dashboard";
 
 const AppPage = (props) => {
@@ -40,7 +37,7 @@ const AppPage = (props) => {
                         // dispatch(searchCustomer());
                         return <OrderRouting {...props}/>
                     }}/>
-                <PrivateRoute path="/" component={Dashboard}/>
+                <Route path="/" component={Dashboard}/>
             </Switch>
         </AppLayout>
     );

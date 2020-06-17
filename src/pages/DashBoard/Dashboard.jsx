@@ -1,8 +1,7 @@
-import React from 'react';
-import {Card, Col, Row, Statistic, Tooltip, DatePicker, Typography, Tabs, Divider} from "antd";
-import {Axis, Chart, Geom, Legend} from "bizcharts";
+import React, {useState} from 'react';
+import {Button, Card, Col, DatePicker, Form, Row, Select, Space, Statistic, Tooltip, Typography} from "antd";
+import {Axis, Chart, Geom} from "bizcharts";
 import RankList from "./RankList";
-import PieChart from "./PieChart";
 
 const data = [
     {genre: 'Sports', sold: 275, income: 2300},
@@ -38,9 +37,16 @@ const scale = {
 };
 
 const Dashboard = () => {
+    const [_by, set_By] = useState('MONTH');
+
     function callback(key) {
         console.log(key);
     }
+
+    const intervalOptions = [
+        {label: 'Tháng', value: 'MONTH'},
+        {label: 'Năm', value: 'YEAR'}
+    ];
 
     return (
         <Row gutter={[16, 16]}>
@@ -73,32 +79,45 @@ const Dashboard = () => {
             </Col>
             <Col span={24}>
                 <Card style={{width: "100%", height: "100%"}}>
-                    <Row gutter={[16,16]}>
+                    <Row gutter={[16, 16]}>
                         <Col span={24}>
                             <Row justify="space-between">
                                 <Typography.Title level={4}>Tình hình doanh thu</Typography.Title>
-                                <DatePicker.RangePicker/>
+                                <Form onFinish={
+                                    (values) => console.log(values)
+                                }>
+                                    <Space>
+                                        <Form.Item name="by" label="Thống kê theo">
+                                            <Select
+                                                defaultValue="MONTH"
+                                                options={intervalOptions}
+                                                onChange={(value) => {
+                                                    set_By(value);
+                                                }}
+                                            />
+                                        </Form.Item>
+                                        <Form.Item name="range" label="Thời gian">
+                                            <DatePicker.RangePicker picker={_by.toLowerCase()}/>
+                                        </Form.Item>
+                                        <Form.Item>
+                                            <Button type="primary" htmlType="submit">Xem</Button>
+                                        </Form.Item>
+                                    </Space>
+                                </Form>
                             </Row>
                         </Col>
                         <Col span={16}>
-                            <Tabs defaultActiveKey="1" onChange={callback}>
-                                <Tabs.TabPane tab="Thống kê doanh thu" key="chart">
-                                    <Chart autoFit={true} scale={scale} width={600} height={400} data={fakeData.map(e => {
-                                        const res = e;
-                                        e.month = `${e.month}`;
-                                        return res;
-                                    })}>
-                                        <Axis name="month" position="bottom" title/>
-                                        <Axis name="revenue" position="left" title/>
-                                        {/*<Legend position="top" dy={-20}/>*/}
-                                        <Tooltip/>
-                                        <Geom type="interval" position="month*revenue"/>
-                                    </Chart>
-                                </Tabs.TabPane>
-                                <Tabs.TabPane tab="Cơ cấu doanh thu" key="3">
-                                    <PieChart/>
-                                </Tabs.TabPane>
-                            </Tabs>
+                            <Chart autoFit={true} scale={scale} width={600} height={400}
+                                   data={fakeData.map(e => {
+                                       const res = e;
+                                       e.month = `${e.month}`;
+                                       return res;
+                                   })}>
+                                <Axis name="month" position="bottom" title/>
+                                <Axis name="revenue" position="left" title/>
+                                <Tooltip/>
+                                <Geom type="interval" position="month*revenue"/>
+                            </Chart>
                         </Col>
                         <Col span={8}>
                             <RankList/>
