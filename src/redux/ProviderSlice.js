@@ -88,6 +88,7 @@ export const providersSlice = createSlice({
         [createProvider.fulfilled]: (state, action) => {
             state.isFetching = false;
             state.providers = action.payload;
+            message.success('Đã tạo thành công');
         },
         [createProvider.rejected]: (state, action) => {
             state.isFetching = false;
@@ -103,6 +104,7 @@ export const providersSlice = createSlice({
             const updated = action.payload;
             state.providers = state.providers.map(item => item.id === updated.id ? updated : item);
             state.isFetching = false;
+            message.success('Cập nhật thành công');
         },
         [updateProvider.rejected]: (state, action) => {
             state.isFetching = false;
@@ -116,6 +118,7 @@ export const providersSlice = createSlice({
         [deleteProvider.fulfilled]: (state, action) => {
             state.isFetching = false;
             state.providers = action.payload;
+            message.success('Đã xóa');
         },
         [deleteProvider.rejected]: (state, action) => {
             state.isFetching = false;
