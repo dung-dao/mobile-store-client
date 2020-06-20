@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import _ from "lodash";
-import {Card, Col, Input, Row, Typography, Table, Button, Form, InputNumber} from 'antd';
+import {Button, Card, Col, Input, Row, Table, Typography} from 'antd';
 import {useSelector} from "react-redux";
 import {customerSelector} from "../../redux";
 import {productSelector} from "../../redux/ProductSlice";

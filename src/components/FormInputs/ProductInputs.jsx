@@ -1,8 +1,7 @@
 import React from 'react';
-import {createCustomer, searchCustomer, updateCustomer} from "../../redux";
-import {Button, Col, Form, Input, InputNumber, Row, Select, Space} from "antd";
+import {Col, Form, Input, InputNumber, Row, Select} from "antd";
 import IF from "../common/IF";
-import {numberRegex, vietnameseRegex} from "../../utils/validate";
+import {numberValidate, requiredValidate, viValidate} from "../../utils/validate";
 import PropTypes from "prop-types";
 
 const ProductInputs = (props) => {
@@ -30,8 +29,7 @@ const ProductInputs = (props) => {
                         labelCol={span}
                         labelAlign="left"
                         rules={[
-                            {required: true, message: 'Vui lòng nhập tên'},
-                            {max: 255, message: 'Tên vượt quá độ dài cho phép'}
+                            ...requiredValidate("Tên sản phẩm"),
                         ]}
                     >
                         <Input readOnly={readOnly}/>
@@ -84,7 +82,8 @@ const ProductInputs = (props) => {
                         labelCol={span}
                         labelAlign="left"
                         rules={[
-                            {max: 10000, message: 'Tên vượt quá độ dài cho phép'}
+                            ...viValidate("tên nước sản xuất"),
+                            {max: 10000, message: 'Tên nước sản xuất vượt quá độ dài cho phép'}
                         ]}
                     >
                         <Input readOnly={readOnly}/>
@@ -97,7 +96,8 @@ const ProductInputs = (props) => {
                         labelCol={span}
                         labelAlign="left"
                         rules={[
-                            {required: true, message: "Nhập giá bán"}
+                            ...numberValidate("Giá bán"),
+                            ...requiredValidate("Giá bán")
                         ]}
                     >
                         <InputNumber
@@ -109,11 +109,17 @@ const ProductInputs = (props) => {
                         />
                     </Form.Item>
                 </Col>
-                <Col xs={24} md={12}>
+                <Col span={24}>
                     <Form.Item
                         label="Mô tả"
                         name="description"
-                        labelCol={span}
+                        // labelCol={span}
+                        labelCol={{
+                            span: 3
+                        }}
+                        wrapperCol={{
+                            span: 20
+                        }}
                         labelAlign="left"
                         rules={[
                             {max: 10000, message: 'Mô tả vượt quá độ dài cho phép'}

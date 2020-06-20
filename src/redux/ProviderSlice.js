@@ -1,4 +1,4 @@
-import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {message} from "antd";
 import http from "../services/http";
 
@@ -60,7 +60,11 @@ export const providersSlice = createSlice({
         isFetching: false,
         filter: {}
     },
-    reducers: {},
+    reducers: {
+        clearProviderSelect: state => {
+            state.detailProvider = null;
+        }
+    },
     extraReducers: {
         // Add reducers for additional action types here, and handle loading state as needed
         //Search
@@ -134,6 +138,6 @@ export const providersSlice = createSlice({
 });
 
 export const providerSelector = (state) => state.providers;
-export const {} = providersSlice.actions;
+export const {clearProviderSelect} = providersSlice.actions;
 const providerRoot = providersSlice.reducer;
 export default providerRoot;

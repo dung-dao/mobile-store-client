@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {Form, Input, Button, Card, Space, Row, Col} from 'antd';
+import {Button, Form, Row, Space} from 'antd';
 import {useDispatch, useSelector} from "react-redux";
-import {useParams, useLocation} from 'react-router-dom';
-import {push, goBack} from 'connected-react-router';
+import {useParams} from 'react-router-dom';
+import {goBack} from 'connected-react-router';
 import LoadingPage from "../../components/common/LoadingPage";
 import {allUsersSelector, createUser, getUserById, updateUser} from "../../redux/AllUsersSlice";
 import FormLayout from "../../components/common/FormLayout";

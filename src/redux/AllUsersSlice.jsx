@@ -1,14 +1,17 @@
 import {
     createERBase,
-    createThunkBase, deleteERBase,
-    deleteThunkBase, getByIdERBase,
+    createThunkBase,
+    deleteERBase,
+    deleteThunkBase,
+    getByIdERBase,
     getByIdThunkBase,
-    initialStateBase, searchERBase,
-    searchThunkBase, updateERBase,
+    initialStateBase,
+    searchERBase,
+    searchThunkBase,
+    updateERBase,
     updateThunkBase
 } from "./ReduxSliceBase";
 import {createSlice} from "@reduxjs/toolkit";
-import {customerSlice} from "./CustomerSlice";
 
 const resourceName = 'users';
 

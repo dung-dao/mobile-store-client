@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-    Route, Switch, useRouteMatch
-} from "react-router-dom";
+import {Route, Switch, useRouteMatch} from "react-router-dom";
 import ProductList from "./ProductList";
 import ProductDetail from "./ProductDetail";
 import {useDispatch} from "react-redux";

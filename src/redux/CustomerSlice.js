@@ -12,7 +12,6 @@ import {
     updateERBase,
     updateThunkBase
 } from "./ReduxSliceBase";
-import _ from 'lodash';
 
 const resourceName = 'customers';
 

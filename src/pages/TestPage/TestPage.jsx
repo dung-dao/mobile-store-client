@@ -1,7 +1,6 @@
 import React from 'react';
-import {Form, AutoComplete, Button, Select} from "antd";
+import {AutoComplete, Button, Form, Select} from "antd";
 import _ from 'lodash';
-import MAutoComplete from "../../components/common/mAutoComplete";
 
 const TestPage = () => {
     const options = [

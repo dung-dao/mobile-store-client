@@ -2,7 +2,6 @@ import React from 'react';
 import FormLayout from "../../components/common/FormLayout";
 import UserRegisterInput from "../../components/FormInputs/UserRegisterInput";
 import {Button, Form, Row, Space} from "antd";
-import IF from "../../components/common/IF";
 
 const UserRegisterv2 = () => {
     return (

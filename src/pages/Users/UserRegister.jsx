@@ -1,9 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {Form, Input, Button, Card, Space, Row, Col} from 'antd';
-import {useDispatch, useSelector} from "react-redux";
+import React from 'react';
+import {Button, Form, Row, Space} from 'antd';
+import {useDispatch} from "react-redux";
 import {goBack} from 'connected-react-router';
-import IF from "../../components/common/IF";
-import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
 import UserRegisterInput from "../../components/FormInputs/UserRegisterInput";
 import FormLayout from "../../components/common/FormLayout";
 import {createUser} from "../../redux/AllUsersSlice";
