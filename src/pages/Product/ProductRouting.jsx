@@ -30,6 +30,7 @@ const ProductRouting = (props) => {
                 render={() => {
                     return <ProductDetail action="VIEW"/>;
                 }}
+                exact
             />
             <Route path="/" render={(props) => {
                 dispatch(searchProduct());

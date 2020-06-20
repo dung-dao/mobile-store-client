@@ -3,15 +3,14 @@ import {Route, Switch} from 'react-router-dom';
 import ProviderRouting from "../Providers/ProviderRouting";
 import PrivateRoute from "../../components/common/PrivateRoute";
 import AppLayout from "../../layouts/AppLayout";
-import {useDispatch} from "react-redux";
 import CustomerRouting from "../Customers/CustomerRouting";
 import OrderRouting from "../Orders/OrderRouting";
 import UserRouting from "../Users/UserRouting";
 import ProductRouting from "../Product/ProductRouting";
 import TestPage from "../TestPage/TestPage";
+import ConfirmPopUp from "../../components/common/ConfirmPopUp";
 
 const AppPage = (props) => {
-    const dispatch = useDispatch();
     return (
         <AppLayout>
             <Switch>
@@ -42,6 +41,7 @@ const AppPage = (props) => {
                     }}/>
                 <PrivateRoute path="/" component={TestPage}/>
             </Switch>
+            <ConfirmPopUp/>
         </AppLayout>
     );
 };

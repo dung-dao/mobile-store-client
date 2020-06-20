@@ -1,23 +1,48 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import DataTable from "../../components/common/DataTable";
 import {sort} from "../../utils/sort";
+import {orderSelector, searchOrder} from "../../redux/OrderSlice";
+import {useSelector} from "react-redux";
+import {mapNestedObject} from "../../utils/ObjectUtils";
 
 const OrderList = () => {
+    const _orderSelector = useSelector(orderSelector);
+    const rawOrders = _orderSelector.items.length ? _orderSelector.items : [];
+    const viewOrders = rawOrders.map(order => {
+        const val = mapNestedObject(
+            order,
+            [
+                {key: 'name', path: ['Customer', 'name']},
+                {key: 'phone', path: ['Customer', 'phone']},
+            ],
+            ['Customer', 'provider', 'providerId', 'orderTypeId', 'updatedAt']
+        );
+        const date = new Date(val.createdAt);
+        val.createdAt = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+        return val;
+    });
+
+    useEffect(() => {
+        console.log(viewOrders);
+    });
+
+
     return (
         <React.Fragment>
             <DataTable
-                dataSource={[
-                    {id: 'fasdfdas', name: 'fafdas', key:"1"},
-                    {id: 'fasdfdas', name: 'fafdas', key:"2"},
-                    {id: 'fasdfdas', name: 'fafdas', key:"3"},
-                    {id: 'fasdfdas', name: 'fafdas', key:"4"},
-                ]}
+                dataSource={viewOrders}
                 columns={[
                     {
-                        title: "ID",
+                        title: "Mã đơn hàng",
                         key: "id",
                         dataIndex: "id",
                         sorter: sort('id')
+                    },
+                    {
+                        title: "Số điện thoại",
+                        key: "phone",
+                        dataIndex: "phone",
+                        sorter: sort('phone')
                     },
                     {
                         title: "Tên khách hàng",
@@ -25,9 +50,24 @@ const OrderList = () => {
                         dataIndex: "name",
                         sorter: sort('name')
                     },
+                    {
+                        title: "Ngày mua hàng",
+                        key: "createdAt",
+                        dataIndex: "createdAt",
+                        sorter: sort('createdAt')
+                    },
+                    {
+                        title: "Giá trị đơn hàng",
+                        key: "amount",
+                        dataIndex: "amount",
+                        sorter: sort('amount')
+                    },
                 ]}
                 resourceName={'orders'}
-                searchAC={null}/>
+                searchAC={searchOrder}
+                disableFields={['amount', 'createdAt']}
+                title="Danh sách đơn hàng"
+            />
         </React.Fragment>
     );
 };

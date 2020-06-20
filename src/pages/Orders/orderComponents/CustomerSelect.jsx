@@ -1,5 +1,5 @@
 import React from 'react';
-import {AutoComplete, Button, Col, Form, InputNumber, Row} from "antd";
+import {AutoComplete, Button, Col, Form, Row} from "antd";
 import PropTypes from "prop-types";
 import _ from "lodash";
 

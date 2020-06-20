@@ -1,12 +1,14 @@
 import React, {useState} from "react";
 import _ from "lodash";
 import {Button, Card, Col, Input, Row, Table, Typography} from 'antd';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {customerSelector} from "../../redux";
 import {productSelector} from "../../redux/ProductSlice";
 import {sort} from "../../utils/sort";
-import ProductSelect from "./ProductSelect";
-import CustomerSelect from "./CustomerSelect";
+import ProductSelect from "./orderComponents/ProductSelect";
+import CustomerSelect from "./orderComponents/CustomerSelect";
+import {formatToCurrency} from "../../utils/ObjectUtils";
+import {showModal} from "../../redux/PopUpSlice";
 
 const {Title} = Typography;
 
@@ -14,10 +16,16 @@ const OrderDetail = (props) => {
     //State
     const [customer, setCustomer] = useState(null);
     const [orderDetails, setOrderdetails] = useState([]);
+    //Modal Confirm
+    const [modalConfirm, setModalConfirm] = useState(false);
+    const closeModalConfirm = () => setModalConfirm(false);
+    const openModalConfirm = () => setModalConfirm(true);
+
 
     //Hooks
     const _customerSelector = useSelector(customerSelector);
     const _productSelector = useSelector(productSelector);
+    const dispatch = useDispatch();
 
     //#Map data
     const customers = _customerSelector ? _customerSelector.items : [];
@@ -145,6 +153,10 @@ const OrderDetail = (props) => {
                                     pagination={false}
                                     columns={[
                                         {
+                                            title: "Thao tác",
+                                            key: "delete",
+                                        },
+                                        {
                                             title: "Tên mã",
                                             key: "codeName",
                                             dataIndex: "codeName",
@@ -164,15 +176,21 @@ const OrderDetail = (props) => {
                                         },
                                         {
                                             title: "Đơn giá",
-                                            key: "amount",
-                                            dataIndex: "amount",
-                                            sorter: sort('amount')
+                                            key: "price",
+                                            dataIndex: "price",
+                                            sorter: sort('price'),
+                                            render: (text, record, index) => {
+                                                return formatToCurrency(text)
+                                            }
                                         },
                                         {
                                             title: "Thành tiền",
                                             key: "totalUnit",
                                             dataIndex: "totalUnit",
-                                            sorter: sort('totalUnit')
+                                            sorter: sort('totalUnit'),
+                                            render: (text, record, index) => {
+                                                return formatToCurrency(text)
+                                            }
                                         },
 
                                     ]}
@@ -182,11 +200,19 @@ const OrderDetail = (props) => {
                         </Row>
                         <Row justify="end">
                             <Typography.Text style={{margin: "1em", fontWeight: "bold"}}>
-                                {`Tổng cộng: ${_.sum(orderDetails.map(item => item.totalUnit))}`}
+                                {`Tổng cộng: ${formatToCurrency(_.sum(orderDetails.map(item => item.totalUnit)))}`}
                             </Typography.Text>
                         </Row>
                         <Row justify="end">
-                            <Button type="primary" size="large">Tạo đơn hàng</Button>
+                            <Button
+                                type="primary"
+                                size="large"
+                                onClick={() => {
+                                    dispatch(showModal({actionName: 'tạo hóa đơn', onOk: () => alert('ok')}))
+                                }}
+                            >
+                                Tạo đơn hàng
+                            </Button>
                         </Row>
                     </Card>
                 </Col>

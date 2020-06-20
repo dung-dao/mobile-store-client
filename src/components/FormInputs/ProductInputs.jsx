@@ -92,9 +92,9 @@ const ProductInputs = (props) => {
                 <Col xs={24} md={12}>
                     <Form.Item
                         label="Giá bán"
-                        name="amount"
-                        // labelCol={span}
-                        // labelAlign="left"
+                        name="price"
+                        labelCol={span}
+                        labelAlign="left"
                         rules={[
                             ...numberValidate("Giá bán"),
                             ...requiredValidate("Giá bán")

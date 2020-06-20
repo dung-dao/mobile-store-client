@@ -5,8 +5,8 @@ import {useSelector} from "react-redux";
 import {providerSelector} from "../../redux";
 import {productSelector} from "../../redux/ProductSlice";
 import {sort} from "../../utils/sort";
-import ProductSelect from "./ProductSelect";
-import CustomerSelect from "./CustomerSelect";
+import ProductSelect from "./orderComponents/ProductSelect";
+import CustomerSelect from "./orderComponents/CustomerSelect";
 
 const {Title} = Typography;
 

@@ -53,13 +53,12 @@ const ProductDetail = (props) => {
 
     if (action !== 'CREATE' && !detailItem) {
         return <LoadingPage/>;
-    } else
-        detailItem = {manufactureId: 1, categoryId: 1}
+    }
 
     return (
         <FormLayout title={detailPageTitle}>
             <Form
-                initialValues={detailItem}
+                initialValues={action === 'CREATE' ? {manufactureId: 1, categoryId: 1} : detailItem}
                 labelCol={{span: 8}}
                 labelAlign={"left"}
                 wrapperCol={{span: 16}}

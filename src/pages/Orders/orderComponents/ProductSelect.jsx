@@ -20,11 +20,13 @@ const ProductSelect = (props) => {
             <Form
                 form={form}
                 layout={{wrapperCol: {span: 8}}}
+                initialValues={{quantity: 1}}
                 onFinish={values => {
                     // console.log('values', values);
                     const codeName = values.product.split(' - ')[1];
                     const product = products.find(prod => prod.codeName == codeName);
-                    handleFinish({...product, quantity: values.quantity, totalUnit: product.amount * values.quantity});
+                    handleFinish({...product, quantity: values.quantity, totalUnit: product.price * values.quantity});
+                    form.resetFields();
                 }}>
                 <Row gutter={[16, 16]}>
                     <Col span={8}>
