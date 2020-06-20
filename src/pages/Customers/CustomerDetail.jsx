@@ -1,15 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Form, Input, Button, Card, Space, Row, Col} from 'antd';
+import {Button, Card, Col, Form, Row, Space} from 'antd';
 import {useDispatch, useSelector} from "react-redux";
-import {useParams, useLocation} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {push} from 'connected-react-router';
 import IF from "../../components/common/IF";
 import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
-import {
-    createCustomer,
-    customerSelector,
-    getCustomerById, updateCustomer,
-} from "../../redux";
+import {createCustomer, customerSelector, getCustomerById, updateCustomer,} from "../../redux";
 import CustomerInput from "../../components/FormInputs/CustomerInput";
 import LoadingPage from "../../components/common/LoadingPage";
 
@@ -106,11 +102,6 @@ const CustomerDetail = (props) => {
                         </Form>
                     </Card>
                 </Col>
-                {/*<Col span={24}>*/}
-                {/*    <Card title="Lịch sử đặt hàng">*/}
-                {/*        <OrderViewer/>*/}
-                {/*    </Card>*/}
-                {/*</Col>*/}
             </Row>
         </React.Fragment>
     );

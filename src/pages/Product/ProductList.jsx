@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import DataTable from "../../components/common/DataTable";
 import {useDispatch, useSelector} from "react-redux";
 import {sort} from "../../utils/sort";
-import PropTypes, {bool} from "prop-types";
+import PropTypes from "prop-types";
 import LoadingPage from "../../components/common/LoadingPage";
 import {resourceName} from "./Config";
 import {deleteProduct, productSelector, searchProduct} from "../../redux/ProductSlice";

@@ -1,11 +1,9 @@
 import React from 'react';
-import {
-    Route, Switch, useRouteMatch, useParams
-} from "react-router-dom";
+import {Route, Switch, useRouteMatch} from "react-router-dom";
 import CustomerList from "./CustomerList";
 import CustomerDetail from "./CustomerDetail";
 import {useDispatch} from "react-redux";
-import {searchCustomer, searchProvider} from "../../redux";
+import {searchCustomer} from "../../redux";
 
 const resourceName = 'customers';
 

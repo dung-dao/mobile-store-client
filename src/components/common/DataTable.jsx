@@ -35,7 +35,7 @@ const DataTable = (props) => {
                         <Card>
                             <Row>
                                 <Col span={24}>
-                                    <Row justify="space-between">
+                                    <Row justify="space-between" gutter={[16, 16]}>
                                         <Col>
                                             {typeof props.title === "string" ?
                                                 <Title level={4}>{props.title}</Title> : props.title}

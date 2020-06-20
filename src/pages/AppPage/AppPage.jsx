@@ -1,14 +1,14 @@
 import React from 'react';
-import {Switch, Route} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import ProviderRouting from "../Providers/ProviderRouting";
 import PrivateRoute from "../../components/common/PrivateRoute";
 import AppLayout from "../../layouts/AppLayout";
 import {useDispatch} from "react-redux";
 import CustomerRouting from "../Customers/CustomerRouting";
 import OrderRouting from "../Orders/OrderRouting";
-import LoadingPage from "../../components/common/LoadingPage";
 import UserRouting from "../Users/UserRouting";
 import ProductRouting from "../Product/ProductRouting";
+import TestPage from "../TestPage/TestPage";
 
 const AppPage = (props) => {
     const dispatch = useDispatch();
@@ -40,7 +40,7 @@ const AppPage = (props) => {
                     render={(props) => {
                         return <ProductRouting {...props}/>
                     }}/>
-                <PrivateRoute path="/" component={LoadingPage}/>
+                <PrivateRoute path="/" component={TestPage}/>
             </Switch>
         </AppLayout>
     );

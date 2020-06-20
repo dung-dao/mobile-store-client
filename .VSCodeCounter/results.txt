@@ -1,0 +1,124 @@
+Date : 2020-06-16 00:25:25
+Directory : /home/dungd/workspace/mobile-store-client
+Total : 74 files,  3410 codes, 195 comments, 372 blanks, all 3977 lines
+
+Languages
++------------------+------------+------------+------------+------------+------------+
+| language         | files      | code       | comment    | blank      | total      |
++------------------+------------+------------+------------+------------+------------+
+| JavaScript React |         41 |      2,452 |         96 |        217 |      2,765 |
+| JavaScript       |         21 |        691 |         75 |         97 |        863 |
+| CSS              |          6 |         88 |          0 |         22 |        110 |
+| JSON             |          2 |         79 |          0 |          2 |         81 |
+| XML              |          2 |         43 |          1 |          1 |         45 |
+| Markdown         |          1 |         37 |          0 |         32 |         69 |
+| HTML             |          1 |         20 |         23 |          1 |         44 |
++------------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                      | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                         |         74 |      3,410 |        195 |        372 |      3,977 |
+| public                                                                                    |          2 |         45 |         23 |          2 |         70 |
+| src                                                                                       |         70 |      3,274 |        172 |        337 |      3,783 |
+| src/app                                                                                   |          2 |         63 |          1 |          3 |         67 |
+| src/components                                                                            |         15 |        904 |          9 |         66 |        979 |
+| src/components/FormInputs                                                                 |          5 |        431 |          0 |         21 |        452 |
+| src/components/common                                                                     |         10 |        473 |          9 |         45 |        527 |
+| src/layouts                                                                               |          6 |        180 |          0 |         26 |        206 |
+| src/pages                                                                                 |         24 |      1,384 |         85 |        135 |      1,604 |
+| src/pages/AppPage                                                                         |          1 |         48 |          0 |          2 |         50 |
+| src/pages/Customers                                                                       |          4 |        218 |          5 |         24 |        247 |
+| src/pages/DashBoard                                                                       |          1 |          8 |          0 |          3 |         11 |
+| src/pages/Orders                                                                          |          3 |        321 |         10 |         25 |        356 |
+| src/pages/Product                                                                         |          4 |        195 |          6 |         19 |        220 |
+| src/pages/Providers                                                                       |          3 |        219 |          5 |         17 |        241 |
+| src/pages/SignIn                                                                          |          2 |         77 |          0 |          9 |         86 |
+| src/pages/TestPage                                                                        |          1 |         40 |          0 |          5 |         45 |
+| src/pages/Users                                                                           |          5 |        258 |         59 |         31 |        348 |
+| src/redux                                                                                 |          7 |        449 |         25 |         46 |        520 |
+| src/services                                                                              |          2 |         46 |         11 |         14 |         71 |
+| src/utils                                                                                 |          6 |         62 |          3 |         14 |         79 |
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| filename                                                                                  | language         | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| /home/dungd/workspace/mobile-store-client/README.md                                       | Markdown         |         37 |          0 |         32 |         69 |
+| /home/dungd/workspace/mobile-store-client/package.json                                    | JSON             |         54 |          0 |          1 |         55 |
+| /home/dungd/workspace/mobile-store-client/public/index.html                               | HTML             |         20 |         23 |          1 |         44 |
+| /home/dungd/workspace/mobile-store-client/public/manifest.json                            | JSON             |         25 |          0 |          1 |         26 |
+| /home/dungd/workspace/mobile-store-client/src/App.css                                     | CSS              |         35 |          0 |          7 |         42 |
+| /home/dungd/workspace/mobile-store-client/src/App.js                                      | JavaScript       |         23 |          0 |          4 |         27 |
+| /home/dungd/workspace/mobile-store-client/src/app/logo.svg                                | XML              |         42 |          1 |          0 |         43 |
+| /home/dungd/workspace/mobile-store-client/src/app/store.js                                | JavaScript       |         21 |          0 |          3 |         24 |
+| /home/dungd/workspace/mobile-store-client/src/components/FormInputs/CustomerInput.jsx     | JavaScript React |         77 |          0 |          4 |         81 |
+| /home/dungd/workspace/mobile-store-client/src/components/FormInputs/CustomerInputs.jsx    | JavaScript React |         85 |          0 |          3 |         88 |
+| /home/dungd/workspace/mobile-store-client/src/components/FormInputs/ProductInputs.jsx     | JavaScript React |        132 |          0 |          3 |        135 |
+| /home/dungd/workspace/mobile-store-client/src/components/FormInputs/UserInput.jsx         | JavaScript React |         61 |          0 |          5 |         66 |
+| /home/dungd/workspace/mobile-store-client/src/components/FormInputs/UserRegisterInput.jsx | JavaScript React |         76 |          0 |          6 |         82 |
+| /home/dungd/workspace/mobile-store-client/src/components/common/DataTable.jsx             | JavaScript React |        159 |          0 |          7 |        166 |
+| /home/dungd/workspace/mobile-store-client/src/components/common/DetailPage.jsx            | JavaScript React |         75 |          1 |          8 |         84 |
+| /home/dungd/workspace/mobile-store-client/src/components/common/FormLayout.jsx            | JavaScript React |         33 |          0 |          4 |         37 |
+| /home/dungd/workspace/mobile-store-client/src/components/common/IF.jsx                    | JavaScript React |         11 |          0 |          4 |         15 |
+| /home/dungd/workspace/mobile-store-client/src/components/common/LoadingPage.jsx           | JavaScript React |         19 |          0 |          2 |         21 |
+| /home/dungd/workspace/mobile-store-client/src/components/common/PrivateRoute.jsx          | JavaScript React |         15 |          5 |          3 |         23 |
+| /home/dungd/workspace/mobile-store-client/src/components/common/PublicRoute.jsx           | JavaScript React |         20 |          2 |          3 |         25 |
+| /home/dungd/workspace/mobile-store-client/src/components/common/SearchForm.jsx            | JavaScript React |        101 |          1 |          8 |        110 |
+| /home/dungd/workspace/mobile-store-client/src/components/common/WithRouteComponent.jsx    | JavaScript React |         20 |          0 |          4 |         24 |
+| /home/dungd/workspace/mobile-store-client/src/components/common/mAutoComplete.jsx         | JavaScript React |         20 |          0 |          2 |         22 |
+| /home/dungd/workspace/mobile-store-client/src/index.css                                   | CSS              |         12 |          0 |          2 |         14 |
+| /home/dungd/workspace/mobile-store-client/src/index.js                                    | JavaScript       |         18 |          3 |          3 |         24 |
+| /home/dungd/workspace/mobile-store-client/src/layouts/AppHeader.css                       | CSS              |         12 |          0 |          3 |         15 |
+| /home/dungd/workspace/mobile-store-client/src/layouts/AppHeader.jsx                       | JavaScript React |         43 |          0 |          5 |         48 |
+| /home/dungd/workspace/mobile-store-client/src/layouts/AppLayout.css                       | CSS              |         17 |          0 |          6 |         23 |
+| /home/dungd/workspace/mobile-store-client/src/layouts/AppLayout.jsx                       | JavaScript React |         81 |          0 |          6 |         87 |
+| /home/dungd/workspace/mobile-store-client/src/layouts/BlankLayout.css                     | CSS              |         12 |          0 |          3 |         15 |
+| /home/dungd/workspace/mobile-store-client/src/layouts/BlankLayout.jsx                     | JavaScript React |         15 |          0 |          3 |         18 |
+| /home/dungd/workspace/mobile-store-client/src/logo.svg                                    | XML              |          1 |          0 |          1 |          2 |
+| /home/dungd/workspace/mobile-store-client/src/pages/AppPage/AppPage.jsx                   | JavaScript React |         48 |          0 |          2 |         50 |
+| /home/dungd/workspace/mobile-store-client/src/pages/Customers/CustomerDetail.jsx          | JavaScript React |        104 |          4 |         12 |        120 |
+| /home/dungd/workspace/mobile-store-client/src/pages/Customers/CustomerList.jsx            | JavaScript React |         62 |          1 |          7 |         70 |
+| /home/dungd/workspace/mobile-store-client/src/pages/Customers/CustomerRouting.jsx         | JavaScript React |         42 |          0 |          3 |         45 |
+| /home/dungd/workspace/mobile-store-client/src/pages/Customers/OrderViewer.jsx             | JavaScript React |         10 |          0 |          2 |         12 |
+| /home/dungd/workspace/mobile-store-client/src/pages/DashBoard/Dashboard.jsx               | JavaScript React |          8 |          0 |          3 |         11 |
+| /home/dungd/workspace/mobile-store-client/src/pages/Orders/OrderDetail.jsx                | JavaScript React |        264 |         10 |         20 |        294 |
+| /home/dungd/workspace/mobile-store-client/src/pages/Orders/OrderList.jsx                  | JavaScript React |         33 |          0 |          2 |         35 |
+| /home/dungd/workspace/mobile-store-client/src/pages/Orders/OrderRouting.jsx               | JavaScript React |         24 |          0 |          3 |         27 |
+| /home/dungd/workspace/mobile-store-client/src/pages/Product/Config.js                     | JavaScript       |          7 |          0 |          1 |          8 |
+| /home/dungd/workspace/mobile-store-client/src/pages/Product/ProductDetail.jsx             | JavaScript React |         76 |          4 |         10 |         90 |
+| /home/dungd/workspace/mobile-store-client/src/pages/Product/ProductList.jsx               | JavaScript React |         70 |          2 |          6 |         78 |
+| /home/dungd/workspace/mobile-store-client/src/pages/Product/ProductRouting.jsx            | JavaScript React |         42 |          0 |          2 |         44 |
+| /home/dungd/workspace/mobile-store-client/src/pages/Providers/Provider.jsx                | JavaScript React |         59 |          1 |          5 |         65 |
+| /home/dungd/workspace/mobile-store-client/src/pages/Providers/ProviderDetail.jsx          | JavaScript React |        118 |          4 |          7 |        129 |
+| /home/dungd/workspace/mobile-store-client/src/pages/Providers/ProviderRouting.jsx         | JavaScript React |         42 |          0 |          5 |         47 |
+| /home/dungd/workspace/mobile-store-client/src/pages/SignIn/SignIn.css                     | CSS              |          0 |          0 |          1 |          1 |
+| /home/dungd/workspace/mobile-store-client/src/pages/SignIn/SignIn.jsx                     | JavaScript React |         77 |          0 |          8 |         85 |
+| /home/dungd/workspace/mobile-store-client/src/pages/TestPage/TestPage.jsx                 | JavaScript React |         40 |          0 |          5 |         45 |
+| /home/dungd/workspace/mobile-store-client/src/pages/Users/UserDetail.jsx                  | JavaScript React |         73 |         50 |         11 |        134 |
+| /home/dungd/workspace/mobile-store-client/src/pages/Users/UserList.jsx                    | JavaScript React |         49 |          1 |          7 |         57 |
+| /home/dungd/workspace/mobile-store-client/src/pages/Users/UserRegister.jsx                | JavaScript React |         56 |          7 |          8 |         71 |
+| /home/dungd/workspace/mobile-store-client/src/pages/Users/UserRegisterv2.jsx              | JavaScript React |         35 |          1 |          2 |         38 |
+| /home/dungd/workspace/mobile-store-client/src/pages/Users/UserRouting.jsx                 | JavaScript React |         45 |          0 |          3 |         48 |
+| /home/dungd/workspace/mobile-store-client/src/redux/AllUsersSlice.jsx                     | JavaScript React |         32 |          2 |          4 |         38 |
+| /home/dungd/workspace/mobile-store-client/src/redux/CustomerSlice.js                      | JavaScript       |         61 |          3 |          5 |         69 |
+| /home/dungd/workspace/mobile-store-client/src/redux/ProductSlice.js                       | JavaScript       |         53 |          6 |          6 |         65 |
+| /home/dungd/workspace/mobile-store-client/src/redux/ProviderSlice.js                      | JavaScript       |        119 |          7 |         14 |        140 |
+| /home/dungd/workspace/mobile-store-client/src/redux/ReduxSliceBase.js                     | JavaScript       |        119 |          1 |         11 |        131 |
+| /home/dungd/workspace/mobile-store-client/src/redux/UserSlice.js                          | JavaScript       |         62 |          6 |          6 |         74 |
+| /home/dungd/workspace/mobile-store-client/src/redux/index.js                              | JavaScript       |          3 |          0 |          0 |          3 |
+| /home/dungd/workspace/mobile-store-client/src/routeConfig.js                              | JavaScript       |          2 |          0 |          2 |          4 |
+| /home/dungd/workspace/mobile-store-client/src/serviceWorker.js                            | JavaScript       |         94 |         31 |         13 |        138 |
+| /home/dungd/workspace/mobile-store-client/src/services/LocalStorageService.js             | JavaScript       |         26 |          6 |          8 |         40 |
+| /home/dungd/workspace/mobile-store-client/src/services/http.js                            | JavaScript       |         20 |          5 |          6 |         31 |
+| /home/dungd/workspace/mobile-store-client/src/setupTests.js                               | JavaScript       |          1 |          4 |          1 |          6 |
+| /home/dungd/workspace/mobile-store-client/src/utils/CheckLogin.js                         | JavaScript       |         13 |          3 |          4 |         20 |
+| /home/dungd/workspace/mobile-store-client/src/utils/ObjectUtils.js                        | JavaScript       |         30 |          0 |          5 |         35 |
+| /home/dungd/workspace/mobile-store-client/src/utils/ReduxHelper.js                        | JavaScript       |          6 |          0 |          2 |          8 |
+| /home/dungd/workspace/mobile-store-client/src/utils/index.js                              | JavaScript       |          3 |          0 |          1 |          4 |
+| /home/dungd/workspace/mobile-store-client/src/utils/sort.js                               | JavaScript       |          8 |          0 |          2 |         10 |
+| /home/dungd/workspace/mobile-store-client/src/utils/validate.js                           | JavaScript       |          2 |          0 |          0 |          2 |
+| Total                                                                                     |                  |      3,410 |        195 |        372 |      3,977 |
++-------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+

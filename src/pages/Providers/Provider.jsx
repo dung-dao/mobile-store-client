@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import DataTable from "../../components/common/DataTable";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteProvider, getProviderById, providersSelector, searchCustomer, searchProvider} from "../../redux";
+import {deleteProvider, getProviderById, providerSelector, searchProvider} from "../../redux";
 import {sort} from "../../utils/sort";
 import {generateKey} from "../../utils/ObjectUtils";
 import LoadingPage from "../../components/common/LoadingPage";
@@ -9,7 +9,7 @@ import LoadingPage from "../../components/common/LoadingPage";
 const Provider = (props) => {
     //Data Hook
     const dispatch = useDispatch();
-    const selector = useSelector(providersSelector);
+    const selector = useSelector(providerSelector);
     const [init, setInit] = useState(false);
     useEffect(() => {
         if (!init) {
@@ -18,7 +18,7 @@ const Provider = (props) => {
         }
     });
 
-    if(selector.isFetching)
+    if (selector.isFetching)
         return <LoadingPage/>
 
     return (

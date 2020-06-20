@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes, {number} from "prop-types";
+import PropTypes from "prop-types";
 import IF from "../common/IF";
 import {Col, Form, Input, Select} from "antd";
-import {numberRegex, vietnameseRegex} from "../../utils/validate";
 
 const UserRegisterInput = (props) => {
     const readOnly = props.readOnly;
@@ -28,9 +27,7 @@ const UserRegisterInput = (props) => {
                     label="Tên đăng nhập"
                     name="name"
                     rules={[
-                        {required: true, message: 'Vui lòng nhập tên đăng nhập'},
-                        {max: 255, message: 'Tên vượt quá độ dài cho phép'},
-                        {pattern: vietnameseRegex, message: 'Tên đăng nhập không hợp lệ'}
+                        {pattern: /^[a-zA-Z0-9]*$/, message: 'Tên đăng nhập không hợp lệ'}
                     ]}
                 >
                     <Input readOnly={readOnly}/>
@@ -58,12 +55,11 @@ const UserRegisterInput = (props) => {
                         {required: true, message: 'Vui lòng nhập vai trò'},
                     ]}
                 >
-                    {/*TODO: Thêm Role chính xác*/}
                     <Select
                         options={[
                             {label: "Admin", value: "admin"},
-                            {label: "Nhân viên", value: "admin"},
-                            {label: "Thủ kho", value: "admin"}
+                            {label: "Nhân viên", value: "salesman"},
+                            {label: "Thủ kho", value: "storekeeper"}
                         ]}
                     />
                 </Form.Item>

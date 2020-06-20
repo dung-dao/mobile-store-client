@@ -1,8 +1,8 @@
 import React from 'react';
-import PropTypes, {number} from "prop-types";
+import PropTypes from "prop-types";
 import IF from "../common/IF";
 import {Col, Form, Input} from "antd";
-import {numberRegex, vietnameseRegex} from "../../utils/validate";
+import {phoneValidate, requiredValidate, vietnameseRegex} from "../../utils/validate";
 
 const CustomerInput = (props) => {
     const readOnly = props.readOnly;
@@ -23,10 +23,10 @@ const CustomerInput = (props) => {
             </IF>
             <Col xs={24} md={span}>
                 <Form.Item
-                    label="Họ và tên"
+                    label="Họ tên"
                     name="name"
                     rules={[
-                        {required: true, message: 'Vui lòng nhập họ tên'},
+                        ...requiredValidate("Họ tên"),
                         {max: 255, message: 'Tên vượt quá độ dài cho phép'},
                         {pattern: vietnameseRegex, message: 'Họ tên không hợp lệ'}
                     ]}
@@ -39,9 +39,8 @@ const CustomerInput = (props) => {
                     label="Số Điện Thoại"
                     name="phone"
                     rules={[
-                        {pattern: numberRegex, message: 'Số điện thoại chỉ gồm số'},
-                        {required: true, message: 'Số điện thoại không được để trống'},
-                        {max: 12, message: 'Số điện thoại không hợp lệ'},
+                        ...phoneValidate(),
+                        ...requiredValidate("Số Điện Thoại")
                     ]}
                 >
                     <Input readOnly={readOnly}/>
@@ -51,6 +50,9 @@ const CustomerInput = (props) => {
                 <Form.Item
                     label="Địa Chỉ"
                     name="address"
+                    rules={[
+                        {max: 10000, message: "Địa chỉ quá dài"}
+                    ]}
                 >
                     <Input readOnly={readOnly}/>
                 </Form.Item>
@@ -60,8 +62,8 @@ const CustomerInput = (props) => {
                     label="Địa chỉ email"
                     name="email"
                     rules={[
-                        {type: "email", message: "Email không hợp lệ"},
-                        {required: true, message: 'Số điện thoại không được để trống'}
+                        {type: "email", message: "Địa chỉ email không hợp lệ"},
+                        ...requiredValidate("Địa chỉ email")
                     ]}
                 >
                     <Input readOnly={readOnly}/>

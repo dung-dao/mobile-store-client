@@ -1,8 +1,6 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {Divider, Layout, Menu} from "antd";
-import {
-    UserOutlined,
-} from "@ant-design/icons";
+import {UserOutlined,} from "@ant-design/icons";
 import "./AppLayout.css";
 import AppHeader from "./AppHeader";
 import {Link} from 'react-router-dom';

@@ -1,0 +1,76 @@
+"filename", "language", "JSON", "CSS", "JavaScript React", "XML", "JavaScript", "Markdown", "HTML", "comment", "blank", "total"
+"/home/dungd/workspace/mobile-store-client/README.md", "Markdown", 0, 0, 0, 0, 0, 37, 0, 0, 32, 69
+"/home/dungd/workspace/mobile-store-client/package.json", "JSON", 54, 0, 0, 0, 0, 0, 0, 0, 1, 55
+"/home/dungd/workspace/mobile-store-client/public/index.html", "HTML", 0, 0, 0, 0, 0, 0, 20, 23, 1, 44
+"/home/dungd/workspace/mobile-store-client/public/manifest.json", "JSON", 25, 0, 0, 0, 0, 0, 0, 0, 1, 26
+"/home/dungd/workspace/mobile-store-client/src/App.css", "CSS", 0, 35, 0, 0, 0, 0, 0, 0, 7, 42
+"/home/dungd/workspace/mobile-store-client/src/App.js", "JavaScript", 0, 0, 0, 0, 23, 0, 0, 0, 4, 27
+"/home/dungd/workspace/mobile-store-client/src/app/logo.svg", "XML", 0, 0, 0, 42, 0, 0, 0, 1, 0, 43
+"/home/dungd/workspace/mobile-store-client/src/app/store.js", "JavaScript", 0, 0, 0, 0, 21, 0, 0, 0, 3, 24
+"/home/dungd/workspace/mobile-store-client/src/components/FormInputs/CustomerInput.jsx", "JavaScript React", 0, 0, 77, 0, 0, 0, 0, 0, 4, 81
+"/home/dungd/workspace/mobile-store-client/src/components/FormInputs/CustomerInputs.jsx", "JavaScript React", 0, 0, 85, 0, 0, 0, 0, 0, 3, 88
+"/home/dungd/workspace/mobile-store-client/src/components/FormInputs/ProductInputs.jsx", "JavaScript React", 0, 0, 132, 0, 0, 0, 0, 0, 3, 135
+"/home/dungd/workspace/mobile-store-client/src/components/FormInputs/UserInput.jsx", "JavaScript React", 0, 0, 61, 0, 0, 0, 0, 0, 5, 66
+"/home/dungd/workspace/mobile-store-client/src/components/FormInputs/UserRegisterInput.jsx", "JavaScript React", 0, 0, 76, 0, 0, 0, 0, 0, 6, 82
+"/home/dungd/workspace/mobile-store-client/src/components/common/DataTable.jsx", "JavaScript React", 0, 0, 159, 0, 0, 0, 0, 0, 7, 166
+"/home/dungd/workspace/mobile-store-client/src/components/common/DetailPage.jsx", "JavaScript React", 0, 0, 75, 0, 0, 0, 0, 1, 8, 84
+"/home/dungd/workspace/mobile-store-client/src/components/common/FormLayout.jsx", "JavaScript React", 0, 0, 33, 0, 0, 0, 0, 0, 4, 37
+"/home/dungd/workspace/mobile-store-client/src/components/common/IF.jsx", "JavaScript React", 0, 0, 11, 0, 0, 0, 0, 0, 4, 15
+"/home/dungd/workspace/mobile-store-client/src/components/common/LoadingPage.jsx", "JavaScript React", 0, 0, 19, 0, 0, 0, 0, 0, 2, 21
+"/home/dungd/workspace/mobile-store-client/src/components/common/PrivateRoute.jsx", "JavaScript React", 0, 0, 15, 0, 0, 0, 0, 5, 3, 23
+"/home/dungd/workspace/mobile-store-client/src/components/common/PublicRoute.jsx", "JavaScript React", 0, 0, 20, 0, 0, 0, 0, 2, 3, 25
+"/home/dungd/workspace/mobile-store-client/src/components/common/SearchForm.jsx", "JavaScript React", 0, 0, 101, 0, 0, 0, 0, 1, 8, 110
+"/home/dungd/workspace/mobile-store-client/src/components/common/WithRouteComponent.jsx", "JavaScript React", 0, 0, 20, 0, 0, 0, 0, 0, 4, 24
+"/home/dungd/workspace/mobile-store-client/src/components/common/mAutoComplete.jsx", "JavaScript React", 0, 0, 20, 0, 0, 0, 0, 0, 2, 22
+"/home/dungd/workspace/mobile-store-client/src/index.css", "CSS", 0, 12, 0, 0, 0, 0, 0, 0, 2, 14
+"/home/dungd/workspace/mobile-store-client/src/index.js", "JavaScript", 0, 0, 0, 0, 18, 0, 0, 3, 3, 24
+"/home/dungd/workspace/mobile-store-client/src/layouts/AppHeader.css", "CSS", 0, 12, 0, 0, 0, 0, 0, 0, 3, 15
+"/home/dungd/workspace/mobile-store-client/src/layouts/AppHeader.jsx", "JavaScript React", 0, 0, 43, 0, 0, 0, 0, 0, 5, 48
+"/home/dungd/workspace/mobile-store-client/src/layouts/AppLayout.css", "CSS", 0, 17, 0, 0, 0, 0, 0, 0, 6, 23
+"/home/dungd/workspace/mobile-store-client/src/layouts/AppLayout.jsx", "JavaScript React", 0, 0, 81, 0, 0, 0, 0, 0, 6, 87
+"/home/dungd/workspace/mobile-store-client/src/layouts/BlankLayout.css", "CSS", 0, 12, 0, 0, 0, 0, 0, 0, 3, 15
+"/home/dungd/workspace/mobile-store-client/src/layouts/BlankLayout.jsx", "JavaScript React", 0, 0, 15, 0, 0, 0, 0, 0, 3, 18
+"/home/dungd/workspace/mobile-store-client/src/logo.svg", "XML", 0, 0, 0, 1, 0, 0, 0, 0, 1, 2
+"/home/dungd/workspace/mobile-store-client/src/pages/AppPage/AppPage.jsx", "JavaScript React", 0, 0, 48, 0, 0, 0, 0, 0, 2, 50
+"/home/dungd/workspace/mobile-store-client/src/pages/Customers/CustomerDetail.jsx", "JavaScript React", 0, 0, 104, 0, 0, 0, 0, 4, 12, 120
+"/home/dungd/workspace/mobile-store-client/src/pages/Customers/CustomerList.jsx", "JavaScript React", 0, 0, 62, 0, 0, 0, 0, 1, 7, 70
+"/home/dungd/workspace/mobile-store-client/src/pages/Customers/CustomerRouting.jsx", "JavaScript React", 0, 0, 42, 0, 0, 0, 0, 0, 3, 45
+"/home/dungd/workspace/mobile-store-client/src/pages/Customers/OrderViewer.jsx", "JavaScript React", 0, 0, 10, 0, 0, 0, 0, 0, 2, 12
+"/home/dungd/workspace/mobile-store-client/src/pages/DashBoard/Dashboard.jsx", "JavaScript React", 0, 0, 8, 0, 0, 0, 0, 0, 3, 11
+"/home/dungd/workspace/mobile-store-client/src/pages/Orders/OrderDetail.jsx", "JavaScript React", 0, 0, 264, 0, 0, 0, 0, 10, 20, 294
+"/home/dungd/workspace/mobile-store-client/src/pages/Orders/OrderList.jsx", "JavaScript React", 0, 0, 33, 0, 0, 0, 0, 0, 2, 35
+"/home/dungd/workspace/mobile-store-client/src/pages/Orders/OrderRouting.jsx", "JavaScript React", 0, 0, 24, 0, 0, 0, 0, 0, 3, 27
+"/home/dungd/workspace/mobile-store-client/src/pages/Product/Config.js", "JavaScript", 0, 0, 0, 0, 7, 0, 0, 0, 1, 8
+"/home/dungd/workspace/mobile-store-client/src/pages/Product/ProductDetail.jsx", "JavaScript React", 0, 0, 76, 0, 0, 0, 0, 4, 10, 90
+"/home/dungd/workspace/mobile-store-client/src/pages/Product/ProductList.jsx", "JavaScript React", 0, 0, 70, 0, 0, 0, 0, 2, 6, 78
+"/home/dungd/workspace/mobile-store-client/src/pages/Product/ProductRouting.jsx", "JavaScript React", 0, 0, 42, 0, 0, 0, 0, 0, 2, 44
+"/home/dungd/workspace/mobile-store-client/src/pages/Providers/Provider.jsx", "JavaScript React", 0, 0, 59, 0, 0, 0, 0, 1, 5, 65
+"/home/dungd/workspace/mobile-store-client/src/pages/Providers/ProviderDetail.jsx", "JavaScript React", 0, 0, 118, 0, 0, 0, 0, 4, 7, 129
+"/home/dungd/workspace/mobile-store-client/src/pages/Providers/ProviderRouting.jsx", "JavaScript React", 0, 0, 42, 0, 0, 0, 0, 0, 5, 47
+"/home/dungd/workspace/mobile-store-client/src/pages/SignIn/SignIn.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"/home/dungd/workspace/mobile-store-client/src/pages/SignIn/SignIn.jsx", "JavaScript React", 0, 0, 77, 0, 0, 0, 0, 0, 8, 85
+"/home/dungd/workspace/mobile-store-client/src/pages/TestPage/TestPage.jsx", "JavaScript React", 0, 0, 40, 0, 0, 0, 0, 0, 5, 45
+"/home/dungd/workspace/mobile-store-client/src/pages/Users/UserDetail.jsx", "JavaScript React", 0, 0, 73, 0, 0, 0, 0, 50, 11, 134
+"/home/dungd/workspace/mobile-store-client/src/pages/Users/UserList.jsx", "JavaScript React", 0, 0, 49, 0, 0, 0, 0, 1, 7, 57
+"/home/dungd/workspace/mobile-store-client/src/pages/Users/UserRegister.jsx", "JavaScript React", 0, 0, 56, 0, 0, 0, 0, 7, 8, 71
+"/home/dungd/workspace/mobile-store-client/src/pages/Users/UserRegisterv2.jsx", "JavaScript React", 0, 0, 35, 0, 0, 0, 0, 1, 2, 38
+"/home/dungd/workspace/mobile-store-client/src/pages/Users/UserRouting.jsx", "JavaScript React", 0, 0, 45, 0, 0, 0, 0, 0, 3, 48
+"/home/dungd/workspace/mobile-store-client/src/redux/AllUsersSlice.jsx", "JavaScript React", 0, 0, 32, 0, 0, 0, 0, 2, 4, 38
+"/home/dungd/workspace/mobile-store-client/src/redux/CustomerSlice.js", "JavaScript", 0, 0, 0, 0, 61, 0, 0, 3, 5, 69
+"/home/dungd/workspace/mobile-store-client/src/redux/ProductSlice.js", "JavaScript", 0, 0, 0, 0, 53, 0, 0, 6, 6, 65
+"/home/dungd/workspace/mobile-store-client/src/redux/ProviderSlice.js", "JavaScript", 0, 0, 0, 0, 119, 0, 0, 7, 14, 140
+"/home/dungd/workspace/mobile-store-client/src/redux/ReduxSliceBase.js", "JavaScript", 0, 0, 0, 0, 119, 0, 0, 1, 11, 131
+"/home/dungd/workspace/mobile-store-client/src/redux/UserSlice.js", "JavaScript", 0, 0, 0, 0, 62, 0, 0, 6, 6, 74
+"/home/dungd/workspace/mobile-store-client/src/redux/index.js", "JavaScript", 0, 0, 0, 0, 3, 0, 0, 0, 0, 3
+"/home/dungd/workspace/mobile-store-client/src/routeConfig.js", "JavaScript", 0, 0, 0, 0, 2, 0, 0, 0, 2, 4
+"/home/dungd/workspace/mobile-store-client/src/serviceWorker.js", "JavaScript", 0, 0, 0, 0, 94, 0, 0, 31, 13, 138
+"/home/dungd/workspace/mobile-store-client/src/services/LocalStorageService.js", "JavaScript", 0, 0, 0, 0, 26, 0, 0, 6, 8, 40
+"/home/dungd/workspace/mobile-store-client/src/services/http.js", "JavaScript", 0, 0, 0, 0, 20, 0, 0, 5, 6, 31
+"/home/dungd/workspace/mobile-store-client/src/setupTests.js", "JavaScript", 0, 0, 0, 0, 1, 0, 0, 4, 1, 6
+"/home/dungd/workspace/mobile-store-client/src/utils/CheckLogin.js", "JavaScript", 0, 0, 0, 0, 13, 0, 0, 3, 4, 20
+"/home/dungd/workspace/mobile-store-client/src/utils/ObjectUtils.js", "JavaScript", 0, 0, 0, 0, 30, 0, 0, 0, 5, 35
+"/home/dungd/workspace/mobile-store-client/src/utils/ReduxHelper.js", "JavaScript", 0, 0, 0, 0, 6, 0, 0, 0, 2, 8
+"/home/dungd/workspace/mobile-store-client/src/utils/index.js", "JavaScript", 0, 0, 0, 0, 3, 0, 0, 0, 1, 4
+"/home/dungd/workspace/mobile-store-client/src/utils/sort.js", "JavaScript", 0, 0, 0, 0, 8, 0, 0, 0, 2, 10
+"/home/dungd/workspace/mobile-store-client/src/utils/validate.js", "JavaScript", 0, 0, 0, 0, 2, 0, 0, 0, 0, 2
+"Total", "-", 79, 88, 2452, 43, 691, 37, 20, 195, 372, 3977

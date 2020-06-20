@@ -31,12 +31,12 @@ export const customerSlice = createSlice({
         ...getByIdERBase(getCustomerById),
         ...createERBase(createCustomer),
         ...updateERBase(updateCustomer),
-        ...deleteERBase(deleteCustomer)
+        ...deleteERBase(deleteCustomer),
     }
 });
 
 //Export
-// export const {} = customerSlice.actions;
+// export const {filterCustomer, selectCustomer} = customerSlice.actions;
 export const customerSelector = (state) => state[resourceName];
 const customerRoot = customerSlice.reducer;
 export default customerRoot;

@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import _ from "lodash";
-import {Button, Card, Col, Input, Row, Table, Typography} from 'antd';
+import {Card, Col, Input, Row, Typography, Table, Button, Form, InputNumber} from 'antd';
 import {useSelector} from "react-redux";
-import {customerSelector} from "../../redux";
+import {providerSelector} from "../../redux";
 import {productSelector} from "../../redux/ProductSlice";
 import {sort} from "../../utils/sort";
 import ProductSelect from "./ProductSelect";
@@ -10,50 +10,53 @@ import CustomerSelect from "./CustomerSelect";
 
 const {Title} = Typography;
 
-const OrderDetail = (props) => {
+const ImportDetail = (props) => {
     //State
-    const [customer, setCustomer] = useState(null);
+    const [provider, setProvider] = useState(null);
     const [orderDetails, setOrderdetails] = useState([]);
 
     //Hooks
-    const _customerSelector = useSelector(customerSelector);
-    const _productSelector = useSelector(productSelector);
+    const providerSelector = useSelector(providerSelector);
+    const productSelector = useSelector(productSelector);
 
     //#Map data
-    const customers = _customerSelector ? _customerSelector.items : [];
-    const products = (!_productSelector.items.length == 0) ? _productSelector.items : [];
+    const providers = providerSelector ? providerSelector.items : [];
+    const products = !(productSelector.items.length == 0) ? productSelector.items : [];
 
     //Event Handler
     //Customers
-    const handleSelectCustomer = (_customer) => {
-        console.log('values', _customer);
-        setCustomer(_customer);
+    const handleSelectProvider = (value) => {
+        setProvider(value);
     }
 
     //Products
-    const handleAddToProductList = (values) => {
+    const addToProductList = (values) => {
         setOrderdetails([...orderDetails, values]);
     }
     return (
         <React.Fragment>
             <Row gutter={[16, 16]}>
                 <Col span={24}>
-                    <Title level={3} style={{margin: 0}}>Thông tin đơn hàng</Title>
+                    <Title level={3} style={{margin: 0}}>Thông tin nhập hàng</Title>
                 </Col>
                 <Col span={24}>
-                    <Card>
-                        <Row>
-                            <Col md={8} xs={24}>
-                                <Title level={4}>Khách hàng</Title>
-                            </Col>
-                            <Col md={16} xs={24}>
-                                <CustomerSelect
-                                    customers={customers}
-                                    handleFinish={handleSelectCustomer}
-                                />
-                            </Col>
-                        </Row>
-                        <Row>
+                    <Card
+                        title={
+                            // Customer Bar @Customer
+                            <Row>
+                                <Col md={8} xs={24}>
+                                    <Title level={4}>Thông tin nhà cung cấp</Title>
+                                </Col>
+                                <Col md={16} xs={24}>
+                                    <CustomerSelect
+                                        customers={providers}
+                                        handleFinish={handleSelectProvider}
+                                    />
+                                </Col>
+                            </Row>
+                        }
+                    >
+                        <Row style={{paddingBottom: "1em"}}>
                             <Col span={24}>
                                 <Row gutter={[16, 16]}>
                                     <Col xs={24} md={12}>
@@ -125,18 +128,10 @@ const OrderDetail = (props) => {
                     </Card>
                 </Col>
                 <Col span={24}>
-                    <Card>
-                        <Row>
-                            <Col md={8} xs={24}>
-                                <Title level={4}>Chi tiết đơn hàng</Title>
-                            </Col>
-                            <Col md={16} xs={24}>
-
-                            </Col>
-                        </Row>
+                    <Card title="Chi tiết đơn hàng">
                         <Row>
                             <Col span={24}>
-                                <ProductSelect products={products} handleFinish={handleAddToProductList}/>
+                                <ProductSelect products={products} handleFinish={addToProductList}/>
                             </Col>
                         </Row>
                         <Row>
@@ -195,4 +190,4 @@ const OrderDetail = (props) => {
     );
 };
 
-export default OrderDetail;
+export default ImportDetail;

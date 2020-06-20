@@ -36,7 +36,7 @@ export const productSlice = createSlice({
 });
 
 //Export
-// export const {} = productSlice.actions;
+// export const {clearInputs, selectProduct, addProduct} = productSlice.actions;
 export const productSelector = (state) => state[resourceName];
 const productRoot = productSlice.reducer;
 export default productRoot;
