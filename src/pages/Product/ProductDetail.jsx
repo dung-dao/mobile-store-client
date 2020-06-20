@@ -13,6 +13,7 @@ const ProductDetail = (props) => {
     //Hooks
     const dispatch = useDispatch();
     const {id} = useParams();
+    const [form] = Form.useForm();
 
     //Init data Hook
     const [init, setInit] = useState(false);
@@ -48,11 +49,12 @@ const ProductDetail = (props) => {
         dispatch(goBack());
     }
 
-    const detailItem = selector.detailItem;
+    let detailItem = selector.detailItem;
 
     if (action !== 'CREATE' && !detailItem) {
         return <LoadingPage/>;
-    }
+    } else
+        detailItem = {manufactureId: 1, categoryId: 1}
 
     return (
         <FormLayout title={detailPageTitle}>
@@ -61,7 +63,12 @@ const ProductDetail = (props) => {
                 labelCol={{span: 8}}
                 labelAlign={"left"}
                 wrapperCol={{span: 16}}
-                onFinish={values => onFinish(values)}
+                form={form}
+                onFinish={
+                    values => {
+                        console.log(values)
+                    }
+                }
             >
                 <Row gutter={16}>
                     <ProductInputs span={12} readOnly={readOnly} action={action}/>
@@ -70,7 +77,9 @@ const ProductDetail = (props) => {
                     <Row justify="end" style={{marginBottom: 0}}>
                         <Form.Item>
                             <Space style={{paddingLeft: "auto"}}>
-                                <Button htmlType="button">
+                                <Button htmlType="button" onClick={() => {
+                                    form.resetFields()
+                                }}>
                                     Làm mới
                                 </Button>
                                 <Button type="primary" htmlType="submit">

@@ -47,12 +47,14 @@ const UserDetail = (props) => {
         dispatch(goBack());
     }
 
-    const detailItem = selector.detailItem;
+    let detailItem = selector.detailItem;
+
 
     if (action !== 'CREATE' && !detailItem) {
         console.log(action);
         return <LoadingPage/>;
-    }
+    } else
+        detailItem = {role: "salesman"}
 
     return (
         <FormLayout title="Đăng ký tài khoản">
@@ -81,53 +83,6 @@ const UserDetail = (props) => {
             </Form>
         </FormLayout>
     );
-
-    // return (
-    //     <React.Fragment>
-    //         <Row gutter={[16, 16]}>
-    //             <Col span={24}>
-    //                 <Card
-    //                     title={
-    //                         <Space align={"center"}>
-    //                             <Button
-    //                                 shape="circle-outline"
-    //                                 onClick={back}
-    //                             >
-    //                                 <ArrowLeftOutlined/>
-    //                             </Button>
-    //                             <h3 style={{margin: 0}}>Thông tin khách hàng</h3>
-    //                         </Space>
-    //                     }>
-    //                     <Form
-    //                         initialValues={detailItem}
-    //                         labelCol={{span: 8}}
-    //                         labelAlign={"left"}
-    //                         wrapperCol={{span: 16}}
-    //                         onFinish={values => onFinish(values)}
-    //                     >
-    //                         <Row gutter={16}>
-    //                             <UserInput span={12} readOnly={readOnly} action={action}/>
-    //                         </Row>
-    //                         <Row justify="end" style={{marginBottom: 0}}>
-    //                             <IF condt={action !== "VIEW"}>
-    //                                 <Form.Item>
-    //                                     <Space style={{paddingLeft: "auto"}}>
-    //                                         <Button htmlType="button">
-    //                                             Làm mới
-    //                                         </Button>
-    //                                         <Button type="primary" htmlType="submit">
-    //                                             Lưu lại
-    //                                         </Button>
-    //                                     </Space>
-    //                                 </Form.Item>
-    //                             </IF>
-    //                         </Row>
-    //                     </Form>
-    //                 </Card>
-    //             </Col>
-    //         </Row>
-    //     </React.Fragment>
-    // );
 };
 
 export default UserDetail;
