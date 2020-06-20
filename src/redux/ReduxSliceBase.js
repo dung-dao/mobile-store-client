@@ -67,6 +67,7 @@ export const createERBase = (thunk) => ({
         state.items.push({...action.payload});
         state.detailItem = null;
         state.isFetching = false;
+        message.success('Đã tạo thành công');
     },
     [thunk.rejected]: (state, action) => {
         state.isFetching = false;
@@ -94,6 +95,7 @@ export const updateERBase = (thunk) => ({
             state.items = state.items.map(item => (item.id === update.id ? update : item));
         state.detailItem = null;
         state.isFetching = false;
+        message.success('Cập nhật thành công');
     },
     [thunk.rejected]: (state, action) => {
         state.isFetching = false;
@@ -120,6 +122,7 @@ export const deleteERBase = (thunk) => ({
         if (state.items)
             state.items = state.items.filter(item => (item.id !== deletedItem.id));
         state.isFetching = false;
+        message.success('Đã xóa');
     },
     [thunk.rejected]: (state, action) => {
         state.isFetching = false;

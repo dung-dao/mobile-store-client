@@ -1,4 +1,4 @@
-import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 //import { login as runLogin } from "../services/UserService";
 import {message} from "antd";
 //import { history } from "../app/store";
@@ -63,7 +63,7 @@ export const userSlice = createSlice({
         [login.rejected]: (state, action) => {
             state.isFetching = false;
             state.user = null;
-            message.error("Tên đăng nhập hoặc mật khẩu không hợp lệ", 1);
+            message.error("Sai tên đăng nhập hoặc mật khẩu", 1);
         },
     },
 });
