@@ -1,47 +1,90 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import _ from "lodash";
+import {useParams} from 'react-router-dom';
 import {Button, Card, Col, Input, Row, Table, Typography} from 'antd';
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {customerSelector} from "../../redux";
 import {productSelector} from "../../redux/ProductSlice";
 import {sort} from "../../utils/sort";
 import ProductSelect from "./orderComponents/ProductSelect";
 import CustomerSelect from "./orderComponents/CustomerSelect";
 import {formatToCurrency} from "../../utils/ObjectUtils";
-import {showModal} from "../../redux/PopUpSlice";
+import ModalConfirm from "../../components/common/ModalConfirm";
+import {createOrder} from "./OrderService";
+import IF from "../../components/common/IF";
+import http from "../../services/http";
+import LoadingPage from "../../components/common/LoadingPage";
 
 const {Title} = Typography;
 
 const OrderDetail = (props) => {
-    //State
-    const [customer, setCustomer] = useState(null);
-    const [orderDetails, setOrderdetails] = useState([]);
-    //Modal Confirm
-    const [modalConfirm, setModalConfirm] = useState(false);
-    const closeModalConfirm = () => setModalConfirm(false);
-    const openModalConfirm = () => setModalConfirm(true);
-
-
     //Hooks
+    const {id} = useParams();
+    const [customer, setCustomer] = useState(null);
+    const [orderDetails, setOrderDetails] = useState([]);
+    const [visible, setVisible] = useState(false);
+    const [init, setInit] = useState(false);
     const _customerSelector = useSelector(customerSelector);
     const _productSelector = useSelector(productSelector);
-    const dispatch = useDispatch();
+
+    //Handle view
+    useEffect(() => {
+        if (!(!id || init)) {
+            setInit(true);
+            http.get(`/orders/${id}`).then((res) => {
+                const data = res.data;
+                // console.log('data', data);
+
+                //Customer
+                const cus = {...data.Customer};
+                setCustomer(cus);
+
+                //Details
+                console.log(data.orderDetail);
+                const details = data.orderDetail.map(item => {
+                    const obj = {
+                        ...item.product,
+                        quantity: item.quantity,
+                        totalUnit: item.quantity * item.product.price
+                    };
+                    return obj;
+                });
+                console.log(details);
+                setOrderDetails(details);
+            })
+
+        }
+    });
 
     //#Map data
     const customers = _customerSelector ? _customerSelector.items : [];
     const products = (!_productSelector.items.length == 0) ? _productSelector.items : [];
 
     //Event Handler
-    //Customers
+    //Select
     const handleSelectCustomer = (_customer) => {
-        console.log('values', _customer);
         setCustomer(_customer);
     }
-
-    //Products
     const handleAddToProductList = (values) => {
-        setOrderdetails([...orderDetails, values]);
+        setOrderDetails([...orderDetails, values]);
     }
+
+    const handleSubmit = async () => {
+        const request = {
+            orderTypeId: 2,
+            CustomerId: customer.id,
+            orderDetail: orderDetails.map(item => ({
+                quantity: item.quantity,
+                productId: item.id
+            }))
+        };
+        console.log(request);
+        await createOrder(request);
+    }
+
+    if (id && !init)
+        return <LoadingPage/>
+
     return (
         <React.Fragment>
             <Row gutter={[16, 16]}>
@@ -54,12 +97,14 @@ const OrderDetail = (props) => {
                             <Col md={8} xs={24}>
                                 <Title level={4}>Khách hàng</Title>
                             </Col>
-                            <Col md={16} xs={24}>
-                                <CustomerSelect
-                                    customers={customers}
-                                    handleFinish={handleSelectCustomer}
-                                />
-                            </Col>
+                            <IF condt={!id}>
+                                <Col md={16} xs={24}>
+                                    <CustomerSelect
+                                        customers={customers}
+                                        handleFinish={handleSelectCustomer}
+                                    />
+                                </Col>
+                            </IF>
                         </Row>
                         <Row>
                             <Col span={24}>
@@ -138,24 +183,19 @@ const OrderDetail = (props) => {
                             <Col md={8} xs={24}>
                                 <Title level={4}>Chi tiết đơn hàng</Title>
                             </Col>
-                            <Col md={16} xs={24}>
-
-                            </Col>
                         </Row>
-                        <Row>
-                            <Col span={24}>
-                                <ProductSelect products={products} handleFinish={handleAddToProductList}/>
-                            </Col>
-                        </Row>
+                        <IF condt={!id}>
+                            <Row>
+                                <Col span={24}>
+                                    <ProductSelect products={products} handleFinish={handleAddToProductList}/>
+                                </Col>
+                            </Row>
+                        </IF>
                         <Row>
                             <Col span={24} style={{marginTop: "1em"}}>
                                 <Table
                                     pagination={false}
                                     columns={[
-                                        {
-                                            title: "Thao tác",
-                                            key: "delete",
-                                        },
                                         {
                                             title: "Tên mã",
                                             key: "codeName",
@@ -203,17 +243,31 @@ const OrderDetail = (props) => {
                                 {`Tổng cộng: ${formatToCurrency(_.sum(orderDetails.map(item => item.totalUnit)))}`}
                             </Typography.Text>
                         </Row>
-                        <Row justify="end">
-                            <Button
-                                type="primary"
-                                size="large"
-                                onClick={() => {
-                                    dispatch(showModal({actionName: 'tạo hóa đơn', onOk: () => alert('ok')}))
-                                }}
-                            >
-                                Tạo đơn hàng
-                            </Button>
-                        </Row>
+                        <IF condt={!id}>
+                            <Row justify="end">
+                                <Button
+                                    type="primary"
+                                    size="large"
+                                    onClick={() => {
+                                        setVisible(true);
+                                    }}
+                                >
+                                    Tạo đơn hàng
+                                </Button>
+                                <ModalConfirm
+                                    visible={visible}
+                                    onOk={async () => {
+                                        setVisible(false);
+                                        await handleSubmit();
+                                    }}
+                                    onCancel={() => {
+                                        setVisible(false);
+                                    }
+                                    }
+                                    actionName="tạo đơn hàng"
+                                />
+                            </Row>
+                        </IF>
                     </Card>
                 </Col>
             </Row>

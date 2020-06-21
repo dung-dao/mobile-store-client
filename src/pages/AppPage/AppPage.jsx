@@ -8,7 +8,6 @@ import OrderRouting from "../Orders/OrderRouting";
 import UserRouting from "../Users/UserRouting";
 import ProductRouting from "../Product/ProductRouting";
 import TestPage from "../TestPage/TestPage";
-import ConfirmPopUp from "../../components/common/ConfirmPopUp";
 
 const AppPage = (props) => {
     return (
@@ -41,7 +40,6 @@ const AppPage = (props) => {
                     }}/>
                 <PrivateRoute path="/" component={TestPage}/>
             </Switch>
-            <ConfirmPopUp/>
         </AppLayout>
     );
 };

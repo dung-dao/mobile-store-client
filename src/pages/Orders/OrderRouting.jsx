@@ -20,7 +20,16 @@ const OrderRouting = (props) => {
                     dispatch(searchCustomer());
                     dispatch(searchProduct());
                     return <OrderDetail/>
-                }}/>
+                }}
+            />
+
+            <Route
+                path={`${match.path}/:id`}
+                render={(props) => {
+                    return <OrderDetail/>
+                }}
+            />
+
             <Route
                 path={`${match.path}/`}
                 exact

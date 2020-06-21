@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
+import {goBack} from 'connected-react-router';
 import {Button, Card, Col, Form, Row, Space} from 'antd';
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from 'react-router-dom';
-import {push} from 'connected-react-router';
 import IF from "../../components/common/IF";
 import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
 import {createCustomer, customerSelector, getCustomerById, updateCustomer,} from "../../redux";
@@ -29,11 +29,9 @@ const CustomerDetail = (props) => {
 
     //Local variables
     const readOnly = action === "VIEW";
-    if (!selector.isFetching)
-        console.log(selector);
 
     const back = () => {
-        dispatch(push('/customers'));
+        dispatch(goBack());
     }
 
     const onFinish = (values) => {
