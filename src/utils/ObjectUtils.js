@@ -1,5 +1,3 @@
-import _ from "lodash";
-
 export function generateKey(dataSource) {
     if (dataSource)
         return dataSource.map(item => ({...item, key: Math.random()}));
@@ -14,15 +12,18 @@ export function mapNestedObject(obj = {}, pipes = [], excludes = []) {
             res[key] = obj[key];
         });
         pipes.forEach(pipe => {
-            const path = pipe.path;
-            const key = pipe.key;
-            if (path.length === 0)
-                return res;
-            let val = obj[path[0]];
-            for (let i = 1; i < path.length; i++) {
-                val = val[path[i]];
+            try {
+                const path = pipe.path;
+                const key = pipe.key;
+                if (path.length === 0)
+                    return res;
+                let val = obj[path[0]];
+                for (let i = 1; i < path.length; i++) {
+                    val = val[path[i]];
+                }
+                res[key] = val;
+            } catch (e) {
             }
-            res[key] = val;
         });
 
         return res;
@@ -30,5 +31,14 @@ export function mapNestedObject(obj = {}, pipes = [], excludes = []) {
         console.log('Error: ', e);
         console.log('Params: ', obj, pipes, excludes);
     }
+}
+
+export function formatToCurrency(str) {
+    const formatter = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
+
+    return formatter.format(str);
 }
 

@@ -49,9 +49,9 @@ Total : 74 files,  3410 codes, 195 comments, 372 blanks, all 3977 lines
 | [src/pages/Customers/CustomerRouting.jsx](/src/pages/Customers/CustomerRouting.jsx) | JavaScript React | 42 | 0 | 3 | 45 |
 | [src/pages/Customers/OrderViewer.jsx](/src/pages/Customers/OrderViewer.jsx) | JavaScript React | 10 | 0 | 2 | 12 |
 | [src/pages/DashBoard/Dashboard.jsx](/src/pages/DashBoard/Dashboard.jsx) | JavaScript React | 8 | 0 | 3 | 11 |
-| [src/pages/Orders/OrderDetail.jsx](/src/pages/Orders/OrderDetail.jsx) | JavaScript React | 264 | 10 | 20 | 294 |
-| [src/pages/Orders/OrderList.jsx](/src/pages/Orders/OrderList.jsx) | JavaScript React | 33 | 0 | 2 | 35 |
-| [src/pages/Orders/OrderRouting.jsx](/src/pages/Orders/OrderRouting.jsx) | JavaScript React | 24 | 0 | 3 | 27 |
+| [src/pages/Orders/OrderDetail.jsx](/src/pages/Orders/orders/OrderDetail.jsx) | JavaScript React | 264 | 10 | 20 | 294 |
+| [src/pages/Orders/OrderList.jsx](/src/pages/Orders/orders/OrderList.jsx) | JavaScript React | 33 | 0 | 2 | 35 |
+| [src/pages/Orders/OrderRouting.jsx](/src/pages/Orders/orders/OrderRouting.jsx) | JavaScript React | 24 | 0 | 3 | 27 |
 | [src/pages/Product/Config.js](/src/pages/Product/Config.js) | JavaScript | 7 | 0 | 1 | 8 |
 | [src/pages/Product/ProductDetail.jsx](/src/pages/Product/ProductDetail.jsx) | JavaScript React | 76 | 4 | 10 | 90 |
 | [src/pages/Product/ProductList.jsx](/src/pages/Product/ProductList.jsx) | JavaScript React | 70 | 2 | 6 | 78 |

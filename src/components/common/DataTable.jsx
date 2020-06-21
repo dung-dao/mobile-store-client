@@ -2,8 +2,8 @@ import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import {push} from "connected-react-router";
 import PropTypes from "prop-types";
-import {Button, Popconfirm, Row, Space, Table, Typography, Col, Card} from "antd";
-import {InfoOutlined, EditOutlined, DeleteOutlined, PlusOutlined} from "@ant-design/icons";
+import {Button, Card, Col, Popconfirm, Row, Space, Table, Typography} from "antd";
+import {DeleteOutlined, EditOutlined, InfoOutlined, PlusOutlined} from "@ant-design/icons";
 
 import AdvancedSearchForm from "./SearchForm";
 import IF from "./IF";
@@ -17,20 +17,22 @@ const DataTable = (props) => {
         <React.Fragment>
             <div>
                 <Row gutter={[16, 16]}>
-                    <Col span={24}>
-                        <AdvancedSearchForm
-                            disableFields={props.disableFields}
-                            resourceName={props.resourceName}
-                            searchAC={props.searchAC}
-                            fields={props.columns.map((e) => {
-                                return {
-                                    label: e.title,
-                                    name: e.key,
-                                    placeholder: `Nhập ${e.title.toLowerCase()}`,
-                                };
-                            })}
-                        />
-                    </Col>
+                    <IF condt={!props.disableSearchBar}>
+                        <Col span={24}>
+                            <AdvancedSearchForm
+                                disableFields={props.disableFields}
+                                resourceName={props.resourceName}
+                                searchAC={props.searchAC}
+                                fields={props.columns.map((e) => {
+                                    return {
+                                        label: e.title,
+                                        name: e.key,
+                                        placeholder: `Nhập ${e.title.toLowerCase()}`,
+                                    };
+                                })}
+                            />
+                        </Col>
+                    </IF>
                     <Col span={24}>
                         <Card>
                             <Row>
@@ -53,27 +55,29 @@ const DataTable = (props) => {
                                                                         dispatch(push(`/${props.resourceName}/${selectedItem.id}`));
                                                                     }}
                                                                 >Chi tiết</Button>
-                                                                <Button
-                                                                    type="primary"
-                                                                    icon={<EditOutlined/>}
-                                                                    onClick={() => {
-                                                                        dispatch(
-                                                                            push(`/${props.resourceName}/${selectedItem.id}/update`));
-                                                                    }}
-                                                                >Chỉnh sửa</Button>
-                                                                <Popconfirm
-                                                                    title={"Bạn có chắc muốn xóa?"}
-                                                                    onConfirm={() => {
-                                                                        dispatch(props.deleteAC(selectedItem));
-                                                                    }}
-                                                                >
+                                                                <IF condt={!props.disableEdit}>
                                                                     <Button
-                                                                        type="danger"
-                                                                        icon={<DeleteOutlined/>}
+                                                                        type="primary"
+                                                                        icon={<EditOutlined/>}
+                                                                        onClick={() => {
+                                                                            dispatch(
+                                                                                push(`/${props.resourceName}/${selectedItem.id}/update`));
+                                                                        }}
+                                                                    >Chỉnh sửa</Button>
+                                                                    <Popconfirm
+                                                                        title={"Bạn có chắc muốn xóa?"}
+                                                                        onConfirm={() => {
+                                                                            dispatch(props.deleteAC(selectedItem));
+                                                                        }}
                                                                     >
-                                                                        Xóa
-                                                                    </Button>
-                                                                </Popconfirm>
+                                                                        <Button
+                                                                            type="danger"
+                                                                            icon={<DeleteOutlined/>}
+                                                                        >
+                                                                            Xóa
+                                                                        </Button>
+                                                                    </Popconfirm>
+                                                                </IF>
                                                             </Space>
                                                         </IF>
                                                         <Button
@@ -143,6 +147,8 @@ DataTable.propTypes = {
     deleteAC: PropTypes.func.isRequired,
     searchAC: PropTypes.func.isRequired,
     selectHandler: PropTypes.func,
+    disableSearchBar: PropTypes.bool,
+    disableEdit: PropTypes.bool
 };
 
 DataTable.defaultProps = {

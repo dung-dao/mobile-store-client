@@ -1,12 +1,12 @@
 import React from 'react';
-import {AutoComplete, Button, Col, Form, InputNumber, Row} from "antd";
+import {AutoComplete, Button, Col, Form, Row} from "antd";
 import PropTypes from "prop-types";
 import _ from "lodash";
 
-const CustomerSelect = (props) => {
+const ProviderSelect = (props) => {
     const [form] = Form.useForm();
-    const {customers, handleFinish} = props;
-    const viewData = customers.map(customer => ({
+    const {providers, handleFinish} = props;
+    const viewData = providers.map(customer => ({
         label: `${customer.name} - ${customer.phone}`,
         value: `${customer.name} - ${customer.phone}`
     }));
@@ -24,9 +24,9 @@ const CustomerSelect = (props) => {
                     // console.log(values.selectData);
                     const phone = values.selectData.split(' - ')[1];
                     // console.log(phone);
-                    const customer = customers.find(cus => cus.phone == phone);
+                    const provider = providers.find(prov => prov.phone == phone);
                     // console.log(customer);
-                    handleFinish(customer);
+                    handleFinish(provider);
                 }}>
                 <Row gutter={[16, 16]}>
                     <Col span={8}>
@@ -67,9 +67,9 @@ const CustomerSelect = (props) => {
     );
 };
 
-CustomerSelect.propTypes = {
-    customers: PropTypes.array.isRequired,
+ProviderSelect.propTypes = {
+    providers: PropTypes.array.isRequired,
     handleFinish: PropTypes.func.isRequired
 };
 
-export default CustomerSelect;
+export default ProviderSelect;

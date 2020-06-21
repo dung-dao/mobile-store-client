@@ -1,39 +1,97 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+import {goBack} from 'connected-react-router';
 import _ from "lodash";
-import {Button, Card, Col, Input, Row, Table, Typography} from 'antd';
-import {useSelector} from "react-redux";
-import {customerSelector} from "../../redux";
-import {productSelector} from "../../redux/ProductSlice";
-import {sort} from "../../utils/sort";
-import ProductSelect from "./ProductSelect";
-import CustomerSelect from "./CustomerSelect";
+import {useParams} from 'react-router-dom';
+import {Button, Card, Col, Input, message, Row, Table, Typography} from 'antd';
+import {useDispatch, useSelector} from "react-redux";
+import {customerSelector} from "../../../redux";
+import {productSelector} from "../../../redux/ProductSlice";
+import {sort} from "../../../utils/sort";
+import ProductSelect from "../orderComponents/ProductSelect";
+import CustomerSelect from "../orderComponents/CustomerSelect";
+import {formatToCurrency} from "../../../utils/ObjectUtils";
+import ModalConfirm from "../../../components/common/ModalConfirm";
+import {createOrder} from "./OrderService";
+import IF from "../../../components/common/IF";
+import http from "../../../services/http";
+import LoadingPage from "../../../components/common/LoadingPage";
 
 const {Title} = Typography;
 
 const OrderDetail = (props) => {
-    //State
-    const [customer, setCustomer] = useState(null);
-    const [orderDetails, setOrderdetails] = useState([]);
-
     //Hooks
+    const {id} = useParams();
+    const dispatch = useDispatch();
+    const [customer, setCustomer] = useState(null);
+    const [orderDetails, setOrderDetails] = useState([]);
+    const [visible, setVisible] = useState(false);
+    const [modalLoading, setModalLoading] = useState(false);
+    const [init, setInit] = useState(false);
     const _customerSelector = useSelector(customerSelector);
     const _productSelector = useSelector(productSelector);
+
+    //Handle view
+    useEffect(() => {
+        if (!(!id || init)) {
+            setInit(true);
+            http.get(`/orders/${id}`).then((res) => {
+                const data = res.data;
+                // console.log('data', data);
+
+                //Customer
+                const cus = {...data.Customer};
+                setCustomer(cus);
+
+                //Details
+                console.log(data.orderDetail);
+                const details = data.orderDetail.map(item => {
+                    const obj = {
+                        ...item.product,
+                        quantity: item.quantity,
+                        totalUnit: item.quantity * item.product.price
+                    };
+                    return obj;
+                });
+                console.log(details);
+                setOrderDetails(details);
+            })
+
+        }
+    });
 
     //#Map data
     const customers = _customerSelector ? _customerSelector.items : [];
     const products = (!_productSelector.items.length == 0) ? _productSelector.items : [];
 
     //Event Handler
-    //Customers
+    //Select
     const handleSelectCustomer = (_customer) => {
-        console.log('values', _customer);
         setCustomer(_customer);
     }
-
-    //Products
     const handleAddToProductList = (values) => {
-        setOrderdetails([...orderDetails, values]);
+        setOrderDetails([...orderDetails, values]);
     }
+
+    const handleSubmit = async () => {
+        setModalLoading(true);
+        const request = {
+            orderTypeId: 2,
+            CustomerId: customer.id,
+            orderDetail: orderDetails.map(item => ({
+                quantity: item.quantity,
+                productId: item.id
+            }))
+        };
+        console.log(request);
+        await createOrder(request);
+        setModalLoading(false);
+        message.success('Đã tạo đơn hàng');
+        dispatch(goBack());
+    }
+
+    if (id && !init)
+        return <LoadingPage/>
+
     return (
         <React.Fragment>
             <Row gutter={[16, 16]}>
@@ -46,12 +104,14 @@ const OrderDetail = (props) => {
                             <Col md={8} xs={24}>
                                 <Title level={4}>Khách hàng</Title>
                             </Col>
-                            <Col md={16} xs={24}>
-                                <CustomerSelect
-                                    customers={customers}
-                                    handleFinish={handleSelectCustomer}
-                                />
-                            </Col>
+                            <IF condt={!id}>
+                                <Col md={16} xs={24}>
+                                    <CustomerSelect
+                                        customers={customers}
+                                        handleFinish={handleSelectCustomer}
+                                    />
+                                </Col>
+                            </IF>
                         </Row>
                         <Row>
                             <Col span={24}>
@@ -130,15 +190,14 @@ const OrderDetail = (props) => {
                             <Col md={8} xs={24}>
                                 <Title level={4}>Chi tiết đơn hàng</Title>
                             </Col>
-                            <Col md={16} xs={24}>
-
-                            </Col>
                         </Row>
-                        <Row>
-                            <Col span={24}>
-                                <ProductSelect products={products} handleFinish={handleAddToProductList}/>
-                            </Col>
-                        </Row>
+                        <IF condt={!id}>
+                            <Row>
+                                <Col span={24}>
+                                    <ProductSelect products={products} handleFinish={handleAddToProductList}/>
+                                </Col>
+                            </Row>
+                        </IF>
                         <Row>
                             <Col span={24} style={{marginTop: "1em"}}>
                                 <Table
@@ -164,15 +223,21 @@ const OrderDetail = (props) => {
                                         },
                                         {
                                             title: "Đơn giá",
-                                            key: "amount",
-                                            dataIndex: "amount",
-                                            sorter: sort('amount')
+                                            key: "price",
+                                            dataIndex: "price",
+                                            sorter: sort('price'),
+                                            render: (text, record, index) => {
+                                                return formatToCurrency(text)
+                                            }
                                         },
                                         {
                                             title: "Thành tiền",
                                             key: "totalUnit",
                                             dataIndex: "totalUnit",
-                                            sorter: sort('totalUnit')
+                                            sorter: sort('totalUnit'),
+                                            render: (text, record, index) => {
+                                                return formatToCurrency(text)
+                                            }
                                         },
 
                                     ]}
@@ -182,12 +247,35 @@ const OrderDetail = (props) => {
                         </Row>
                         <Row justify="end">
                             <Typography.Text style={{margin: "1em", fontWeight: "bold"}}>
-                                {`Tổng cộng: ${_.sum(orderDetails.map(item => item.totalUnit))}`}
+                                {`Tổng cộng: ${formatToCurrency(_.sum(orderDetails.map(item => item.totalUnit)))}`}
                             </Typography.Text>
                         </Row>
-                        <Row justify="end">
-                            <Button type="primary" size="large">Tạo đơn hàng</Button>
-                        </Row>
+                        <IF condt={!id}>
+                            <Row justify="end">
+                                <Button
+                                    type="primary"
+                                    size="large"
+                                    onClick={() => {
+                                        setVisible(true);
+                                    }}
+                                >
+                                    Tạo đơn hàng
+                                </Button>
+                                <ModalConfirm
+                                    visible={visible}
+                                    onOk={async () => {
+                                        setVisible(false);
+                                        await handleSubmit();
+                                    }}
+                                    onCancel={() => {
+                                        setVisible(false);
+                                    }
+                                    }
+                                    actionName="tạo đơn hàng"
+                                    loading={modalLoading}
+                                />
+                            </Row>
+                        </IF>
                     </Card>
                 </Col>
             </Row>

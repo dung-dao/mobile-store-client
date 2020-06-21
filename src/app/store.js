@@ -1,11 +1,12 @@
 import {configureStore, getDefaultMiddleware} from "@reduxjs/toolkit";
-import {routerMiddleware, connectRouter} from "connected-react-router";
+import {connectRouter, routerMiddleware} from "connected-react-router";
 import {createBrowserHistory} from "history";
 import userSlice from "../redux/UserSlice";
 import providerRoot from "../redux/ProviderSlice";
 import customerRoot from "../redux/CustomerSlice";
 import allUsersRoot from "../redux/AllUsersSlice";
 import productRoot from "../redux/ProductSlice";
+import orderRoot from "../redux/OrderSlice";
 
 export const history = createBrowserHistory();
 
@@ -16,7 +17,8 @@ const store = configureStore({
         providers: providerRoot,
         customers: customerRoot,
         users: allUsersRoot,
-        products: productRoot
+        products: productRoot,
+        orders: orderRoot,
     },
     middleware: [routerMiddleware(history), ...getDefaultMiddleware()],
 });

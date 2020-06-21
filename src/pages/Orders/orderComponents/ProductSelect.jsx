@@ -2,6 +2,7 @@ import React from 'react';
 import {AutoComplete, Button, Col, Form, InputNumber, Row} from "antd";
 import PropTypes from "prop-types";
 import _ from "lodash";
+import IF from "../../../components/common/IF";
 
 const ProductSelect = (props) => {
     const [form] = Form.useForm();
@@ -20,11 +21,24 @@ const ProductSelect = (props) => {
             <Form
                 form={form}
                 layout={{wrapperCol: {span: 8}}}
+                initialValues={{quantity: 1}}
                 onFinish={values => {
                     // console.log('values', values);
                     const codeName = values.product.split(' - ')[1];
                     const product = products.find(prod => prod.codeName == codeName);
-                    handleFinish({...product, quantity: values.quantity, totalUnit: product.amount * values.quantity});
+                    const obj = {
+                        ...product,
+                        quantity: values.quantity,
+                        totalUnit: values.unitPrice * values.quantity
+                    };
+                    obj.price = values.unitPrice;
+                    if (!obj.price) {
+                        obj.price = product.price;
+                        obj.totalUnit = obj.price * obj.quantity;
+                    }
+
+                    handleFinish(obj);
+                    form.resetFields();
                 }}>
                 <Row gutter={[16, 16]}>
                     <Col span={8}>
@@ -40,7 +54,6 @@ const ProductSelect = (props) => {
                                 },
                             ]}
                         >
-                            {/*@Product*/}
                             <AutoComplete
                                 filterOption={autocompleteFilterHandler}
                                 options={autoProducts}
@@ -50,6 +63,21 @@ const ProductSelect = (props) => {
                             />
                         </Form.Item>
                     </Col>
+
+                    <IF condt={props.inputPrice}>
+                        <Col span={4}>
+                            <Form.Item name="unitPrice" wrapperCol={24}>
+                                <InputNumber
+                                    style={{width: "100%"}}
+                                    min={1}
+                                    max={10000000000}
+                                    step={100000}
+                                    placeholder="Nhập đơn giá"
+                                />
+                            </Form.Item>
+                        </Col>
+                    </IF>
+
                     <Col span={4}>
                         <Form.Item name="quantity" wrapperCol={24}>
                             <InputNumber
@@ -78,7 +106,8 @@ const ProductSelect = (props) => {
 
 ProductSelect.propTypes = {
     products: PropTypes.array.isRequired,
-    handleFinish: PropTypes.func.isRequired
+    handleFinish: PropTypes.func.isRequired,
+    inputPrice: PropTypes.bool
 };
 
 export default ProductSelect;
