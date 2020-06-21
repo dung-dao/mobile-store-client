@@ -23,12 +23,12 @@ http.interceptors.request.use(
     }
 );
 
-http.interceptors.response.use(function (res) {
-    console.log(res);
-    return res;
-}, (err) => {
-    console.log(err);
-    Promise.reject(err)
-});
+// http.interceptors.response.use(function (res) {
+//     console.log(res);
+//     return res;
+// }, (err) => {
+//     console.log(err);
+//     Promise.reject(err)
+// });
 
 export default http;

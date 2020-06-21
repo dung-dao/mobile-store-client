@@ -39,16 +39,16 @@ const OrderList = () => {
                         sorter: sort('id')
                     },
                     {
-                        title: "Số điện thoại",
-                        key: "phone",
-                        dataIndex: "phone",
-                        sorter: sort('phone')
-                    },
-                    {
                         title: "Tên khách hàng",
                         key: "name",
                         dataIndex: "name",
                         sorter: sort('name')
+                    },
+                    {
+                        title: "Số điện thoại",
+                        key: "phone",
+                        dataIndex: "phone",
+                        sorter: sort('phone')
                     },
                     {
                         title: "Ngày mua hàng",

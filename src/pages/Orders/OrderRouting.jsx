@@ -34,7 +34,7 @@ const OrderRouting = (props) => {
                 path={`${match.path}/`}
                 exact
                 render={(props) => {
-                    dispatch(searchOrder({orderTypeId: 2}));
+                    dispatch(searchOrder());
                     return <OrderList/>;
                 }}/>
 
