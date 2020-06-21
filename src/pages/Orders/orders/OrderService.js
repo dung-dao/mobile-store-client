@@ -1,4 +1,4 @@
-import http from "../../services/http";
+import http from "../../../services/http";
 
 export async function createOrder(order) {
     const res = await http.post('/orders', order);

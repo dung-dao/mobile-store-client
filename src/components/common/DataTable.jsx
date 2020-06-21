@@ -55,27 +55,29 @@ const DataTable = (props) => {
                                                                         dispatch(push(`/${props.resourceName}/${selectedItem.id}`));
                                                                     }}
                                                                 >Chi tiết</Button>
-                                                                <Button
-                                                                    type="primary"
-                                                                    icon={<EditOutlined/>}
-                                                                    onClick={() => {
-                                                                        dispatch(
-                                                                            push(`/${props.resourceName}/${selectedItem.id}/update`));
-                                                                    }}
-                                                                >Chỉnh sửa</Button>
-                                                                <Popconfirm
-                                                                    title={"Bạn có chắc muốn xóa?"}
-                                                                    onConfirm={() => {
-                                                                        dispatch(props.deleteAC(selectedItem));
-                                                                    }}
-                                                                >
+                                                                <IF condt={!props.disableEdit}>
                                                                     <Button
-                                                                        type="danger"
-                                                                        icon={<DeleteOutlined/>}
+                                                                        type="primary"
+                                                                        icon={<EditOutlined/>}
+                                                                        onClick={() => {
+                                                                            dispatch(
+                                                                                push(`/${props.resourceName}/${selectedItem.id}/update`));
+                                                                        }}
+                                                                    >Chỉnh sửa</Button>
+                                                                    <Popconfirm
+                                                                        title={"Bạn có chắc muốn xóa?"}
+                                                                        onConfirm={() => {
+                                                                            dispatch(props.deleteAC(selectedItem));
+                                                                        }}
                                                                     >
-                                                                        Xóa
-                                                                    </Button>
-                                                                </Popconfirm>
+                                                                        <Button
+                                                                            type="danger"
+                                                                            icon={<DeleteOutlined/>}
+                                                                        >
+                                                                            Xóa
+                                                                        </Button>
+                                                                    </Popconfirm>
+                                                                </IF>
                                                             </Space>
                                                         </IF>
                                                         <Button
@@ -145,7 +147,8 @@ DataTable.propTypes = {
     deleteAC: PropTypes.func.isRequired,
     searchAC: PropTypes.func.isRequired,
     selectHandler: PropTypes.func,
-    disableSearchBar: PropTypes.bool
+    disableSearchBar: PropTypes.bool,
+    disableEdit: PropTypes.bool
 };
 
 DataTable.defaultProps = {

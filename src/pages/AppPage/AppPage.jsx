@@ -4,10 +4,11 @@ import ProviderRouting from "../Providers/ProviderRouting";
 import PrivateRoute from "../../components/common/PrivateRoute";
 import AppLayout from "../../layouts/AppLayout";
 import CustomerRouting from "../Customers/CustomerRouting";
-import OrderRouting from "../Orders/OrderRouting";
+import OrderRouting from "../Orders/orders/OrderRouting";
 import UserRouting from "../Users/UserRouting";
 import ProductRouting from "../Product/ProductRouting";
 import TestPage from "../TestPage/TestPage";
+import ImportsRouting from "../Orders/imports/ImportsRouting";
 
 const AppPage = (props) => {
     return (
@@ -28,6 +29,15 @@ const AppPage = (props) => {
                     render={(props) => {
                         return <OrderRouting {...props}/>
                     }}/>
+
+
+                <Route
+                    path={"/imports"}
+                    render={(props) => {
+                        return <ImportsRouting{...props}/>
+                    }}
+                />
+
                 <Route
                     path={"/users"}
                     render={(props) => {

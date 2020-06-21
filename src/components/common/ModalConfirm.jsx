@@ -11,6 +11,7 @@ const ModalConfirm = (props) => {
             onCancel={props.onCancel}
             okText="Đồng ý"
             cancelText="Hủy"
+            confirmLoading={props.loading}
         >
             {`Bạn có chắc chắn muốn ${props.actionName}?`}
         </Modal>
@@ -21,7 +22,8 @@ ModalConfirm.propTypes = {
     visible: PropTypes.bool.isRequired,
     onOk: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
-    actionName: PropTypes.string.isRequired
+    actionName: PropTypes.string.isRequired,
+    loading: PropTypes.bool
 }
 
 export default ModalConfirm;

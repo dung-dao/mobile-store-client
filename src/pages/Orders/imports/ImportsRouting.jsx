@@ -1,15 +1,16 @@
 import React from 'react';
 import {Route, Switch, useRouteMatch} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import OrderList from "./OrderList";
-import {searchOrder} from "../../redux/OrderSlice";
-import {searchCustomer} from "../../redux";
-import {searchProduct} from "../../redux/ProductSlice";
-import OrderDetail from "./OrderDetail";
+import {searchOrder} from "../../../redux/OrderSlice";
+import {searchProvider} from "../../../redux";
+import {searchProduct} from "../../../redux/ProductSlice";
+import ImportsList from "./ImportList";
+import ImportDetail from "./ImportDetail";
+// import ImportDetail from "./ImportDetail";
 
-const resourceName = 'customers';
+const resourceName = 'orders';
 
-const OrderRouting = (props) => {
+const ImportsRouting = (props) => {
     const dispatch = useDispatch();
     const match = useRouteMatch();
     return (
@@ -17,16 +18,16 @@ const OrderRouting = (props) => {
             <Route
                 path={`${match.path}/create`}
                 render={(props) => {
-                    dispatch(searchCustomer());
+                    dispatch(searchProvider());
                     dispatch(searchProduct());
-                    return <OrderDetail/>
+                    return <ImportDetail/>
                 }}
             />
 
             <Route
                 path={`${match.path}/:id`}
                 render={(props) => {
-                    return <OrderDetail/>
+                    return <ImportDetail/>
                 }}
             />
 
@@ -34,12 +35,12 @@ const OrderRouting = (props) => {
                 path={`${match.path}/`}
                 exact
                 render={(props) => {
-                    dispatch(searchOrder());
-                    return <OrderList/>;
+                    dispatch(searchOrder({orderTypeId: 1}));
+                    return <ImportsList/>;
                 }}/>
 
         </Switch>
     );
 };
 
-export default OrderRouting;
+export default ImportsRouting;

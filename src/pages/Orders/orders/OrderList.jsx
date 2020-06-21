@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
-import DataTable from "../../components/common/DataTable";
-import {sort} from "../../utils/sort";
-import {orderSelector, searchOrder} from "../../redux/OrderSlice";
+import DataTable from "../../../components/common/DataTable";
+import {sort} from "../../../utils/sort";
+import {orderSelector, searchOrder} from "../../../redux/OrderSlice";
 import {useSelector} from "react-redux";
-import {mapNestedObject} from "../../utils/ObjectUtils";
+import {mapNestedObject} from "../../../utils/ObjectUtils";
 
-const OrderList = () => {
+const OrderList = (props) => {
     const _orderSelector = useSelector(orderSelector);
     const rawOrders = _orderSelector.items.length ? _orderSelector.items : [];
     const viewOrders = rawOrders.map(order => {
@@ -66,7 +66,9 @@ const OrderList = () => {
                 resourceName={'orders'}
                 searchAC={searchOrder}
                 disableFields={['amount', 'createdAt']}
-                title="Danh sách đơn hàng"
+                title={"Danh sách đơn hàng"}
+                disableSearchBar={true}
+                disableEdit={true}
             />
         </React.Fragment>
     );

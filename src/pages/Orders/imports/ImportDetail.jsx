@@ -1,55 +1,59 @@
 import React, {useEffect, useState} from "react";
+import {goBack} from 'connected-react-router';
 import _ from "lodash";
 import {useParams} from 'react-router-dom';
-import {Button, Card, Col, Input, Row, Table, Typography} from 'antd';
-import {useSelector} from "react-redux";
-import {customerSelector} from "../../redux";
-import {productSelector} from "../../redux/ProductSlice";
-import {sort} from "../../utils/sort";
-import ProductSelect from "./orderComponents/ProductSelect";
-import CustomerSelect from "./orderComponents/CustomerSelect";
-import {formatToCurrency} from "../../utils/ObjectUtils";
-import ModalConfirm from "../../components/common/ModalConfirm";
-import {createOrder} from "./OrderService";
-import IF from "../../components/common/IF";
-import http from "../../services/http";
-import LoadingPage from "../../components/common/LoadingPage";
+import {Button, Card, Col, Input, message, Row, Table, Typography} from 'antd';
+import {useDispatch, useSelector} from "react-redux";
+import {providerSelector} from "../../../redux";
+import {productSelector} from "../../../redux/ProductSlice";
+import {sort} from "../../../utils/sort";
+import ProductSelect from "../orderComponents/ProductSelect";
+import {formatToCurrency} from "../../../utils/ObjectUtils";
+import ModalConfirm from "../../../components/common/ModalConfirm";
+import IF from "../../../components/common/IF";
+import http from "../../../services/http";
+import LoadingPage from "../../../components/common/LoadingPage";
+import ProviderSelect from "../orderComponents/ProviderSelect";
+import {createOrder} from "../orders/OrderService";
 
 const {Title} = Typography;
 
-const OrderDetail = (props) => {
+const ImportDetail = (props) => {
     //Hooks
     const {id} = useParams();
-    const [customer, setCustomer] = useState(null);
+    const dispatch = useDispatch();
+    const [provider, setProvider] = useState(null);
     const [orderDetails, setOrderDetails] = useState([]);
     const [visible, setVisible] = useState(false);
+    const [modalLoading, setModalLoading] = useState(false);
     const [init, setInit] = useState(false);
-    const _customerSelector = useSelector(customerSelector);
+    const _providerSelector = useSelector(providerSelector);
     const _productSelector = useSelector(productSelector);
 
     //Handle view
+    //TODO: Edit use effect
     useEffect(() => {
         if (!(!id || init)) {
             setInit(true);
             http.get(`/orders/${id}`).then((res) => {
                 const data = res.data;
-                // console.log('data', data);
+                console.log('data', data);
 
-                //Customer
-                const cus = {...data.Customer};
-                setCustomer(cus);
+                const prov = {...data.provider};
+                setProvider(prov);
 
                 //Details
-                console.log(data.orderDetail);
+                // console.log(data.orderDetail);
                 const details = data.orderDetail.map(item => {
                     const obj = {
                         ...item.product,
                         quantity: item.quantity,
-                        totalUnit: item.quantity * item.product.price
+                        totalUnit: item.quantity * item.unitPrice
                     };
+                    obj.price = item.unitPrice;
                     return obj;
                 });
-                console.log(details);
+                // console.log(details);
                 setOrderDetails(details);
             })
 
@@ -57,29 +61,34 @@ const OrderDetail = (props) => {
     });
 
     //#Map data
-    const customers = _customerSelector ? _customerSelector.items : [];
+    const providers = _providerSelector ? _providerSelector.providers : [];
     const products = (!_productSelector.items.length == 0) ? _productSelector.items : [];
 
     //Event Handler
     //Select
-    const handleSelectCustomer = (_customer) => {
-        setCustomer(_customer);
+    const handleSelectProvider = (_provider) => {
+        setProvider(_provider);
     }
     const handleAddToProductList = (values) => {
         setOrderDetails([...orderDetails, values]);
     }
 
     const handleSubmit = async () => {
+        setModalLoading(true);
         const request = {
-            orderTypeId: 2,
-            CustomerId: customer.id,
+            orderTypeId: 1,
+            providerId: provider.id,
             orderDetail: orderDetails.map(item => ({
                 quantity: item.quantity,
-                productId: item.id
+                productId: item.id,
+                unitPrice: item.price
             }))
         };
         console.log(request);
         await createOrder(request);
+        setModalLoading(false);
+        message.success('Đã tạo đơn nhập hàng');
+        dispatch(goBack());
     }
 
     if (id && !init)
@@ -89,19 +98,19 @@ const OrderDetail = (props) => {
         <React.Fragment>
             <Row gutter={[16, 16]}>
                 <Col span={24}>
-                    <Title level={3} style={{margin: 0}}>Thông tin đơn hàng</Title>
+                    <Title level={3} style={{margin: 0}}>Thông tin nhập hàng</Title>
                 </Col>
                 <Col span={24}>
                     <Card>
                         <Row>
                             <Col md={8} xs={24}>
-                                <Title level={4}>Khách hàng</Title>
+                                <Title level={4}>Nhà cung cấp</Title>
                             </Col>
                             <IF condt={!id}>
                                 <Col md={16} xs={24}>
-                                    <CustomerSelect
-                                        customers={customers}
-                                        handleFinish={handleSelectCustomer}
+                                    <ProviderSelect
+                                        providers={providers}
+                                        handleFinish={handleSelectProvider}
                                     />
                                 </Col>
                             </IF>
@@ -116,7 +125,7 @@ const OrderDetail = (props) => {
                                             </Col>
                                             <Col span={18}>
                                                 <Input
-                                                    value={customer ? customer.id : ''}
+                                                    value={provider ? provider.id : ''}
                                                     readOnly={true}/>
                                             </Col>
                                         </Row>
@@ -124,11 +133,11 @@ const OrderDetail = (props) => {
                                     <Col xs={24} md={12}>
                                         <Row>
                                             <Col span={6}>
-                                                <Typography.Text>Họ và tên</Typography.Text>
+                                                <Typography.Text>Tên nhà cung cấp</Typography.Text>
                                             </Col>
                                             <Col span={18}>
                                                 <Input
-                                                    value={customer ? customer.name : ''}
+                                                    value={provider ? provider.name : ''}
                                                     readOnly={true}/>
                                             </Col>
                                         </Row>
@@ -141,12 +150,11 @@ const OrderDetail = (props) => {
                                             </Col>
                                             <Col span={18}>
                                                 <Input
-                                                    value={customer ? customer.phone : ''}
+                                                    value={provider ? provider.phone : ''}
                                                     readOnly={true}/>
                                             </Col>
                                         </Row>
                                     </Col>
-
                                     <Col xs={24} md={12}>
                                         <Row>
                                             <Col span={6}>
@@ -154,12 +162,11 @@ const OrderDetail = (props) => {
                                             </Col>
                                             <Col span={18}>
                                                 <Input
-                                                    value={customer ? customer.address : ''}
+                                                    value={provider ? provider.address : ''}
                                                     readOnly={true}/>
                                             </Col>
                                         </Row>
                                     </Col>
-
                                     <Col xs={24} md={12}>
                                         <Row>
                                             <Col span={6}>
@@ -167,7 +174,7 @@ const OrderDetail = (props) => {
                                             </Col>
                                             <Col span={18}>
                                                 <Input
-                                                    value={customer ? customer.email : ''}
+                                                    value={provider ? provider.email : ''}
                                                     readOnly={true}/>
                                             </Col>
                                         </Row>
@@ -187,7 +194,11 @@ const OrderDetail = (props) => {
                         <IF condt={!id}>
                             <Row>
                                 <Col span={24}>
-                                    <ProductSelect products={products} handleFinish={handleAddToProductList}/>
+                                    <ProductSelect
+                                        products={products}
+                                        handleFinish={handleAddToProductList}
+                                        inputPrice={true}
+                                    />
                                 </Col>
                             </Row>
                         </IF>
@@ -257,13 +268,15 @@ const OrderDetail = (props) => {
                                 <ModalConfirm
                                     visible={visible}
                                     onOk={async () => {
-                                        setVisible(false);
+                                        // setVisible(false);
                                         await handleSubmit();
+
                                     }}
                                     onCancel={() => {
                                         setVisible(false);
                                     }
                                     }
+                                    loading={modalLoading}
                                     actionName="tạo đơn hàng"
                                 />
                             </Row>
@@ -275,4 +288,4 @@ const OrderDetail = (props) => {
     );
 };
 
-export default OrderDetail;
+export default ImportDetail;

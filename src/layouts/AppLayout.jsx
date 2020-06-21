@@ -39,6 +39,8 @@ const AppLayout = (props) => {
                                     return ["5"];
                                 case 'orders':
                                     return ["6"];
+                                case 'imports':
+                                    return ["7"];
                             }
                         })()}
                         className="menu"
@@ -67,6 +69,10 @@ const AppLayout = (props) => {
                         <Menu.Item key={6}>
                             <ReconciliationOutlined/>
                             <Link to={"/orders"}>Đơn hàng</Link>
+                        </Menu.Item>
+                        <Menu.Item key={7}>
+                            <ReconciliationOutlined/>
+                            <Link to={"/imports"}>Nhập hàng</Link>
                         </Menu.Item>
                     </Menu>
                 </Sider>
