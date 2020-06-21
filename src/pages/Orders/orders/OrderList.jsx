@@ -3,7 +3,8 @@ import DataTable from "../../../components/common/DataTable";
 import {sort} from "../../../utils/sort";
 import {orderSelector, searchOrder} from "../../../redux/OrderSlice";
 import {useSelector} from "react-redux";
-import {mapNestedObject} from "../../../utils/ObjectUtils";
+import {formatToCurrency, mapNestedObject} from "../../../utils/ObjectUtils";
+import PropTypes from "prop-types";
 
 const OrderList = (props) => {
     const _orderSelector = useSelector(orderSelector);
@@ -26,52 +27,63 @@ const OrderList = (props) => {
         console.log(viewOrders);
     });
 
+    let columns = [
+        {
+            title: "Mã đơn hàng",
+            key: "id",
+            dataIndex: "id",
+            sorter: sort('id')
+        },
+        {
+            title: "Tên khách hàng",
+            key: "name",
+            dataIndex: "name",
+            sorter: sort('name')
+        },
+        {
+            title: "Số điện thoại",
+            key: "phone",
+            dataIndex: "phone",
+            sorter: sort('phone')
+        },
+        {
+            title: "Ngày mua hàng",
+            key: "createdAt",
+            dataIndex: "createdAt",
+            sorter: sort('createdAt')
+        },
+        {
+            title: "Giá trị đơn hàng",
+            key: "amount",
+            dataIndex: "amount",
+            sorter: sort('amount'),
+            render: (text, record, index) => {
+                return formatToCurrency(text)
+            }
+        },
+    ];
+
+    columns = columns.filter(item => !props.excludeColumns || !props.excludeColumns.find(e => e === item.dataIndex));
 
     return (
         <React.Fragment>
             <DataTable
                 dataSource={viewOrders}
-                columns={[
-                    {
-                        title: "Mã đơn hàng",
-                        key: "id",
-                        dataIndex: "id",
-                        sorter: sort('id')
-                    },
-                    {
-                        title: "Tên khách hàng",
-                        key: "name",
-                        dataIndex: "name",
-                        sorter: sort('name')
-                    },
-                    {
-                        title: "Số điện thoại",
-                        key: "phone",
-                        dataIndex: "phone",
-                        sorter: sort('phone')
-                    },
-                    {
-                        title: "Ngày mua hàng",
-                        key: "createdAt",
-                        dataIndex: "createdAt",
-                        sorter: sort('createdAt')
-                    },
-                    {
-                        title: "Giá trị đơn hàng",
-                        key: "amount",
-                        dataIndex: "amount",
-                        sorter: sort('amount')
-                    },
-                ]}
+                columns={columns}
                 resourceName={'orders'}
                 searchAC={searchOrder}
                 disableFields={['amount', 'createdAt']}
-                title={"Danh sách đơn hàng"}
+                title={props.title ? props.title : "Danh sách đơn hàng"}
                 disableSearchBar={true}
-                disableEdit={true}
+                disabledActions={{UPDATE: true, DELETE: true, SEARCH: true, ...props.disabledActions}}
             />
         </React.Fragment>
     );
+};
+
+OrderList.propTypes = {
+    title: PropTypes.string,
+    excludeColumns: PropTypes.array
 };
 
 export default OrderList;

@@ -3,6 +3,7 @@ import {AutoComplete, Button, Col, Form, InputNumber, Row} from "antd";
 import PropTypes from "prop-types";
 import _ from "lodash";
 import IF from "../../../components/common/IF";
+import {formatToCurrency} from "../../../utils/ObjectUtils";
 
 const ProductSelect = (props) => {
     const [form] = Form.useForm();
@@ -40,10 +41,11 @@ const ProductSelect = (props) => {
                     handleFinish(obj);
                     form.resetFields();
                 }}>
-                <Row gutter={[16, 16]}>
+                <Row gutter={[16, 16]} align="bottom">
                     <Col span={8}>
                         <Form.Item
                             name="product"
+                            label="Tên sản phẩm"
                             wrapperCol={{span: 24}}
                             rules={[
                                 {
@@ -66,20 +68,25 @@ const ProductSelect = (props) => {
 
                     <IF condt={props.inputPrice}>
                         <Col span={4}>
-                            <Form.Item name="unitPrice" wrapperCol={24}>
+                            <Form.Item
+                                name="unitPrice"
+                                wrapperCol={24}
+                                label="Đơn giá"
+                            >
                                 <InputNumber
                                     style={{width: "100%"}}
                                     min={1}
                                     max={10000000000}
                                     step={100000}
                                     placeholder="Nhập đơn giá"
+                                    formatter={value => formatToCurrency(value)}
                                 />
                             </Form.Item>
                         </Col>
                     </IF>
 
                     <Col span={4}>
-                        <Form.Item name="quantity" wrapperCol={24}>
+                        <Form.Item label="Số lượng" name="quantity" wrapperCol={24}>
                             <InputNumber
                                 style={{width: "100%"}}
                                 min={1}

@@ -1,21 +1,14 @@
-import React, {Children, cloneElement, isValidElement} from 'react';
+import React from 'react';
 import PageHeader from "antd/es/page-header";
 import PropTypes from "prop-types";
 import {goBack} from 'connected-react-router';
 import {useDispatch} from "react-redux";
 import {Card} from "antd";
 
-const FormLayout = (props) => {
+const DetailPageLayout = (props) => {
     const dispatch = useDispatch();
-    const childrenWithProps = Children.map(props.children, child => {
-        if (isValidElement(child)) {
-            return cloneElement(child, {...props})
-        }
-        return child;
-    });
-
     return (
-        <Card style={{paddingTop: 0}}>
+        <Card>
             <PageHeader
                 className="site-page-header"
                 onBack={() => {
@@ -24,14 +17,14 @@ const FormLayout = (props) => {
                 title={props.title}
                 style={{paddingLeft: 0, paddingTop: 0}}
             >
-                {childrenWithProps}
+                {props.children}
             </PageHeader>
         </Card>
     );
 };
 
-FormLayout.propTypes = {
+DetailPageLayout.propTypes = {
     title: PropTypes.string.isRequired
 };
 
-export default FormLayout;
+export default DetailPageLayout;

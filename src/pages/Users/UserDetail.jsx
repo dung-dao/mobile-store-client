@@ -5,8 +5,9 @@ import {useParams} from 'react-router-dom';
 import {goBack} from 'connected-react-router';
 import LoadingPage from "../../components/common/LoadingPage";
 import {allUsersSelector, createUser, getUserById, updateUser} from "../../redux/AllUsersSlice";
-import FormLayout from "../../components/common/FormLayout";
+import DetailPageLayout from "../../components/common/DetailPageLayout";
 import UserRegisterInput from "../../components/FormInputs/UserRegisterInput";
+import {createLabel} from "../../utils/ObjectUtils";
 
 const UserDetail = (props) => {
     //Hooks
@@ -57,7 +58,7 @@ const UserDetail = (props) => {
         detailItem = {role: "salesman"}
 
     return (
-        <FormLayout title="Đăng ký tài khoản">
+        <DetailPageLayout title={createLabel(action, 'tài khoản')}>
             <Form
                 initialValues={detailItem}
                 labelCol={{span: 8}}
@@ -81,7 +82,7 @@ const UserDetail = (props) => {
                     </Form.Item>
                 </Row>
             </Form>
-        </FormLayout>
+        </DetailPageLayout>
     );
 };
 

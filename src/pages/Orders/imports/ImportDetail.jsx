@@ -262,6 +262,10 @@ const ImportDetail = (props) => {
                                     onClick={() => {
                                         setVisible(true);
                                     }}
+
+                                    disabled={
+                                        !provider || !orderDetails.length
+                                    }
                                 >
                                     Tạo đơn hàng
                                 </Button>

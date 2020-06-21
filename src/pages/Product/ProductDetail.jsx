@@ -4,10 +4,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {useParams} from 'react-router-dom';
 import {goBack} from 'connected-react-router';
 import LoadingPage from "../../components/common/LoadingPage";
-import FormLayout from "../../components/common/FormLayout";
-import {_createAC, _getByIdAC, _selector, _updateAC, detailPageTitle} from "./Config";
+import DetailPageLayout from "../../components/common/DetailPageLayout";
+import {_createAC, _getByIdAC, _selector, _updateAC} from "./Config";
 import ProductInputs from "../../components/FormInputs/ProductInputs";
 import IF from "../../components/common/IF";
+import {createLabel} from "../../utils/ObjectUtils";
 
 const ProductDetail = (props) => {
     //Hooks
@@ -56,7 +57,7 @@ const ProductDetail = (props) => {
     }
 
     return (
-        <FormLayout title={detailPageTitle}>
+        <DetailPageLayout title={createLabel(action, 'sản phẩm')}>
             <Form
                 initialValues={action === 'CREATE' ? {manufactureId: 1, categoryId: 1} : detailItem}
                 labelCol={{span: 8}}
@@ -89,7 +90,7 @@ const ProductDetail = (props) => {
                     </Row>
                 </IF>
             </Form>
-        </FormLayout>
+        </DetailPageLayout>
     );
 };
 

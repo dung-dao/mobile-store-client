@@ -27,12 +27,16 @@ const CustomerSelect = (props) => {
                     const customer = customers.find(cus => cus.phone == phone);
                     // console.log(customer);
                     handleFinish(customer);
-                }}>
+                }}
+
+            >
                 <Row gutter={[16, 16]}>
-                    <Col span={8}>
+                    <Col span={12}>
                         <Form.Item
                             name="selectData"
-                            wrapperCol={{span: 24}}
+                            wrapperCol={{span: 16}}
+                            labelCol={{span: 8}}
+                            label="Tên khách hàng"
                             rules={[
                                 {
                                     validator: (_, value) => {

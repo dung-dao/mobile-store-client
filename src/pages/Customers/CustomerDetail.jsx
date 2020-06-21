@@ -8,6 +8,9 @@ import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
 import {createCustomer, customerSelector, getCustomerById, updateCustomer,} from "../../redux";
 import CustomerInput from "../../components/FormInputs/CustomerInput";
 import LoadingPage from "../../components/common/LoadingPage";
+import OrderList from "../Orders/orders/OrderList";
+import {searchOrder} from "../../redux/OrderSlice";
+import {createLabel} from "../../utils/ObjectUtils";
 
 const CustomerDetail = (props) => {
     //Hooks
@@ -19,6 +22,7 @@ const CustomerDetail = (props) => {
     useEffect(() => {
         if (!init && id) {
             dispatch(getCustomerById(id));
+            dispatch(searchOrder({orderTypeId: 2, CustomerId: id}));
             setInit(true);
         }
     });
@@ -70,7 +74,7 @@ const CustomerDetail = (props) => {
                                 >
                                     <ArrowLeftOutlined/>
                                 </Button>
-                                <h3 style={{margin: 0}}>Thông tin khách hàng</h3>
+                                <h3 style={{margin: 0}}>{createLabel(action, 'khách hàng')}</h3>
                             </Space>
                         }>
                         <Form
@@ -99,6 +103,16 @@ const CustomerDetail = (props) => {
                             </Row>
                         </Form>
                     </Card>
+                </Col>
+                <Col span={24}>
+                    <OrderList
+                        title="Lịch sử mua hàng"
+                        excludeColumns={[
+                            'name',
+                            'phone'
+                        ]}
+                        disabledActions={{CREATE: true}}
+                    />
                 </Col>
             </Row>
         </React.Fragment>

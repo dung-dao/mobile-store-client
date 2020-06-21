@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import {Button, Card, Form, Input, Space} from 'antd';
+import {Button, Col, Form, Input, Row, Space} from 'antd';
 import {useDispatch, useSelector} from "react-redux";
 import {createProvider, getProviderById, providerSelector, updateProvider} from "../../redux";
 import {push} from 'connected-react-router';
 import IF from "../../components/common/IF";
-import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
 import LoadingPage from "../../components/common/LoadingPage";
 import {numberValidate, r_viInputRule, requiredValidate} from "../../utils/validate";
+import DetailPageLayout from "../../components/common/DetailPageLayout";
+import {createLabel} from "../../utils/ObjectUtils";
+import ImportsList from "../Orders/imports/ImportList";
+import {searchOrder} from "../../redux/OrderSlice";
 
 const ProviderDetail = (props) => {
     //Hooks
@@ -20,6 +23,7 @@ const ProviderDetail = (props) => {
     useEffect(() => {
         if (!init && id) {
             dispatch(getProviderById(id));
+            dispatch(searchOrder({orderTypeId: 1, providerId: id}));
             setInit(true);
         }
     });
@@ -30,107 +34,103 @@ const ProviderDetail = (props) => {
 
     //Local variables
     const readOnly = action === "VIEW";
-    if (!selector.isFetching)
-        console.log(selector);
 
-    return (
-        <React.Fragment>
-            <Card
-                title={
-                    <Space align={"center"}>
-                        <Button
-                            shape={"circle"}
-                            onClick={
-                                () => {
-                                    dispatch(push('/providers'));
+    if (selector.isFetching)
+        return <LoadingPage/>
+
+    return <Row gutter={[16, 16]}>
+        <Col span={24}>
+            <DetailPageLayout title={createLabel(action, 'nhà cung cấp')}>
+                <Row gutter={[16, 16]}>
+                    <Col span={24}>
+                        <Form
+                            initialValues={selector.currentProvider}
+                            labelCol={{span: 4}}
+                            labelAlign={"left"}
+                            wrapperCol={{span: 12}}
+                            form={form}
+                            onFinish={(values) => {
+                                switch (action) {
+                                    case "UPDATE":
+                                        dispatch(updateProvider(values));
+                                        break;
+                                    case  "CREATE":
+                                        dispatch(createProvider(values));
+                                        break;
+                                    default:
+                                        console.log('Provider detail unreachable code');
                                 }
-                            }
+                                dispatch(push('/providers'));
+                            }}
                         >
-                            <ArrowLeftOutlined/>
-                        </Button>
-                        <h3 style={{margin: 0}}>Chi Tiết Nhà Cung Cấp</h3>
-                    </Space>
-                }>
-                <IF condt={selector.isFetching}>
-                    <LoadingPage/>
-                </IF>
-                <IF condt={!selector.isFetching}>
-                    <Form
-                        initialValues={selector.currentProvider}
-                        labelCol={{span: 4}}
-                        labelAlign={"left"}
-                        wrapperCol={{span: 12}}
-                        form={form}
-                        onFinish={(values) => {
-                            switch (action) {
-                                case "UPDATE":
-                                    dispatch(updateProvider(values));
-                                    break;
-                                case  "CREATE":
-                                    dispatch(createProvider(values));
-                                    break;
-                                default:
-                                    console.log('Provider detail unreachable code');
-                            }
-                            dispatch(push('/providers'));
-                        }}
-                    >
-                        <IF condt={action !== 'CREATE'}>
-                            <Form.Item
-                                label="ID"
-                                name="id"
-                            >
-                                <Input readOnly={true}/>
-                            </Form.Item>
-                        </IF>
-
-                        <Form.Item
-                            label="Tên Nhà Cung Cấp"
-                            name="name"
-                            rules={r_viInputRule('tên nhà cung cấp')}
-                        >
-                            <Input readOnly={readOnly}/>
-                        </Form.Item>
-                        <Form.Item
-                            label="Số Điện Thoại"
-                            name="phone"
-                            rules={[
-                                ...requiredValidate('số điện thoại'),
-                                ...numberValidate('số điện thoại')
-                            ]}
-                        >
-                            <Input readOnly={readOnly}/>
-                        </Form.Item>
-                        <Form.Item
-                            label="Địa Chỉ"
-                            name="address"
-                            rules={[
-                                ...requiredValidate('Địa Chỉ'),
-                            ]}
-                        >
-                            <Input readOnly={readOnly}/>
-                        </Form.Item>
-                        <IF condt={!readOnly}>
-                            <Form.Item>
-                                <Button
-                                    htmlType="button"
-                                    style={{marginRight: "1em"}}
-                                    onClick={() => {
-                                        form.resetFields()
-                                    }}
+                            <IF condt={action !== 'CREATE'}>
+                                <Form.Item
+                                    label="ID"
+                                    name="id"
                                 >
-                                    Làm mới
-                                </Button>
-                                <Button type="primary" htmlType="submit">
-                                    Lưu lại
-                                </Button>
+                                    <Input readOnly={true}/>
+                                </Form.Item>
+                            </IF>
+
+                            <Form.Item
+                                label="Tên Nhà Cung Cấp"
+                                name="name"
+                                rules={r_viInputRule('tên nhà cung cấp')}
+                            >
+                                <Input readOnly={readOnly}/>
                             </Form.Item>
-                        </IF>
-                    </Form>
-                </IF>
-            </Card>
-        </React.Fragment>
-    );
+                            <Form.Item
+                                label="Số Điện Thoại"
+                                name="phone"
+                                rules={[
+                                    ...requiredValidate('số điện thoại'),
+                                    ...numberValidate('số điện thoại')
+                                ]}
+                            >
+                                <Input readOnly={readOnly}/>
+                            </Form.Item>
+                            <Form.Item
+                                label="Địa Chỉ"
+                                name="address"
+                                rules={[
+                                    ...requiredValidate('Địa Chỉ'),
+                                ]}
+                            >
+                                <Input readOnly={readOnly}/>
+                            </Form.Item>
+                            <IF condt={!readOnly}>
+                                <Form.Item wrapperCol={{span: 16}}>
+                                    <Row justify="end">
+                                        <Space>
+                                            <Button
+                                                htmlType="button"
+                                                onClick={() => {
+                                                    form.resetFields()
+                                                }}
+                                            >
+                                                Làm mới
+                                            </Button>
+                                            <Button type="primary" htmlType="submit">
+                                                Lưu lại
+                                            </Button>
+                                        </Space>
+                                    </Row>
+                                </Form.Item>
+                            </IF>
+                        </Form>
+                    </Col>
+                </Row>
+            </DetailPageLayout>
+        </Col>
+        <IF condt={action === 'VIEW'}>
+            <Col span={24}>
+                <ImportsList
+                    disabledActions={{CREATE: true}}
+                    title="Lịch sử nhập hàng"
+                />
+            </Col>
+        </IF>
+    </Row>
 };
 
 export default ProviderDetail;

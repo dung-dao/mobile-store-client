@@ -4,6 +4,7 @@ import Provider from "./Provider";
 import ProviderDetail from "./ProviderDetail";
 import {useDispatch} from "react-redux";
 import {clearProviderSelect} from "../../redux";
+import {searchOrder} from "../../redux/OrderSlice";
 
 const ProviderRouting = (props) => {
     const match = useRouteMatch();
@@ -30,7 +31,6 @@ const ProviderRouting = (props) => {
                 exact
                 path={`${match.path}/:id`}
                 render={(props => {
-
                     dispatch(clearProviderSelect());
                     return <ProviderDetail action="VIEW"/>;
                 })}

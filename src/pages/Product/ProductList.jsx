@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import LoadingPage from "../../components/common/LoadingPage";
 import {resourceName} from "./Config";
 import {deleteProduct, productSelector, searchProduct} from "../../redux/ProductSlice";
-import {mapNestedObject} from "../../utils/ObjectUtils";
+import {formatToCurrency, mapNestedObject} from "../../utils/ObjectUtils";
 
 const ProductList = (props) => {
     //Data Hook
@@ -41,10 +41,22 @@ const ProductList = (props) => {
                         sorter: sort('name')
                     },
                     {
-                        title: "Đơn giá",
-                        key: "amount",
-                        dataIndex: "amount",
-                        sorter: sort('amount')
+                        title: "Giá bán",
+                        key: "price",
+                        dataIndex: "price",
+                        sorter: sort('price'),
+                        render: (text, record, index) => {
+                            return formatToCurrency(text)
+                        }
+                    },
+                    {
+                        title: "Giá vốn",
+                        key: "COGS",
+                        dataIndex: "COGS",
+                        sorter: sort('price'),
+                        render: (text, record, index) => {
+                            return formatToCurrency(text)
+                        }
                     },
                     {
                         title: "Hãng sản xuất",
