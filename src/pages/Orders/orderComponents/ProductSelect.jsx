@@ -77,9 +77,10 @@ const ProductSelect = (props) => {
                                     style={{width: "100%"}}
                                     min={1}
                                     max={10000000000}
-                                    step={100000}
+                                    step={1000000}
                                     placeholder="Nhập đơn giá"
                                     formatter={value => formatToCurrency(value)}
+                                    parser={(value) => Number(value.replace(/[^0-9-]+/g, ""))}
                                 />
                             </Form.Item>
                         </Col>
