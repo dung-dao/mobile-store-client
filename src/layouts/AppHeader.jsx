@@ -1,6 +1,5 @@
 import React from "react";
-import {Layout, Menu, Dropdown, Button} from "antd";
-import {ReactComponent as Logo} from "../app/logo.svg";
+import {Button, Dropdown, Layout, Menu, Row, Space, Tag} from "antd";
 import "./AppHeader.css";
 import {UserOutlined} from "@ant-design/icons";
 import {useDispatch} from "react-redux";
@@ -30,15 +29,21 @@ const AppHeader = (props) => {
 
     return (
         <React.Fragment>
-            <Header className="Header">
-                <Logo height="48px" width="48px"></Logo>
-                <Dropdown
-                    overlay={userMenu}
-                    placement="bottomLeft"
-                    className="user-dropdown"
-                >
-                    <Avatar size={46} icon={<UserOutlined />} />
-                </Dropdown>
+            <Header>
+                <Row align="middle" justify="space-between">
+                    {/*<Logo height="48px" width="48px"/>*/}
+                    <img src={require('../app/logo.png')} height={64}/>
+                    <Space>
+                        <Tag color="red">Admin</Tag>
+                        <Dropdown
+                            overlay={userMenu}
+                            placement="bottomLeft"
+                            className="user-dropdown"
+                        >
+                            <Avatar size={46} icon={<UserOutlined/>}/>
+                        </Dropdown>
+                    </Space>
+                </Row>
             </Header>
         </React.Fragment>
     );
