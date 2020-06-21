@@ -26,7 +26,7 @@ Total : 81 files,  4075 codes, 173 comments, 461 blanks, all 4709 lines
 | [src/components/FormInputs/UserRegisterInput.jsx](/src/components/FormInputs/UserRegisterInput.jsx) | JavaScript React | 72 | 0 | 7 | 79 |
 | [src/components/common/DataTable.jsx](/src/components/common/DataTable.jsx) | JavaScript React | 165 | 0 | 7 | 172 |
 | [src/components/common/DetailPage.jsx](/src/components/common/DetailPage.jsx) | JavaScript React | 75 | 1 | 9 | 85 |
-| [src/components/common/FormLayout.jsx](/src/components/common/FormLayout.jsx) | JavaScript React | 33 | 0 | 5 | 38 |
+| [src/components/common/FormLayout.jsx](/src/components/common/DetailPageLayout.jsx) | JavaScript React | 33 | 0 | 5 | 38 |
 | [src/components/common/IF.jsx](/src/components/common/IF.jsx) | JavaScript React | 11 | 0 | 4 | 15 |
 | [src/components/common/LoadingPage.jsx](/src/components/common/LoadingPage.jsx) | JavaScript React | 19 | 0 | 2 | 21 |
 | [src/components/common/ModalConfirm.jsx](/src/components/common/ModalConfirm.jsx) | JavaScript React | 26 | 0 | 4 | 30 |

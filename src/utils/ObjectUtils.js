@@ -42,3 +42,15 @@ export function formatToCurrency(str) {
     return formatter.format(str);
 }
 
+export const createLabel = (action = "", resourceLabel = "") => {
+    switch (action) {
+        case 'VIEW':
+            return `Chi tiết ${resourceLabel.toLowerCase()}`;
+        case 'UPDATE':
+            return `Cập nhật ${resourceLabel}`;
+        case 'CREATE':
+            return `Tạo  ${resourceLabel}`
+        default:
+            return null;
+    }
+}

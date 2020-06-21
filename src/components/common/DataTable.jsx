@@ -17,7 +17,7 @@ const DataTable = (props) => {
         <React.Fragment>
             <div>
                 <Row gutter={[16, 16]}>
-                    <IF condt={!props.disableSearchBar}>
+                    <IF condt={!(props.disabledActions && props.disabledActions.SEARCH)}>
                         <Col span={24}>
                             <AdvancedSearchForm
                                 disableFields={props.disableFields}
@@ -48,14 +48,18 @@ const DataTable = (props) => {
                                                     <Space>
                                                         <IF condt={!!selectedItem}>
                                                             <Space>
-                                                                <Button
-                                                                    type="primary"
-                                                                    icon={<InfoOutlined/>}
-                                                                    onClick={() => {
-                                                                        dispatch(push(`/${props.resourceName}/${selectedItem.id}`));
-                                                                    }}
-                                                                >Chi tiết</Button>
-                                                                <IF condt={!props.disableEdit}>
+                                                                <IF condt={!(props.disabledActions && props.disabledActions.VIEW)}>
+                                                                    <Button
+                                                                        type="primary"
+                                                                        icon={<InfoOutlined/>}
+                                                                        onClick={() => {
+                                                                            dispatch(push(`/${props.resourceName}/${selectedItem.id}`));
+                                                                        }}
+                                                                    >
+                                                                        Chi tiết
+                                                                    </Button>
+                                                                </IF>
+                                                                <IF condt={!(props.disabledActions && props.disabledActions.UPDATE)}>
                                                                     <Button
                                                                         type="primary"
                                                                         icon={<EditOutlined/>}
@@ -64,6 +68,8 @@ const DataTable = (props) => {
                                                                                 push(`/${props.resourceName}/${selectedItem.id}/update`));
                                                                         }}
                                                                     >Chỉnh sửa</Button>
+                                                                </IF>
+                                                                <IF condt={!(props.disabledActions && props.disabledActions.DELETE)}>
                                                                     <Popconfirm
                                                                         title={"Bạn có chắc muốn xóa?"}
                                                                         onConfirm={() => {
@@ -80,17 +86,21 @@ const DataTable = (props) => {
                                                                 </IF>
                                                             </Space>
                                                         </IF>
-                                                        <Button
-                                                            type="primary"
-                                                            icon={<PlusOutlined/>}
-                                                            onClick={() => {
-                                                                dispatch(
-                                                                    push(`/${props.resourceName}/create`, {
-                                                                        action: "ADD"
-                                                                    })
-                                                                );
-                                                            }}
-                                                        >Thêm mới</Button>
+                                                        <IF condt={!(props.disabledActions && props.disabledActions.CREATE)}>
+                                                            <Button
+                                                                type="primary"
+                                                                icon={<PlusOutlined/>}
+                                                                onClick={() => {
+                                                                    dispatch(
+                                                                        push(`/${props.resourceName}/create`, {
+                                                                            action: "ADD"
+                                                                        })
+                                                                    );
+                                                                }}
+                                                            >
+                                                                Thêm mới
+                                                            </Button>
+                                                        </IF>
                                                     </Space>
                                                 </Col>
                                             </Row>
@@ -148,7 +158,14 @@ DataTable.propTypes = {
     searchAC: PropTypes.func.isRequired,
     selectHandler: PropTypes.func,
     disableSearchBar: PropTypes.bool,
-    disableEdit: PropTypes.bool
+    disableEdit: PropTypes.bool,
+    disabledActions: PropTypes.shape({
+        CREATE: PropTypes.bool,
+        UPDATE: PropTypes.bool,
+        DELETE: PropTypes.bool,
+        VIEW: PropTypes.bool,
+        SEARCH: PropTypes.bool
+    })
 };
 
 DataTable.defaultProps = {

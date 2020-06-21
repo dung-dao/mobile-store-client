@@ -19,7 +19,7 @@ const UserList = (props) => {
     return (
         <React.Fragment>
             <DataTable
-                title="Danh sách người dùng"
+                title="Danh sách tài khoản hệ thống"
                 columns={[
                     {
                         title: "ID",
