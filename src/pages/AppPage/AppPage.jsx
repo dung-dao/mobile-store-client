@@ -1,14 +1,13 @@
 import React from 'react';
 import {Route, Switch} from 'react-router-dom';
-import ProviderRouting from "../Providers/ProviderRouting";
-import PrivateRoute from "../../components/common/PrivateRoute";
 import AppLayout from "../../layouts/AppLayout";
 import CustomerRouting from "../Customers/CustomerRouting";
-import OrderRouting from "../Orders/orders/OrderRouting";
-import UserRouting from "../Users/UserRouting";
-import ProductRouting from "../Product/ProductRouting";
-import TestPage from "../TestPage/TestPage";
+import Dashboard from "../DashBoard/Dashboard";
 import ImportsRouting from "../Orders/imports/ImportsRouting";
+import UserRouting from "../Users/UserRouting";
+import OrderRouting from "../Orders/orders/OrderRouting";
+import ProductRouting from "../Product/ProductRouting";
+import ProviderRouting from "../Providers/ProviderRouting";
 
 const AppPage = (props) => {
     return (
@@ -48,7 +47,7 @@ const AppPage = (props) => {
                     render={(props) => {
                         return <ProductRouting {...props}/>
                     }}/>
-                <PrivateRoute path="/" component={TestPage}/>
+                <Route path="/" component={Dashboard}/>
             </Switch>
         </AppLayout>
     );

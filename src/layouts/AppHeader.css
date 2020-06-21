@@ -1,14 +1,18 @@
 .logo {
-  background-image: url(../app/logo.svg);
-  margin-right: 1em;
+    background-image: url(../app/logo.svg);
+    margin-right: 1em;
 }
 
 .Header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #0070CC;
+    -webkit-box-shadow: 0px 9px 16px 0px rgba(0,0,0,0.24);
+    -moz-box-shadow: 0px 9px 16px 0px rgba(0,0,0,0.24);
+    box-shadow: 0px 9px 16px 0px rgba(0,0,0,0.24);
 }
 
 .user-dropdown {
-  margin-left: auto;
+    margin-left: auto;
 }
