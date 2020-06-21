@@ -258,6 +258,9 @@ const OrderDetail = (props) => {
                                     onClick={() => {
                                         setVisible(true);
                                     }}
+                                    disabled={
+                                        !customer || !orderDetails.length
+                                    }
                                 >
                                     Tạo đơn hàng
                                 </Button>
