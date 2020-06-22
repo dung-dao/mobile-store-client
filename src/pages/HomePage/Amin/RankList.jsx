@@ -37,7 +37,6 @@ const RankList = () => {
                                         :
                                         null)}
                                     title={<a href="https://ant.design">{item.title}</a>}
-                                    description="100000000"
                                 />
                             </List.Item>
                         )}

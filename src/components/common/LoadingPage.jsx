@@ -3,9 +3,9 @@ import Col from "antd/es/grid/col";
 import {Row, Spin} from "antd";
 import LoadingOutlined from "@ant-design/icons/lib/icons/LoadingOutlined";
 
-const LoadingPage = () => {
+const LoadingPage = (props) => {
     return (
-        <Row style={{height: "100%"}} align="middle">
+        <Row style={{height: props.fullScreen ? "100vh" : "100%"}} align="middle">
             <Col offset={8} span={8}>
                 <Row justify="center">
                     <Spin indicator={<LoadingOutlined style={{fontSize: "6em"}} spin/>}/>

@@ -6,6 +6,7 @@ import {useDispatch} from "react-redux";
 import {logout} from "../redux/UserSlice";
 import {push} from "connected-react-router";
 import Avatar from "antd/es/avatar";
+import {string} from "prop-types";
 
 const {Header} = Layout;
 
@@ -34,7 +35,7 @@ const AppHeader = (props) => {
                     {/*<Logo height="48px" width="48px"/>*/}
                     <img src={require('../app/logo.png')} height={64}/>
                     <Space>
-                        <Tag color="red">Admin</Tag>
+                        {props.role ? (<Tag color="red">{props.role.toUpperCase()}</Tag>) : null}
                         <Dropdown
                             overlay={userMenu}
                             placement="bottomLeft"

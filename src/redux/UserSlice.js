@@ -17,20 +17,31 @@ export const login = createAsyncThunk("user/login", async (user, thunkAPI) => {
     return response.data;
 });
 
+export const authUser = createAsyncThunk("user/auth", async (user, thunkAPI) => {
+    let response = await http.post("/auth");
+    return response.data;
+});
+
 export const userSlice = createSlice({
     name: "user",
     initialState: function () {
         //User state
-        let state = {user: null, isFetching: false, isLogged: false};
-
+        let state = {
+            user: {permissions: null},
+            isFetching: false,
+            isLogged: false
+        };
         const token = localStorage.getAccessToken();
         if (token) {
-            const decode = jwt.decode(token);
-            if (Date.now() >= decode.iat * 1000) {
-                state.user = {id: decode.id, jwt: token};
-                state.isLogged = true;
-            } else {
-                localStorage.clearToken();
+            try {
+                const decode = jwt.decode(token);
+                if (Date.now() >= decode.iat * 1000) {
+                    state.isLogged = true;
+                } else {
+                    localStorage.clearToken();
+                    state.isLogged = false;
+                }
+            } catch (e) {
                 state.isLogged = false;
             }
         } else {
@@ -65,9 +76,26 @@ export const userSlice = createSlice({
             state.user = null;
             message.error("Sai tên đăng nhập hoặc mật khẩu", 1);
         },
+
+        [authUser.pending]: (state, action) => {
+            state.isFetching = true;
+        },
+        [authUser.fulfilled]: (state, action) => {
+            state.user = action.payload;
+            state.isFetching = false;
+            state.isLogged = true;
+        },
+        [login.rejected]: (state, action) => {
+            state.isFetching = false;
+            state.isLogged = false;
+            state.user = null;
+            localStorage.clearToken();
+            message.error("Sai tên đăng nhập hoặc mật khẩu", 1);
+        },
     },
 });
 
 export const userSelector = (state) => state.user;
+export const permissionSelector = (state) => state.user.user.permissions;
 export const {logout} = userSlice.actions;
 export default userSlice.reducer;

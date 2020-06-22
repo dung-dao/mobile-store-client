@@ -11,16 +11,29 @@ import ReconciliationOutlined from "@ant-design/icons/lib/icons/ReconciliationOu
 import TeamOutlined from "@ant-design/icons/lib/icons/TeamOutlined";
 import {useSelector} from "react-redux";
 import {pathSelector} from "../utils/ReduxHelper";
+import {checkPermission} from "../utils/Permission";
+import {permissionSelector, userSelector} from "../redux";
 
 const {Content, Sider} = Layout;
 
 const AppLayout = (props) => {
     const path = useSelector(pathSelector);
+    const permissions = useSelector(permissionSelector);
+    const _user = useSelector(userSelector);
+    const providerPer = checkPermission(permissions, 'READ', 'providers');
+    const productPer = checkPermission(permissions, 'READ', 'products');
+    const customerPer = checkPermission(permissions, 'READ', 'customers');
+    const userPer = checkPermission(permissions, 'READ', 'users');
+    const orderPer = checkPermission(permissions, 'READ', 'orders');
+    const importPer = checkPermission(permissions, 'READ', 'imports');
+
+
     let initPath = path.split('/')[1];
+    // alert('hit')
 
     return (
         <Layout className="main-layout">
-            <AppHeader></AppHeader>
+            <AppHeader role={_user.user.role ? _user.user.role : null}/>
             <Layout className="body">
                 <Sider className="site-layout-background">
                     <Menu
@@ -50,30 +63,39 @@ const AppLayout = (props) => {
                             <Link to={"/"}>Trang chủ</Link>
                         </Menu.Item>
                         <Divider/>
-                        <Menu.Item key={2}>
+
+                        {providerPer ? (<Menu.Item key={2}>
                             <BankOutlined/>
                             <Link to={"/providers"}>Nhà cung cấp</Link>
-                        </Menu.Item>
-                        <Menu.Item key={3}>
-                            <MobileOutlined/>
-                            <Link to={"/products"}>Sản phẩm</Link>
-                        </Menu.Item>
-                        <Menu.Item key={4}>
+                        </Menu.Item>) : null}
+
+
+                        {productPer ?
+                            (<Menu.Item key={3}>
+                                <MobileOutlined/>
+                                <Link to={"/products"}>Sản phẩm</Link>
+                            </Menu.Item>) : null
+                        }
+
+                        {customerPer ? (<Menu.Item key={4}>
                             <TeamOutlined/>
                             <Link to={"/customers"}>Khách hàng</Link>
-                        </Menu.Item>
-                        <Menu.Item key={5}>
+                        </Menu.Item>) : null}
+
+                        {userPer ? (<Menu.Item key={5}>
                             <UserOutlined/>
                             <Link to={"/users"}>Tài khoản</Link>
-                        </Menu.Item>
-                        <Menu.Item key={6}>
+                        </Menu.Item>) : null}
+
+                        {orderPer ? (<Menu.Item key={6}>
                             <ReconciliationOutlined/>
                             <Link to={"/orders"}>Đơn hàng</Link>
-                        </Menu.Item>
-                        <Menu.Item key={7}>
+                        </Menu.Item>) : null}
+
+                        {importPer ? (<Menu.Item key={7}>
                             <ReconciliationOutlined/>
                             <Link to={"/imports"}>Nhập hàng</Link>
-                        </Menu.Item>
+                        </Menu.Item>) : null}
                     </Menu>
                 </Sider>
 

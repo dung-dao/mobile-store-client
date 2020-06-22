@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Button, Card, Col, DatePicker, Form, Row, Select, Space, Statistic, Tooltip, Typography} from "antd";
 import {Axis, Chart, Geom} from "bizcharts";
-import RankList from "./RankList";
+import RankList from "./Amin/RankList";
 
 const data = [
     {genre: 'Sports', sold: 275, income: 2300},
@@ -36,7 +36,7 @@ const scale = {
     }
 };
 
-const Dashboard = () => {
+const DashBoard = () => {
     const [_by, set_By] = useState('MONTH');
 
     function callback(key) {
@@ -53,9 +53,8 @@ const Dashboard = () => {
             <Col span={8}>
                 <Card>
                     <Statistic
-                        value={40000000}
-                        title="Doanh thu hôm nay"
-                        suffix="VNĐ"
+                        value={4027}
+                        title="Số khách hàng"
                     />
                 </Card>
             </Col>
@@ -63,8 +62,8 @@ const Dashboard = () => {
                 <Card>
                     <Statistic
                         value={4300000000}
-                        title="Doanh thu tháng này"
-                        suffix="VNĐ"
+                        title="Doanh thu tuần này"
+                        suffix="đ"
                     />
                 </Card>
             </Col>
@@ -72,8 +71,8 @@ const Dashboard = () => {
                 <Card>
                     <Statistic
                         value={4000000000}
-                        title="Doanh thu tháng trước"
-                        suffix="VNĐ"
+                        title="Doanh thu tháng này"
+                        suffix="đ"
                     />
                 </Card>
             </Col>
@@ -134,4 +133,4 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;
+export default DashBoard;
