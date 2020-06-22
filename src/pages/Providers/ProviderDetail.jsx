@@ -6,7 +6,7 @@ import {createProvider, getProviderById, providerSelector, updateProvider} from 
 import {push} from 'connected-react-router';
 import IF from "../../components/common/IF";
 import LoadingPage from "../../components/common/LoadingPage";
-import {numberValidate, r_viInputRule, requiredValidate} from "../../utils/validate";
+import {numberValidate, r_viInputRule, requiredValidate, phoneValidate} from "../../utils/validate";
 import DetailPageLayout from "../../components/common/DetailPageLayout";
 import {createLabel} from "../../utils/ObjectUtils";
 import ImportsList from "../Orders/imports/ImportList";
@@ -44,7 +44,7 @@ const ProviderDetail = (props) => {
                 <Row gutter={[16, 16]}>
                     <Col span={24}>
                         <Form
-                            initialValues={selector.currentProvider}
+                            initialValues={action !== "CREATE" && selector.currentProvider}
                             labelCol={{span: 4}}
                             labelAlign={"left"}
                             wrapperCol={{span: 12}}
@@ -84,7 +84,7 @@ const ProviderDetail = (props) => {
                                 name="phone"
                                 rules={[
                                     ...requiredValidate('số điện thoại'),
-                                    ...numberValidate('số điện thoại')
+                                    ...phoneValidate('số điện thoại')
                                 ]}
                             >
                                 <Input readOnly={readOnly}/>
