@@ -11,12 +11,37 @@ import DetailPageLayout from "../../components/common/DetailPageLayout";
 import {createLabel} from "../../utils/ObjectUtils";
 import ImportsList from "../Orders/imports/ImportList";
 import {searchOrder} from "../../redux/OrderSlice";
+import {clearProviderSelect} from '../../redux';
 
 const ProviderDetail = (props) => {
     //Hooks
     const dispatch = useDispatch();
     const {id} = useParams();
     const [form] = Form.useForm();
+
+    useEffect(() => {
+        return () => dispatch(clearProviderSelect());
+
+        // Lỗi "stale props":
+
+        // ** Từ viết tắt:
+        // - NCC: Nhà cung cấp
+
+        // ** Mô tả lỗi, reproducing steps:
+        // - B1. Ở màn hình /providers, Chọn NCC nào đó (1), chọn chế độ "chỉnh sửa" 
+        //   -> sẽ tới /providers/:id/update, sẽ hiện thông tin của NCC(1) để chỉnh sửa
+        // - B2. Quay lại màn hình /providers, chọn NCC nào đó khác (2), tiếp tục chọn chế độ "chỉnh sửa" 
+        //   -> sẽ tới /providers/:id/update, nhưng lần này, chúng ta sẽ thấy 
+        //   thông tin của NCC(1), thay vì NCC(2). Data bị "trễ 1 nhịp" -> Lỗi "stale props".
+
+        // ** Fix bug:
+        // - Nhận thấy lỗi chỉ xảy SAU LẦN ĐẦU TIÊN THAO TÁC. Tức là lần đầu tiên, khi 
+        //  slice "provider" của redux có currentProvider = null, thì lỗi không xảy ra.
+        //  Nhưng sau đó, khi currentProvider != null, lỗi stale props xuất hiện.
+        // - Hotfixed bằng cách thường xuyên reset currentProvider = null
+        //  (dispatch(clearProviderSelect) chính là hàm reset currentProvider = null)
+        // - In seeking for a proper solution...
+    }, [dispatch]);
 
     //Init data Hook
     const [init, setInit] = useState(false);

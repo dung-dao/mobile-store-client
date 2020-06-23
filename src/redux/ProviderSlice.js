@@ -63,6 +63,7 @@ export const providersSlice = createSlice({
     reducers: {
         clearProviderSelect: state => {
             state.detailProvider = null;
+            state.currentProvider = null;
         }
     },
     extraReducers: {
