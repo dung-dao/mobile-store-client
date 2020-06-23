@@ -29,11 +29,14 @@ const fakeData = [
 
 const scale = {
     month: {
-        alias: "Tháng",
+        alias: "Thời gian",
     },
     revenue: {
         alias: "Doanh thu",
     },
+    year: {
+        alias: 'năm'
+    }
 };
 
 const DashBoard = () => {
@@ -151,14 +154,14 @@ const DashBoard = () => {
                                 height={320}
                                 data={revenues.map((e) => {
                                     const res = e;
-                                    e.month = `${e.month}/${e.year}`;
+                                    e.month = `${e.month ? e.month + '/' : ''}${e.year}`;
                                     // const value = e.revenue;
                                     // e.revenue = formatToCurrency(value)
                                     // console.log(formatToCurrency())
                                     return res;
                                 })}
                             >
-                                <Axis name="month" position="bottom" title/>
+                                <Axis name={_by.toLowerCase()} position="bottom" title/>
                                 <Axis name="revenue" position="left" title/>
                                 <Tooltip/>
                                 <Geom type="interval" position="month*revenue"/>
