@@ -1,29 +1,31 @@
 import React from 'react';
-import {Badge, Col, Divider, List, Row} from "antd";
+import {Badge, Col, List, Row} from "antd";
 import './RankList.css';
 
-const data = [
-    {
-        title: 'Iphone X1',
-    },
-    {
-        title: 'Google Quantum A',
-    },
-    {
-        title: 'IBM L1 Mark II',
-    },
-    {
-        title: 'Tesla Phantom X',
-    },
-];
+// const data = [
+//     {
+//         title: 'Iphone X1',
+//     },
+//     {
+//         title: 'Google Quantum A',
+//     },
+//     {
+//         title: 'IBM L1 Mark II',
+//     },
+//     {
+//         title: 'Tesla Phantom X',
+//     },
+// ];
 
-const RankList = () => {
+const RankList = (props) => {
+    const data = props.data;
     return (
         <React.Fragment>
             <Row>
                 <Col span={24}>
-                    Sản phẩm doanh thu cao nhất
-                    <Divider/>
+                    <span style={{fontWeight: "bold"}}>
+                    Sản phẩm bán chạy
+                    </span>
                 </Col>
                 <Col span={24}>
                     <List
