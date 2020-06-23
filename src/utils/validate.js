@@ -1,6 +1,6 @@
 export const vietnameseRegex = /^[\sa-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/u;
 export const numberRegex = /^[0123456789]+$/u;
-const phoneReg = /^((\\+84-?)|0)?[0-9]{10}$/;
+const phoneReg = /^(\+84|0|84)\d{9}$/;
 
 export function viValidate(inputLabel) {
     return ([{
@@ -53,7 +53,7 @@ export function maxLengthValidate(inputLabel, lenght) {
 export function phoneValidate() {
     return ([{
         pattern: phoneReg,
-        max: 15,
-        message: `Số điện thoại không hợp lệ`
+        max: 12,
+        message: `Số điện thoại phải thuộc định dạnh: (0|84|+84) theo sau 9 chữ số`
     }]);
 }
