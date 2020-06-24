@@ -1,13 +1,9 @@
 import React, {useState} from "react";
-import {Form, Row, Col, Input, Button, Space, Card} from "antd";
+import {Button, Col, Form, Input, Row, Space} from "antd";
 import {DownOutlined, UpOutlined} from "@ant-design/icons";
 import PropTypes from "prop-types";
 import IF from "./IF";
-import {push} from "connected-react-router";
 import {useDispatch} from "react-redux";
-import RedoOutlined from "@ant-design/icons/lib/icons/RedoOutlined";
-import Tooltip from "antd/es/tooltip";
-import {Link} from "react-router-dom";
 
 const AdvancedSearchForm = (props) => {
     const dispatch = useDispatch();

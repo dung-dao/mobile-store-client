@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loading Render renders without crashing 1`] = `
+<Row
+  align="middle"
+  gutter={0}
+  style={
+    Object {
+      "height": "100%",
+    }
+  }
+>
+  <Col
+    offset={8}
+    span={8}
+  >
+    <Row
+      gutter={0}
+      justify="center"
+    >
+      <Spin
+        indicator={
+          <ForwardRef(LoadingOutlined)
+            spin={true}
+            style={
+              Object {
+                "fontSize": "6em",
+              }
+            }
+          />
+        }
+        size="default"
+        spinning={true}
+        wrapperClassName=""
+      />
+    </Row>
+    <Row
+      gutter={0}
+      justify="center"
+    >
+      <span
+        style={
+          Object {
+            "marginTop": "1em",
+          }
+        }
+      >
+        Đang tải dữ liệu
+      </span>
+    </Row>
+  </Col>
+</Row>
+`;

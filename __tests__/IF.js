@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import IF from "../../src/components/common/IF";
+import IF from "../src/components/common/IF";
 
 
 describe('IF children', () => {
@@ -12,7 +12,6 @@ describe('IF children', () => {
     it('Should match snapshot', () => {
         const tree = renderer.create(<IF condt={true}>a</IF>).toJSON();
         expect(tree).toMatchSnapshot()
-
     });
 })
 
