@@ -63,6 +63,7 @@ export const providersSlice = createSlice({
     reducers: {
         clearProviderSelect: state => {
             state.detailProvider = null;
+            // state.currentProvider = null;
         }
     },
     extraReducers: {
@@ -141,6 +142,8 @@ export const providersSlice = createSlice({
 });
 
 export const providerSelector = (state) => state.providers;
+export const currentProviderSelector = (state) => state.providers.currentProvider;
+export const isFetchingSelector = (state) => state.providers.isFetching;
 export const {clearProviderSelect} = providersSlice.actions;
 const providerRoot = providersSlice.reducer;
 export default providerRoot;
