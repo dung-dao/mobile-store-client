@@ -64,11 +64,7 @@ const ProductDetail = (props) => {
                 labelAlign={"left"}
                 wrapperCol={{span: 16}}
                 form={form}
-                onFinish={
-                    values => {
-                        console.log(values)
-                    }
-                }
+                onFinish={onFinish}
             >
                 <Row gutter={16}>
                     <ProductInputs span={12} readOnly={readOnly} action={action}/>

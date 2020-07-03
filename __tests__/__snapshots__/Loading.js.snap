@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Loading Render renders without crashing 1`] = `
+exports[`Loading Snapshoot renders without crashing 1`] = `
 <Row
   align="middle"
   gutter={0}

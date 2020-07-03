@@ -78,7 +78,7 @@ const DashBoard = () => {
         // console.log(params);
         getOverall(begin, end, by).then(res => {
             const [curMonthRevenue] = res.curMonthRevenue;
-            setData({...res, curMonthRevenue: curMonthRevenue.revenue});
+            setData({...res, curMonthRevenue: curMonthRevenue?.revenue});
         });
     }
 

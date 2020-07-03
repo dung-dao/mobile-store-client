@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loading Render renders without crashing 1`] = `
+<Modal
+  cancelText="Hủy"
+  confirmLoading={false}
+  maskTransitionName="fade"
+  okText="Đồng ý"
+  okType="primary"
+  onCancel={[Function]}
+  onOk={[Function]}
+  title="Xác nhận"
+  transitionName="zoom"
+  visible={true}
+  width={520}
+>
+  Bạn có chắc chắn muốn xóa?
+</Modal>
+`;

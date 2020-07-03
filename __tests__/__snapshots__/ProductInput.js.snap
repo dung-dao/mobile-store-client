@@ -1,0 +1,523 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User input Match snapshoot create 1`] = `
+<Fragment>
+  <Row
+    gutter={16}
+  >
+    <IF
+      condt={false}
+    >
+      <Col
+        md={12}
+        xs={24}
+      >
+        <FormItem
+          label="ID"
+          labelAlign="left"
+          labelCol={
+            Object {
+              "span": 6,
+            }
+          }
+          name="id"
+        >
+          <Input
+            readOnly={true}
+            type="text"
+          />
+        </FormItem>
+      </Col>
+    </IF>
+    <Col
+      md={12}
+      xs={24}
+    >
+      <FormItem
+        label="Tên sản phẩm"
+        labelAlign="left"
+        labelCol={
+          Object {
+            "span": 6,
+          }
+        }
+        name="name"
+        rules={
+          Array [
+            Object {
+              "message": "Tên sản phẩm không được để trống",
+              "required": true,
+            },
+          ]
+        }
+      >
+        <Input
+          readOnly={false}
+          type="text"
+        />
+      </FormItem>
+    </Col>
+    <Col
+      md={12}
+      xs={24}
+    >
+      <FormItem
+        label="Danh mục"
+        labelAlign="left"
+        labelCol={
+          Object {
+            "span": 6,
+          }
+        }
+        name="categoryId"
+      >
+        <Select
+          bordered={true}
+          choiceTransitionName="zoom"
+          defaultValue={1}
+          disabled={false}
+          transitionName="slide-up"
+        >
+          <Option
+            value={1}
+          >
+            Điện thoại
+          </Option>
+          <Option
+            value={2}
+          >
+            Máy tính bảng
+          </Option>
+        </Select>
+      </FormItem>
+    </Col>
+    <Col
+      md={12}
+      xs={24}
+    >
+      <FormItem
+        label="Tên mã"
+        labelAlign="left"
+        labelCol={
+          Object {
+            "span": 6,
+          }
+        }
+        name="codeName"
+        rules={
+          Array [
+            Object {
+              "message": "Vui lòng nhập tên mã",
+              "required": true,
+            },
+            Object {
+              "max": 255,
+              "message": "Tên mã vượt quá độ dài cho phép",
+            },
+          ]
+        }
+      >
+        <Input
+          readOnly={false}
+          type="text"
+        />
+      </FormItem>
+    </Col>
+    <Col
+      md={12}
+      xs={24}
+    >
+      <FormItem
+        label="Hãng sản xuất"
+        labelAlign="left"
+        labelCol={
+          Object {
+            "span": 6,
+          }
+        }
+        name="manufactureId"
+      >
+        <Select
+          bordered={true}
+          choiceTransitionName="zoom"
+          defaultValue={1}
+          disabled={false}
+          transitionName="slide-up"
+        >
+          <Option
+            value={1}
+          >
+            Samsung
+          </Option>
+          <Option
+            value={2}
+          >
+            Apple
+          </Option>
+        </Select>
+      </FormItem>
+    </Col>
+    <Col
+      md={12}
+      xs={24}
+    >
+      <FormItem
+        label="Nước sản xuất"
+        labelAlign="left"
+        labelCol={
+          Object {
+            "span": 6,
+          }
+        }
+        name="madeIn"
+        rules={
+          Array [
+            Object {
+              "maxlength": 10000,
+              "message": "Tên nước sản xuất không hợp lệ",
+              "pattern": /\\^\\[\\\\t-\\\\r A-Z_a-z\\\\xA0\\\\xC0-\\\\xC3\\\\xC8-\\\\xCA\\\\xCC\\\\xCD\\\\xD2-\\\\xD5\\\\xD9\\\\xDA\\\\xDD\\\\xE0-\\\\xE3\\\\xE8-\\\\xEA\\\\xEC\\\\xED\\\\xF2-\\\\xF5\\\\xF9\\\\xFA\\\\u0102\\\\u0103\\\\u0110\\\\u0111\\\\u0128\\\\u0129\\\\u0168\\\\u0169\\\\u01A0\\\\u01A1\\\\u01AF\\\\u01B0\\\\u1680\\\\u1EA0-\\\\u1EBD\\\\u1EC0-\\\\u1EF9\\\\u2000-\\\\u200A\\\\u2028\\\\u2029\\\\u202F\\\\u205F\\\\u3000\\\\uFEFF\\]\\+\\$/,
+            },
+            Object {
+              "max": 10000,
+              "message": "Tên nước sản xuất vượt quá độ dài cho phép",
+            },
+          ]
+        }
+      >
+        <Input
+          readOnly={false}
+          type="text"
+        />
+      </FormItem>
+    </Col>
+    <Col
+      md={12}
+      xs={24}
+    >
+      <FormItem
+        label="Giá bán"
+        labelAlign="left"
+        labelCol={
+          Object {
+            "span": 6,
+          }
+        }
+        name="price"
+        rules={
+          Array [
+            Object {
+              "max": 11,
+              "message": "Giá bán chỉ bao gồm số",
+              "pattern": /\\^\\[0-9\\]\\+\\$/,
+            },
+            Object {
+              "message": "Giá bán không được để trống",
+              "required": true,
+            },
+          ]
+        }
+      >
+        <ForwardRef
+          defaultValue={1000000}
+          max={1000000000}
+          min={0}
+          readOnly={false}
+          step={100000}
+        />
+      </FormItem>
+    </Col>
+    <Col
+      span={24}
+    >
+      <FormItem
+        label="Mô tả"
+        labelAlign="left"
+        labelCol={
+          Object {
+            "span": 3,
+          }
+        }
+        name="description"
+        rules={
+          Array [
+            Object {
+              "max": 10000,
+              "message": "Mô tả vượt quá độ dài cho phép",
+            },
+          ]
+        }
+        wrapperCol={
+          Object {
+            "span": 20,
+          }
+        }
+      >
+        <TextArea
+          readOnly={false}
+        />
+      </FormItem>
+    </Col>
+  </Row>
+</Fragment>
+`;
+
+exports[`User input Match snapshoot view 1`] = `
+<Fragment>
+  <Row
+    gutter={16}
+  >
+    <IF
+      condt={true}
+    >
+      <Col
+        md={12}
+        xs={24}
+      >
+        <FormItem
+          label="ID"
+          labelAlign="left"
+          labelCol={
+            Object {
+              "span": 6,
+            }
+          }
+          name="id"
+        >
+          <Input
+            readOnly={true}
+            type="text"
+          />
+        </FormItem>
+      </Col>
+    </IF>
+    <Col
+      md={12}
+      xs={24}
+    >
+      <FormItem
+        label="Tên sản phẩm"
+        labelAlign="left"
+        labelCol={
+          Object {
+            "span": 6,
+          }
+        }
+        name="name"
+        rules={
+          Array [
+            Object {
+              "message": "Tên sản phẩm không được để trống",
+              "required": true,
+            },
+          ]
+        }
+      >
+        <Input
+          readOnly={true}
+          type="text"
+        />
+      </FormItem>
+    </Col>
+    <Col
+      md={12}
+      xs={24}
+    >
+      <FormItem
+        label="Danh mục"
+        labelAlign="left"
+        labelCol={
+          Object {
+            "span": 6,
+          }
+        }
+        name="categoryId"
+      >
+        <Select
+          bordered={true}
+          choiceTransitionName="zoom"
+          defaultValue={1}
+          disabled={true}
+          transitionName="slide-up"
+        >
+          <Option
+            value={1}
+          >
+            Điện thoại
+          </Option>
+          <Option
+            value={2}
+          >
+            Máy tính bảng
+          </Option>
+        </Select>
+      </FormItem>
+    </Col>
+    <Col
+      md={12}
+      xs={24}
+    >
+      <FormItem
+        label="Tên mã"
+        labelAlign="left"
+        labelCol={
+          Object {
+            "span": 6,
+          }
+        }
+        name="codeName"
+        rules={
+          Array [
+            Object {
+              "message": "Vui lòng nhập tên mã",
+              "required": true,
+            },
+            Object {
+              "max": 255,
+              "message": "Tên mã vượt quá độ dài cho phép",
+            },
+          ]
+        }
+      >
+        <Input
+          readOnly={true}
+          type="text"
+        />
+      </FormItem>
+    </Col>
+    <Col
+      md={12}
+      xs={24}
+    >
+      <FormItem
+        label="Hãng sản xuất"
+        labelAlign="left"
+        labelCol={
+          Object {
+            "span": 6,
+          }
+        }
+        name="manufactureId"
+      >
+        <Select
+          bordered={true}
+          choiceTransitionName="zoom"
+          defaultValue={1}
+          disabled={true}
+          transitionName="slide-up"
+        >
+          <Option
+            value={1}
+          >
+            Samsung
+          </Option>
+          <Option
+            value={2}
+          >
+            Apple
+          </Option>
+        </Select>
+      </FormItem>
+    </Col>
+    <Col
+      md={12}
+      xs={24}
+    >
+      <FormItem
+        label="Nước sản xuất"
+        labelAlign="left"
+        labelCol={
+          Object {
+            "span": 6,
+          }
+        }
+        name="madeIn"
+        rules={
+          Array [
+            Object {
+              "maxlength": 10000,
+              "message": "Tên nước sản xuất không hợp lệ",
+              "pattern": /\\^\\[\\\\t-\\\\r A-Z_a-z\\\\xA0\\\\xC0-\\\\xC3\\\\xC8-\\\\xCA\\\\xCC\\\\xCD\\\\xD2-\\\\xD5\\\\xD9\\\\xDA\\\\xDD\\\\xE0-\\\\xE3\\\\xE8-\\\\xEA\\\\xEC\\\\xED\\\\xF2-\\\\xF5\\\\xF9\\\\xFA\\\\u0102\\\\u0103\\\\u0110\\\\u0111\\\\u0128\\\\u0129\\\\u0168\\\\u0169\\\\u01A0\\\\u01A1\\\\u01AF\\\\u01B0\\\\u1680\\\\u1EA0-\\\\u1EBD\\\\u1EC0-\\\\u1EF9\\\\u2000-\\\\u200A\\\\u2028\\\\u2029\\\\u202F\\\\u205F\\\\u3000\\\\uFEFF\\]\\+\\$/,
+            },
+            Object {
+              "max": 10000,
+              "message": "Tên nước sản xuất vượt quá độ dài cho phép",
+            },
+          ]
+        }
+      >
+        <Input
+          readOnly={true}
+          type="text"
+        />
+      </FormItem>
+    </Col>
+    <Col
+      md={12}
+      xs={24}
+    >
+      <FormItem
+        label="Giá bán"
+        labelAlign="left"
+        labelCol={
+          Object {
+            "span": 6,
+          }
+        }
+        name="price"
+        rules={
+          Array [
+            Object {
+              "max": 11,
+              "message": "Giá bán chỉ bao gồm số",
+              "pattern": /\\^\\[0-9\\]\\+\\$/,
+            },
+            Object {
+              "message": "Giá bán không được để trống",
+              "required": true,
+            },
+          ]
+        }
+      >
+        <ForwardRef
+          defaultValue={1000000}
+          max={1000000000}
+          min={0}
+          readOnly={true}
+          step={100000}
+        />
+      </FormItem>
+    </Col>
+    <Col
+      span={24}
+    >
+      <FormItem
+        label="Mô tả"
+        labelAlign="left"
+        labelCol={
+          Object {
+            "span": 3,
+          }
+        }
+        name="description"
+        rules={
+          Array [
+            Object {
+              "max": 10000,
+              "message": "Mô tả vượt quá độ dài cho phép",
+            },
+          ]
+        }
+        wrapperCol={
+          Object {
+            "span": 20,
+          }
+        }
+      >
+        <TextArea
+          readOnly={true}
+        />
+      </FormItem>
+    </Col>
+  </Row>
+</Fragment>
+`;

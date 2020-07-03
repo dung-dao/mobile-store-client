@@ -84,7 +84,7 @@ const ProviderDetail = (props) => {
                                         dispatch(createProvider(values));
                                         break;
                                     default:
-                                        console.log('Provider detail unreachable code');
+                                        console.log('ProviderList detail unreachable code');
                                 }
                                 dispatch(push('/providers'));
                             }}

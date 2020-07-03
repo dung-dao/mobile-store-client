@@ -175,7 +175,7 @@ module.exports = {
     // ],
 
     transformIgnorePatterns: [
-        "/node_modules\/(?!antd|rc-util|rc-pagination|rc-picker|rc-notification|@babel).+"
+        "/node_modules\/(?!antd|rc-util|rc-pagination|rc-picker|rc-notification|@babel|@ant-design).+"
     ],
 
 

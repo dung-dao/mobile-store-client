@@ -1,0 +1,257 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User input Match snapshoot create 1`] = `
+<Fragment>
+  <IF
+    condt={false}
+  >
+    <Col
+      md={4}
+      xs={24}
+    >
+      <FormItem
+        label="ID"
+        name="id"
+      >
+        <Input
+          readOnly={true}
+          type="text"
+        />
+      </FormItem>
+    </Col>
+  </IF>
+  <Col
+    md={4}
+    xs={24}
+  >
+    <FormItem
+      label="Họ tên"
+      name="name"
+      rules={
+        Array [
+          Object {
+            "message": "Họ tên không được để trống",
+            "required": true,
+          },
+          Object {
+            "max": 255,
+            "message": "Tên vượt quá độ dài cho phép",
+          },
+          Object {
+            "message": "Họ tên không hợp lệ",
+            "pattern": /\\^\\[\\\\t-\\\\r A-Z_a-z\\\\xA0\\\\xC0-\\\\xC3\\\\xC8-\\\\xCA\\\\xCC\\\\xCD\\\\xD2-\\\\xD5\\\\xD9\\\\xDA\\\\xDD\\\\xE0-\\\\xE3\\\\xE8-\\\\xEA\\\\xEC\\\\xED\\\\xF2-\\\\xF5\\\\xF9\\\\xFA\\\\u0102\\\\u0103\\\\u0110\\\\u0111\\\\u0128\\\\u0129\\\\u0168\\\\u0169\\\\u01A0\\\\u01A1\\\\u01AF\\\\u01B0\\\\u1680\\\\u1EA0-\\\\u1EBD\\\\u1EC0-\\\\u1EF9\\\\u2000-\\\\u200A\\\\u2028\\\\u2029\\\\u202F\\\\u205F\\\\u3000\\\\uFEFF\\]\\+\\$/,
+          },
+        ]
+      }
+    >
+      <Input
+        readOnly={false}
+        type="text"
+      />
+    </FormItem>
+  </Col>
+  <Col
+    md={4}
+    xs={24}
+  >
+    <FormItem
+      label="Số Điện Thoại"
+      name="phone"
+      rules={
+        Array [
+          Object {
+            "max": 12,
+            "message": "Số điện thoại phải thuộc định dạnh: (0|84|+84) theo sau 9 chữ số",
+            "pattern": /\\^\\(\\\\\\+84\\|0\\|84\\)\\\\d\\{9\\}\\$/,
+          },
+          Object {
+            "message": "Số Điện Thoại không được để trống",
+            "required": true,
+          },
+        ]
+      }
+    >
+      <Input
+        readOnly={false}
+        type="text"
+      />
+    </FormItem>
+  </Col>
+  <Col
+    md={4}
+    xs={24}
+  >
+    <FormItem
+      label="Địa Chỉ"
+      name="address"
+      rules={
+        Array [
+          Object {
+            "max": 10000,
+            "message": "Địa chỉ quá dài",
+          },
+        ]
+      }
+    >
+      <Input
+        readOnly={false}
+        type="text"
+      />
+    </FormItem>
+  </Col>
+  <Col
+    md={4}
+    xs={24}
+  >
+    <FormItem
+      label="Địa chỉ email"
+      name="email"
+      rules={
+        Array [
+          Object {
+            "message": "Địa chỉ email không hợp lệ",
+            "type": "email",
+          },
+          Object {
+            "message": "Địa chỉ email không được để trống",
+            "required": true,
+          },
+        ]
+      }
+    >
+      <Input
+        readOnly={false}
+        type="text"
+      />
+    </FormItem>
+  </Col>
+</Fragment>
+`;
+
+exports[`User input Match snapshoot view 1`] = `
+<Fragment>
+  <IF
+    condt={true}
+  >
+    <Col
+      md={4}
+      xs={24}
+    >
+      <FormItem
+        label="ID"
+        name="id"
+      >
+        <Input
+          readOnly={true}
+          type="text"
+        />
+      </FormItem>
+    </Col>
+  </IF>
+  <Col
+    md={4}
+    xs={24}
+  >
+    <FormItem
+      label="Họ tên"
+      name="name"
+      rules={
+        Array [
+          Object {
+            "message": "Họ tên không được để trống",
+            "required": true,
+          },
+          Object {
+            "max": 255,
+            "message": "Tên vượt quá độ dài cho phép",
+          },
+          Object {
+            "message": "Họ tên không hợp lệ",
+            "pattern": /\\^\\[\\\\t-\\\\r A-Z_a-z\\\\xA0\\\\xC0-\\\\xC3\\\\xC8-\\\\xCA\\\\xCC\\\\xCD\\\\xD2-\\\\xD5\\\\xD9\\\\xDA\\\\xDD\\\\xE0-\\\\xE3\\\\xE8-\\\\xEA\\\\xEC\\\\xED\\\\xF2-\\\\xF5\\\\xF9\\\\xFA\\\\u0102\\\\u0103\\\\u0110\\\\u0111\\\\u0128\\\\u0129\\\\u0168\\\\u0169\\\\u01A0\\\\u01A1\\\\u01AF\\\\u01B0\\\\u1680\\\\u1EA0-\\\\u1EBD\\\\u1EC0-\\\\u1EF9\\\\u2000-\\\\u200A\\\\u2028\\\\u2029\\\\u202F\\\\u205F\\\\u3000\\\\uFEFF\\]\\+\\$/,
+          },
+        ]
+      }
+    >
+      <Input
+        readOnly={true}
+        type="text"
+      />
+    </FormItem>
+  </Col>
+  <Col
+    md={4}
+    xs={24}
+  >
+    <FormItem
+      label="Số Điện Thoại"
+      name="phone"
+      rules={
+        Array [
+          Object {
+            "max": 12,
+            "message": "Số điện thoại phải thuộc định dạnh: (0|84|+84) theo sau 9 chữ số",
+            "pattern": /\\^\\(\\\\\\+84\\|0\\|84\\)\\\\d\\{9\\}\\$/,
+          },
+          Object {
+            "message": "Số Điện Thoại không được để trống",
+            "required": true,
+          },
+        ]
+      }
+    >
+      <Input
+        readOnly={true}
+        type="text"
+      />
+    </FormItem>
+  </Col>
+  <Col
+    md={4}
+    xs={24}
+  >
+    <FormItem
+      label="Địa Chỉ"
+      name="address"
+      rules={
+        Array [
+          Object {
+            "max": 10000,
+            "message": "Địa chỉ quá dài",
+          },
+        ]
+      }
+    >
+      <Input
+        readOnly={true}
+        type="text"
+      />
+    </FormItem>
+  </Col>
+  <Col
+    md={4}
+    xs={24}
+  >
+    <FormItem
+      label="Địa chỉ email"
+      name="email"
+      rules={
+        Array [
+          Object {
+            "message": "Địa chỉ email không hợp lệ",
+            "type": "email",
+          },
+          Object {
+            "message": "Địa chỉ email không được để trống",
+            "required": true,
+          },
+        ]
+      }
+    >
+      <Input
+        readOnly={true}
+        type="text"
+      />
+    </FormItem>
+  </Col>
+</Fragment>
+`;

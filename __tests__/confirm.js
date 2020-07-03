@@ -13,5 +13,6 @@ describe('Loading Render', () => {
         }} onCancel={() => {
             console.log('cancel')
         }} actionName="xóa"/>);
+        expect(tree).toMatchSnapshot();
     });
 })

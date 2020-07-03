@@ -7,6 +7,27 @@ import LoadingPage from "../../components/common/LoadingPage";
 import {resourceName} from "./Config";
 import {deleteProduct, productSelector, searchProduct} from "../../redux/ProductSlice";
 import {formatToCurrency, mapNestedObject} from "../../utils/ObjectUtils";
+import {Select, Space, Typography} from 'antd';
+
+const {Title} = Typography;
+
+const TableTitle = () => {
+    const dispatch = useDispatch();
+    const categories = [
+        {label: 'Điện thoại', value: '1'},
+        {label: 'Điện thoại', value: '2'}
+    ];
+    return <Space align="baseline" size="large">
+        <Title level={4}>Danh mục</Title>
+        <Select defaultValue={1} onChange={(value, option) => {
+            // dispatch(searchProduct({categoryId: value}))
+            alert(value);
+        }}>
+            <Select.Option value={1}>Điện thoại</Select.Option>
+            <Select.Option value={2}>Máy tính bảng</Select.Option>
+        </Select>
+    </Space>
+};
 
 const ProductList = (props) => {
     //Data Hook
@@ -20,11 +41,13 @@ const ProductList = (props) => {
     }) : [];
     console.log('products', products);
 
+
     if (selector.isFetching)
         return <LoadingPage/>
 
     return (
-        <React.Fragment>
+        <Space direction="vertical">
+            <TableTitle/>
             <DataTable
                 title="Danh sách sản phẩm"
                 columns={[
@@ -71,14 +94,13 @@ const ProductList = (props) => {
                         sorter: sort('categoryName')
                     },
                 ]}
-                //id	name	codeName	description	madeIn	amount	createdAt	updatedAt	categoryId	manufactureId
                 dataSource={products}
                 resourceName={resourceName}
                 deleteAC={deleteProduct}
                 searchAC={searchProduct}
                 disableFields={['amount', 'manufactureName', 'categoryName']}
             />
-        </React.Fragment>
+        </Space>
     );
 };
 

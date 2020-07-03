@@ -6,7 +6,7 @@ import {sort} from "../../utils/sort";
 import {generateKey} from "../../utils/ObjectUtils";
 import LoadingPage from "../../components/common/LoadingPage";
 
-const Provider = (props) => {
+const ProviderList = (props) => {
     //Data Hook
     const dispatch = useDispatch();
     const selector = useSelector(providerSelector);
@@ -61,4 +61,4 @@ const Provider = (props) => {
     );
 };
 
-export default Provider;
+export default ProviderList;

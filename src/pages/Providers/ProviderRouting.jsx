@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route, Switch, useRouteMatch} from "react-router-dom";
-import Provider from "./Provider";
+import ProviderList from "./ProviderList";
 import ProviderDetail from "./ProviderDetail";
 import {useDispatch} from "react-redux";
 import {clearProviderSelect} from "../../redux";
@@ -39,7 +39,7 @@ const ProviderRouting = (props) => {
             <Route
                 path={`${match.path}/`}
                 render={(props) => {
-                    return <Provider/>
+                    return <ProviderList/>
                 }}/>
         </Switch>
     );

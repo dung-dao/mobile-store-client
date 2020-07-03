@@ -6,7 +6,7 @@ import {configure, shallow} from 'enzyme';
 configure({adapter: new Adapter()});
 
 configure({adapter: new Adapter()});
-describe('Loading Render', () => {
+describe('Loading Snapshoot', () => {
     it('renders without crashing', () => {
         const tree = shallow(<LoadingPage/>);
         expect(tree).toMatchSnapshot();
