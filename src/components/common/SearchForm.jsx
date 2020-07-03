@@ -58,7 +58,7 @@ const AdvancedSearchForm = (props) => {
                 <Row gutter={24}>
                     {fields}
                     <Col span={8}>
-                        <Row justify={expand ? "end" : "start"}>
+                        <Row justify="end">
                             <Space style={{marginBottom: "1em"}}>
                                 <Button
                                     type="primary"

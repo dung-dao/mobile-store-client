@@ -1,18 +1,90 @@
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
-import {push} from "connected-react-router";
 import PropTypes from "prop-types";
-import {Button, Card, Col, Popconfirm, Row, Space, Table, Typography} from "antd";
-import {DeleteOutlined, EditOutlined, InfoOutlined, PlusOutlined} from "@ant-design/icons";
+import {Button, Card, Col, Dropdown, Menu, Modal, Popconfirm, Row, Table, Typography} from "antd";
+import {push} from 'connected-react-router';
 
 import AdvancedSearchForm from "./SearchForm";
 import IF from "./IF";
+import PlusCircleOutlined from "@ant-design/icons/lib/icons/PlusCircleOutlined";
+import InfoCircleOutlined from "@ant-design/icons/lib/icons/InfoCircleOutlined";
+import EditOutlined from "@ant-design/icons/lib/icons/EditOutlined";
+import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined";
+import ExclamationCircleOutlined from "@ant-design/icons/lib/icons/ExclamationCircleOutlined";
+import MenuOutlined from "@ant-design/icons/lib/icons/MenuOutlined";
 
 const {Title} = Typography;
+const {confirm} = Modal;
 
 const DataTable = (props) => {
     const [selectedItem, setSelectedItem] = useState(null);
     const dispatch = useDispatch();
+
+    const menu = (
+        <Menu style={{minWidth: "8em"}}>
+            <Menu.Item
+                onClick={() => {
+                    dispatch(push(`/${props.resourceName}/${selectedItem.id}`));
+                }}
+                disabled={(!selectedItem || props.disabledActions && props.disabledActions.VIEW)}
+            >
+                <Row align="middle" justify="space-between">
+                    Chi tiết
+                    <InfoCircleOutlined/>
+                </Row>
+            </Menu.Item>
+            <Menu.Item
+                onClick={() => {
+                    dispatch(push(`/${props.resourceName}/create`))
+                }}
+            >
+                <Row align="middle" justify="space-between">
+                    Tạo
+                    <PlusCircleOutlined/>
+                </Row>
+            </Menu.Item>
+            <Menu.Item
+                danger={selectedItem}
+                onClick={() => {
+                    confirm({
+                        title: 'Cảnh báo',
+                        icon: <ExclamationCircleOutlined/>,
+                        content: 'Bạn có chắc chắn muốn xóa?',
+                        okText: "Đồng ý",
+                        cancelText: "Hủy",
+                        onOk() {
+                            dispatch(props.deleteAC(selectedItem))
+                        }
+                    })
+                }}
+                disabled={!selectedItem || props.disabledActions && props.disabledActions.DELETE}
+            >
+                <Row align="middle" justify="space-between">
+                    <Popconfirm
+                        title={"Bạn có chắc muốn xóa?"}
+                        onConfirm={() => {
+                            dispatch(props.deleteAC(selectedItem));
+                        }}
+                    >
+                        Xóa
+                    </Popconfirm>
+                    <DeleteOutlined/>
+                </Row>
+            </Menu.Item>
+            <Menu.Item
+                disabled={!selectedItem || props.disabledActions && props.disabledActions.UPDATE}
+                onClick={() => {
+                    dispatch(push(`/${props.resourceName}/${selectedItem.id}/update`))
+                }}
+            >
+                <Row align="middle" justify="space-between">
+                    Sửa
+                    <EditOutlined/>
+                </Row>
+            </Menu.Item>
+        </Menu>
+    );
+
     return (
         <React.Fragment>
             <div>
@@ -43,67 +115,14 @@ const DataTable = (props) => {
                                                 <Title level={4}>{props.title}</Title> : props.title}
                                         </Col>
                                         <Col>
-                                            <Row justify="end">
-                                                <Col>
-                                                    <Space>
-                                                        <IF condt={!!selectedItem}>
-                                                            <Space>
-                                                                <IF condt={!(props.disabledActions && props.disabledActions.VIEW)}>
-                                                                    <Button
-                                                                        type="primary"
-                                                                        icon={<InfoOutlined/>}
-                                                                        onClick={() => {
-                                                                            dispatch(push(`/${props.resourceName}/${selectedItem.id}`));
-                                                                        }}
-                                                                    >
-                                                                        Chi tiết
-                                                                    </Button>
-                                                                </IF>
-                                                                <IF condt={!(props.disabledActions && props.disabledActions.UPDATE)}>
-                                                                    <Button
-                                                                        type="primary"
-                                                                        icon={<EditOutlined/>}
-                                                                        onClick={() => {
-                                                                            dispatch(
-                                                                                push(`/${props.resourceName}/${selectedItem.id}/update`));
-                                                                        }}
-                                                                    >Chỉnh sửa</Button>
-                                                                </IF>
-                                                                <IF condt={!(props.disabledActions && props.disabledActions.DELETE)}>
-                                                                    <Popconfirm
-                                                                        title={"Bạn có chắc muốn xóa?"}
-                                                                        onConfirm={() => {
-                                                                            dispatch(props.deleteAC(selectedItem));
-                                                                        }}
-                                                                    >
-                                                                        <Button
-                                                                            type="danger"
-                                                                            icon={<DeleteOutlined/>}
-                                                                        >
-                                                                            Xóa
-                                                                        </Button>
-                                                                    </Popconfirm>
-                                                                </IF>
-                                                            </Space>
-                                                        </IF>
-                                                        <IF condt={!(props.disabledActions && props.disabledActions.CREATE)}>
-                                                            <Button
-                                                                type="primary"
-                                                                icon={<PlusOutlined/>}
-                                                                onClick={() => {
-                                                                    dispatch(
-                                                                        push(`/${props.resourceName}/create`, {
-                                                                            action: "ADD"
-                                                                        })
-                                                                    );
-                                                                }}
-                                                            >
-                                                                Thêm mới
-                                                            </Button>
-                                                        </IF>
-                                                    </Space>
-                                                </Col>
-                                            </Row>
+                                            <Dropdown overlay={menu}>
+                                                <Button
+                                                    onClick={e => e.preventDefault()}
+                                                >
+                                                    Thao tác
+                                                    <MenuOutlined/>
+                                                </Button>
+                                            </Dropdown>
                                         </Col>
                                     </Row>
                                 </Col>
@@ -165,24 +184,14 @@ DataTable.propTypes = {
         DELETE: PropTypes.bool,
         VIEW: PropTypes.bool,
         SEARCH: PropTypes.bool
-    })
-};
-
-DataTable.defaultProps = {
-    columns: [],
-    dataSource: [],
-    onCreate: function () {
-        console.log("create");
-    },
-    onUpdate: function () {
-        console.log("update");
-    },
-    deleteAC: function () {
-        console.log("delete");
-    },
-    onView: function () {
-        console.log("view");
-    },
+    }),
+    customActions: PropTypes.arrayOf(
+        PropTypes.shape({
+            label: PropTypes.string.isRequired,
+            icon: PropTypes.node,
+            onClick: PropTypes.func.isRequired
+        })
+    )
 };
 
 export default DataTable;

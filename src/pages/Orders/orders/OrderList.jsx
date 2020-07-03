@@ -74,8 +74,7 @@ const OrderList = (props) => {
                 searchAC={searchOrder}
                 disableFields={['amount', 'createdAt']}
                 title={props.title ? props.title : "Danh sách đơn hàng"}
-                disableSearchBar={true}
-                disabledActions={{UPDATE: true, DELETE: true, SEARCH: true, ...props.disabledActions}}
+                disabledActions={{UPDATE: true, DELETE: true, SEARCH: false, ...props.disabledActions}}
             />
         </React.Fragment>
     );
