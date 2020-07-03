@@ -28,6 +28,12 @@ const UserList = (props) => {
                         sorter: sort('id')
                     },
                     {
+                        title: "Họ tên",
+                        key: "fullname",
+                        dataIndex: "fullname",
+                        sorter: sort('fullname')
+                    },
+                    {
                         title: "Tên đăng nhập",
                         key: "name",
                         dataIndex: "name",

@@ -130,4 +130,19 @@ export const deleteERBase = (thunk) => ({
     },
 });
 
+export function createBaseSliceConfig(resourceName, _search, _getById, _create, _update, _delete) {
+    return ({
+        name: resourceName,
+        initialState: {...initialStateBase()},
+        reducers: {},
+        extraReducers: {
+            ...searchERBase(_search),
+            ...getByIdERBase(_getById),
+            ...createERBase(_create),
+            ...updateERBase(_update),
+            ...deleteERBase(_delete)
+        }
+    });
+}
+
 export const initialStateBase = () => ({items: [], detailItem: null, isFetching: false, filter: {}});

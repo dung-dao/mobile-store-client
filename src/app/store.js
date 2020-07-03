@@ -7,6 +7,7 @@ import customerRoot from "../redux/CustomerSlice";
 import allUsersRoot from "../redux/AllUsersSlice";
 import productRoot from "../redux/ProductSlice";
 import orderRoot from "../redux/OrderSlice";
+import categoryRoot from "../redux/CategorySlice";
 
 export const history = createBrowserHistory();
 
@@ -19,6 +20,7 @@ const store = configureStore({
         users: allUsersRoot,
         products: productRoot,
         orders: orderRoot,
+        categories: categoryRoot
     },
     middleware: [routerMiddleware(history), ...getDefaultMiddleware()],
 });

@@ -11,6 +11,7 @@ import ProviderRouting from "../Providers/ProviderRouting";
 import {useDispatch} from "react-redux";
 import {authUser, logout} from "../../redux";
 import LoadingPage from "../../components/common/LoadingPage";
+import CategoryRouting from "../Category/CategoryRouting";
 
 const AppPage = (props) => {
     const [init, setInit] = useState(false);
@@ -67,6 +68,11 @@ const AppPage = (props) => {
                     path={"/products"}
                     render={(props) => {
                         return <ProductRouting {...props}/>
+                    }}/>
+                <Route
+                    path={"/categories"}
+                    render={(props) => {
+                        return <CategoryRouting {...props}/>
                     }}/>
                 <Route path="/" component={DashBoard}/>
             </Switch>

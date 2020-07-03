@@ -1,15 +1,10 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {
-    createERBase,
+    createBaseSliceConfig,
     createThunkBase,
-    deleteERBase,
     deleteThunkBase,
-    getByIdERBase,
     getByIdThunkBase,
-    initialStateBase,
-    searchERBase,
     searchThunkBase,
-    updateERBase,
     updateThunkBase
 } from "./ReduxSliceBase";
 
@@ -22,18 +17,8 @@ export const createProduct = createThunkBase(resourceName);
 export const updateProduct = updateThunkBase(resourceName);
 export const deleteProduct = deleteThunkBase(resourceName);
 
-export const productSlice = createSlice({
-    name: resourceName,
-    initialState: {...initialStateBase()},
-    reducers: {},
-    extraReducers: {
-        ...searchERBase(searchProduct),
-        ...getByIdERBase(getProductById),
-        ...createERBase(createProduct),
-        ...updateERBase(updateProduct),
-        ...deleteERBase(deleteProduct)
-    }
-});
+export const productSlice = createSlice(createBaseSliceConfig(resourceName, searchProduct, getProductById, createProduct, updateProduct, deleteProduct));
+
 
 //Export
 // export const {clearInputs, selectProduct, addProduct} = productSlice.actions;

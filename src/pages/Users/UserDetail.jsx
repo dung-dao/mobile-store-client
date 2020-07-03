@@ -48,14 +48,11 @@ const UserDetail = (props) => {
         dispatch(goBack());
     }
 
-    let detailItem = selector.detailItem;
-
+    const detailItem = selector.detailItem;
 
     if (action !== 'CREATE' && !detailItem) {
-        console.log(action);
         return <LoadingPage/>;
-    } else
-        detailItem = {role: "salesman"}
+    }
 
     return (
         <DetailPageLayout title={createLabel(action, 'tài khoản')}>

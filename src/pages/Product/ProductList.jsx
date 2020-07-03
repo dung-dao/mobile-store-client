@@ -7,24 +7,30 @@ import LoadingPage from "../../components/common/LoadingPage";
 import {resourceName} from "./Config";
 import {deleteProduct, productSelector, searchProduct} from "../../redux/ProductSlice";
 import {formatToCurrency, mapNestedObject} from "../../utils/ObjectUtils";
-import {Select, Space, Typography} from 'antd';
+import {Col, Row, Select, Space, Typography} from 'antd';
+import {categorySelector} from "../../redux/CategorySlice";
 
 const {Title} = Typography;
 
 const TableTitle = () => {
     const dispatch = useDispatch();
-    const categories = [
-        {label: 'Điện thoại', value: '1'},
-        {label: 'Điện thoại', value: '2'}
-    ];
+    const _selector = useSelector(categorySelector);
+    const categories = _selector?.items.map(item => ({
+        label: item.name,
+        value: item.id
+    }));
     return <Space align="baseline" size="large">
         <Title level={4}>Danh mục</Title>
-        <Select defaultValue={1} onChange={(value, option) => {
-            // dispatch(searchProduct({categoryId: value}))
-            alert(value);
-        }}>
-            <Select.Option value={1}>Điện thoại</Select.Option>
-            <Select.Option value={2}>Máy tính bảng</Select.Option>
+        <Select
+            style={{minWidth: "10em"}}
+            defaultValue={1}
+            onChange={(value, option) => {
+                dispatch(searchProduct({categoryId: value}))
+                // alert(value);
+            }}
+        >
+            {categories.map(element => (
+                <Select.Option key={element.value} value={element.value}>{element.label}</Select.Option>))}
         </Select>
     </Space>
 };
@@ -39,69 +45,68 @@ const ProductList = (props) => {
             {key: 'categoryName', path: ['category', 'name']},
         ])
     }) : [];
-    console.log('products', products);
-
-
-    if (selector.isFetching)
-        return <LoadingPage/>
 
     return (
-        <Space direction="vertical">
-            <TableTitle/>
-            <DataTable
-                title="Danh sách sản phẩm"
-                columns={[
-                    {
-                        title: "Tên mã",
-                        key: "codeName",
-                        dataIndex: "codeName",
-                        sorter: sort('codeName')
-                    },
-                    {
-                        title: "Tên sản phẩm",
-                        key: "name",
-                        dataIndex: "name",
-                        sorter: sort('name')
-                    },
-                    {
-                        title: "Giá bán",
-                        key: "price",
-                        dataIndex: "price",
-                        sorter: sort('price'),
-                        render: (text, record, index) => {
-                            return formatToCurrency(text)
-                        }
-                    },
-                    {
-                        title: "Giá vốn",
-                        key: "COGS",
-                        dataIndex: "COGS",
-                        sorter: sort('price'),
-                        render: (text, record, index) => {
-                            return formatToCurrency(text)
-                        }
-                    },
-                    {
-                        title: "Hãng sản xuất",
-                        key: "manufactureName",
-                        dataIndex: "manufactureName",
-                        sorter: sort('manufactureName')
-                    },
-                    {
-                        title: "Danh mục",
-                        key: "categoryName",
-                        dataIndex: "categoryName",
-                        sorter: sort('categoryName')
-                    },
-                ]}
-                dataSource={products}
-                resourceName={resourceName}
-                deleteAC={deleteProduct}
-                searchAC={searchProduct}
-                disableFields={['amount', 'manufactureName', 'categoryName']}
-            />
-        </Space>
-    );
+        <Row gutter={[16, 16]}>
+            <Col span={24}>
+                <TableTitle/>
+            </Col>
+            <Col span={24} style={{minHeight: "100%"}}>
+                {!selector.isFetching ?
+                    <DataTable
+                        title="Danh sách sản phẩm"
+                        columns={[
+                            {
+                                title: "Tên mã",
+                                key: "codeName",
+                                dataIndex: "codeName",
+                                sorter: sort('codeName')
+                            },
+                            {
+                                title: "Tên sản phẩm",
+                                key: "name",
+                                dataIndex: "name",
+                                sorter: sort('name')
+                            },
+                            {
+                                title: "Giá bán",
+                                key: "price",
+                                dataIndex: "price",
+                                sorter: sort('price'),
+                                render: (text, record, index) => {
+                                    return formatToCurrency(text)
+                                }
+                            },
+                            {
+                                title: "Giá vốn",
+                                key: "COGS",
+                                dataIndex: "COGS",
+                                sorter: sort('price'),
+                                render: (text, record, index) => {
+                                    return formatToCurrency(text)
+                                }
+                            },
+                            {
+                                title: "Hãng sản xuất",
+                                key: "manufactureName",
+                                dataIndex: "manufactureName",
+                                sorter: sort('manufactureName')
+                            },
+                            {
+                                title: "Danh mục",
+                                key: "categoryName",
+                                dataIndex: "categoryName",
+                                sorter: sort('categoryName')
+                            },
+                        ]}
+                        dataSource={products}
+                        resourceName={resourceName}
+                        deleteAC={deleteProduct}
+                        searchAC={searchProduct}
+                        disableFields={['amount', 'manufactureName', 'categoryName']}
+                    /> : <LoadingPage/>}
+            </Col>
+        </Row>);
 };
 
 ProductList.propTypes = {
