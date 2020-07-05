@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {Route, Switch, useRouteMatch} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {searchOrder} from "../../../redux/OrderSlice";
@@ -6,6 +6,7 @@ import {searchProvider} from "../../../redux";
 import {searchProduct} from "../../../redux/ProductSlice";
 import ImportsList from "./ImportList";
 import ImportDetail from "./ImportDetail";
+import {useReactToPrint} from "react-to-print";
 // import ImportDetail from "./ImportDetail";
 
 const resourceName = 'orders';
@@ -13,6 +14,12 @@ const resourceName = 'orders';
 const ImportsRouting = (props) => {
     const dispatch = useDispatch();
     const match = useRouteMatch();
+    const componentRef = useRef(null);
+
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+    });
+
     return (
         <Switch>
             <Route

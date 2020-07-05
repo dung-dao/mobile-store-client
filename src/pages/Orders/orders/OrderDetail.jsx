@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {goBack} from 'connected-react-router';
 import _ from "lodash";
 import {useParams} from 'react-router-dom';
@@ -15,6 +15,8 @@ import {createOrder} from "./OrderService";
 import IF from "../../../components/common/IF";
 import http from "../../../services/http";
 import LoadingPage from "../../../components/common/LoadingPage";
+import PrinterOutlined from "@ant-design/icons/lib/icons/PrinterOutlined";
+import {useReactToPrint} from "react-to-print";
 
 const {Title} = Typography;
 
@@ -29,6 +31,11 @@ const OrderDetail = (props) => {
     const [init, setInit] = useState(false);
     const _customerSelector = useSelector(customerSelector);
     const _productSelector = useSelector(productSelector);
+    const printRef = useRef();
+    const handlePrint = useReactToPrint({
+        content: () => printRef.current,
+        pageStyle: "padding: 3em"
+    });
 
     //Handle view
     useEffect(() => {
@@ -93,196 +100,208 @@ const OrderDetail = (props) => {
         return <LoadingPage/>
 
     return (
-        <React.Fragment>
-            <Row gutter={[16, 16]}>
-                <Col span={24}>
-                    <Title level={3} style={{margin: 0}}>Thông tin đơn hàng</Title>
-                </Col>
-                <Col span={24}>
-                    <Card>
-                        <Row>
-                            <Col md={8} xs={24}>
-                                <Title level={4}>Khách hàng</Title>
-                            </Col>
-                            <IF condt={!id}>
-                                <Col md={16} xs={24}>
-                                    <CustomerSelect
-                                        customers={customers}
-                                        handleFinish={handleSelectCustomer}
-                                    />
+        <Row>
+            <Col ref={printRef} span={24}>
+                <Row gutter={[16, 16]}>
+                    <Col span={24}>
+                        <Row justify="space-between" align="middle">
+                            <Title level={2} style={{margin: 0}}>Thông tin đơn hàng</Title>
+                        </Row>
+                    </Col>
+                    <Col span={24}>
+                        <Card>
+                            <Row>
+                                <Col md={8} xs={24}>
+                                    <Title level={4}>Khách hàng</Title>
                                 </Col>
-                            </IF>
-                        </Row>
-                        <Row>
-                            <Col span={24}>
-                                <Row gutter={[16, 16]}>
-                                    <Col xs={24} md={12}>
-                                        <Row>
-                                            <Col span={6}>
-                                                <Typography.Text>Id</Typography.Text>
-                                            </Col>
-                                            <Col span={18}>
-                                                <Input
-                                                    value={customer ? customer.id : ''}
-                                                    readOnly={true}/>
-                                            </Col>
-                                        </Row>
+                                <IF condt={!id}>
+                                    <Col md={16} xs={24}>
+                                        <CustomerSelect
+                                            customers={customers}
+                                            handleFinish={handleSelectCustomer}
+                                        />
                                     </Col>
-                                    <Col xs={24} md={12}>
-                                        <Row>
-                                            <Col span={6}>
-                                                <Typography.Text>Họ và tên</Typography.Text>
-                                            </Col>
-                                            <Col span={18}>
-                                                <Input
-                                                    value={customer ? customer.name : ''}
-                                                    readOnly={true}/>
-                                            </Col>
-                                        </Row>
-                                    </Col>
-
-                                    <Col xs={24} md={12}>
-                                        <Row>
-                                            <Col span={6}>
-                                                <Typography.Text>Số Điện Thoại</Typography.Text>
-                                            </Col>
-                                            <Col span={18}>
-                                                <Input
-                                                    value={customer ? customer.phone : ''}
-                                                    readOnly={true}/>
-                                            </Col>
-                                        </Row>
-                                    </Col>
-
-                                    <Col xs={24} md={12}>
-                                        <Row>
-                                            <Col span={6}>
-                                                <Typography.Text>Địa Chỉ</Typography.Text>
-                                            </Col>
-                                            <Col span={18}>
-                                                <Input
-                                                    value={customer ? customer.address : ''}
-                                                    readOnly={true}/>
-                                            </Col>
-                                        </Row>
-                                    </Col>
-
-                                    <Col xs={24} md={12}>
-                                        <Row>
-                                            <Col span={6}>
-                                                <Typography.Text>Địa chỉ email</Typography.Text>
-                                            </Col>
-                                            <Col span={18}>
-                                                <Input
-                                                    value={customer ? customer.email : ''}
-                                                    readOnly={true}/>
-                                            </Col>
-                                        </Row>
-                                    </Col>
-                                </Row>
-                            </Col>
-                        </Row>
-                    </Card>
-                </Col>
-                <Col span={24}>
-                    <Card>
-                        <Row>
-                            <Col md={8} xs={24}>
-                                <Title level={4}>Chi tiết đơn hàng</Title>
-                            </Col>
-                        </Row>
-                        <IF condt={!id}>
+                                </IF>
+                            </Row>
                             <Row>
                                 <Col span={24}>
-                                    <ProductSelect products={products} handleFinish={handleAddToProductList}/>
+                                    <Row gutter={[16, 16]}>
+                                        <Col xs={24} md={12}>
+                                            <Row>
+                                                <Col span={6}>
+                                                    <Typography.Text>Id</Typography.Text>
+                                                </Col>
+                                                <Col span={18}>
+                                                    <Input
+                                                        value={customer ? customer.id : ''}
+                                                        readOnly={true}/>
+                                                </Col>
+                                            </Row>
+                                        </Col>
+                                        <Col xs={24} md={12}>
+                                            <Row>
+                                                <Col span={6}>
+                                                    <Typography.Text>Họ và tên</Typography.Text>
+                                                </Col>
+                                                <Col span={18}>
+                                                    <Input
+                                                        value={customer ? customer.name : ''}
+                                                        readOnly={true}/>
+                                                </Col>
+                                            </Row>
+                                        </Col>
+
+                                        <Col xs={24} md={12}>
+                                            <Row>
+                                                <Col span={6}>
+                                                    <Typography.Text>Số Điện Thoại</Typography.Text>
+                                                </Col>
+                                                <Col span={18}>
+                                                    <Input
+                                                        value={customer ? customer.phone : ''}
+                                                        readOnly={true}/>
+                                                </Col>
+                                            </Row>
+                                        </Col>
+
+                                        <Col xs={24} md={12}>
+                                            <Row>
+                                                <Col span={6}>
+                                                    <Typography.Text>Địa Chỉ</Typography.Text>
+                                                </Col>
+                                                <Col span={18}>
+                                                    <Input
+                                                        value={customer ? customer.address : ''}
+                                                        readOnly={true}/>
+                                                </Col>
+                                            </Row>
+                                        </Col>
+
+                                        <Col xs={24} md={12}>
+                                            <Row>
+                                                <Col span={6}>
+                                                    <Typography.Text>Địa chỉ email</Typography.Text>
+                                                </Col>
+                                                <Col span={18}>
+                                                    <Input
+                                                        value={customer ? customer.email : ''}
+                                                        readOnly={true}/>
+                                                </Col>
+                                            </Row>
+                                        </Col>
+                                    </Row>
                                 </Col>
                             </Row>
-                        </IF>
-                        <Row>
-                            <Col span={24} style={{marginTop: "1em"}}>
-                                <Table
-                                    pagination={false}
-                                    columns={[
-                                        {
-                                            title: "Tên mã",
-                                            key: "codeName",
-                                            dataIndex: "codeName",
-                                            sorter: sort('codeName')
-                                        },
-                                        {
-                                            title: "Tên sản phẩm",
-                                            key: "name",
-                                            dataIndex: "name",
-                                            sorter: sort('name')
-                                        },
-                                        {
-                                            title: "Số lượng",
-                                            key: "quantity",
-                                            dataIndex: "quantity",
-                                            sorter: sort('quantity')
-                                        },
-                                        {
-                                            title: "Đơn giá",
-                                            key: "price",
-                                            dataIndex: "price",
-                                            sorter: sort('price'),
-                                            render: (text, record, index) => {
-                                                return formatToCurrency(text)
-                                            }
-                                        },
-                                        {
-                                            title: "Thành tiền",
-                                            key: "totalUnit",
-                                            dataIndex: "totalUnit",
-                                            sorter: sort('totalUnit'),
-                                            render: (text, record, index) => {
-                                                return formatToCurrency(text)
-                                            }
-                                        },
-
-                                    ]}
-                                    dataSource={orderDetails}
-                                />
-                            </Col>
-                        </Row>
-                        <Row justify="end">
-                            <Typography.Text style={{margin: "1em", fontWeight: "bold"}}>
-                                {`Tổng cộng: ${formatToCurrency(_.sum(orderDetails.map(item => item.totalUnit)))}`}
-                            </Typography.Text>
-                        </Row>
-                        <IF condt={!id}>
-                            <Row justify="end">
-                                <Button
-                                    type="primary"
-                                    size="large"
-                                    onClick={() => {
-                                        setVisible(true);
-                                    }}
-                                    disabled={
-                                        !customer || !orderDetails.length
-                                    }
-                                >
-                                    Tạo đơn hàng
-                                </Button>
-                                <ModalConfirm
-                                    visible={visible}
-                                    onOk={async () => {
-                                        setVisible(false);
-                                        await handleSubmit();
-                                    }}
-                                    onCancel={() => {
-                                        setVisible(false);
-                                    }
-                                    }
-                                    actionName="tạo đơn hàng"
-                                    loading={modalLoading}
-                                />
+                        </Card>
+                    </Col>
+                    <Col span={24}>
+                        <Card>
+                            <Row>
+                                <Col md={8} xs={24}>
+                                    <Title level={4}>Chi tiết đơn hàng</Title>
+                                </Col>
                             </Row>
-                        </IF>
-                    </Card>
-                </Col>
-            </Row>
-        </React.Fragment>
+                            <IF condt={!id}>
+                                <Row>
+                                    <Col span={24}>
+                                        <ProductSelect products={products} handleFinish={handleAddToProductList}/>
+                                    </Col>
+                                </Row>
+                            </IF>
+                            <Row>
+                                <Col span={24} style={{marginTop: "1em"}}>
+                                    <Table
+                                        pagination={false}
+                                        columns={[
+                                            {
+                                                title: "Tên mã",
+                                                key: "codeName",
+                                                dataIndex: "codeName",
+                                                sorter: sort('codeName')
+                                            },
+                                            {
+                                                title: "Tên sản phẩm",
+                                                key: "name",
+                                                dataIndex: "name",
+                                                sorter: sort('name')
+                                            },
+                                            {
+                                                title: "Số lượng",
+                                                key: "quantity",
+                                                dataIndex: "quantity",
+                                                sorter: sort('quantity')
+                                            },
+                                            {
+                                                title: "Đơn giá",
+                                                key: "price",
+                                                dataIndex: "price",
+                                                sorter: sort('price'),
+                                                render: (text, record, index) => {
+                                                    return formatToCurrency(text)
+                                                }
+                                            },
+                                            {
+                                                title: "Thành tiền",
+                                                key: "totalUnit",
+                                                dataIndex: "totalUnit",
+                                                sorter: sort('totalUnit'),
+                                                render: (text, record, index) => {
+                                                    return formatToCurrency(text)
+                                                }
+                                            },
+
+                                        ]}
+                                        dataSource={orderDetails}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row justify="end">
+                                <Typography.Text style={{margin: "1em", fontWeight: "bold"}}>
+                                    {`Tổng cộng: ${formatToCurrency(_.sum(orderDetails.map(item => item.totalUnit)))}`}
+                                </Typography.Text>
+                            </Row>
+                            <IF condt={!id}>
+                                <Row justify="end">
+                                    <Button
+                                        type="primary"
+                                        size="large"
+                                        onClick={() => {
+                                            setVisible(true);
+                                        }}
+                                        disabled={
+                                            !customer || !orderDetails.length
+                                        }
+                                    >
+                                        Tạo đơn hàng
+                                    </Button>
+                                    <ModalConfirm
+                                        visible={visible}
+                                        onOk={async () => {
+                                            setVisible(false);
+                                            await handleSubmit();
+                                        }}
+                                        onCancel={() => {
+                                            setVisible(false);
+                                        }
+                                        }
+                                        actionName="tạo đơn hàng"
+                                        loading={modalLoading}
+                                    />
+                                </Row>
+                            </IF>
+                        </Card>
+                    </Col>
+                </Row>
+            </Col>
+            <Col span={24}>
+                <Row justify="end">
+                    <Button onClick={handlePrint} style={{marginBottom: "1em", minWidth: "8em"}} type="primary">
+                        In đơn hàng
+                        <PrinterOutlined/>
+                    </Button>
+                </Row>
+            </Col>
+        </Row>
     );
 };
 

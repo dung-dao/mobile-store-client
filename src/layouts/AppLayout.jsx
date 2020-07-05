@@ -27,13 +27,11 @@ const AppLayout = (props) => {
     const orderPer = checkPermission(permissions, 'READ', 'orders');
     const importPer = checkPermission(permissions, 'READ', 'imports');
 
-
     let initPath = path.split('/')[1];
-    // alert('hit')
 
     return (
         <Layout className="main-layout">
-            <AppHeader role={_user.user.role ? _user.user.role : null}/>
+            <AppHeader role={_user?.user?.role}/>
             <Layout className="body">
                 <Sider className="site-layout-background">
                     <Menu

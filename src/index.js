@@ -7,6 +7,7 @@ import { ConnectedRouter } from "connected-react-router";
 import * as serviceWorker from "./serviceWorker";
 import { history } from "./app/store";
 import App from "./App";
+import { Fragment } from "react";
 
 ReactDOM.render(
   <Provider store={store}>

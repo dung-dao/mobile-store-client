@@ -32,7 +32,6 @@ const AppHeader = (props) => {
         <React.Fragment>
             <Header>
                 <Row align="middle" justify="space-between">
-                    {/*<Logo height="48px" width="48px"/>*/}
                     <img src={require('../app/logo.png')} height={64}/>
                     <Space>
                         {props.role ? (<Tag color="red">{props.role.toUpperCase()}</Tag>) : null}
