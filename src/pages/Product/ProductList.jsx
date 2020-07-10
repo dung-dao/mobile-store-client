@@ -12,7 +12,7 @@ import {categorySelector} from "../../redux/CategorySlice";
 
 const {Title} = Typography;
 
-const TableTitle = () => {
+const CategorySelect = () => {
     const dispatch = useDispatch();
     const _selector = useSelector(categorySelector);
     const categories = _selector?.items.map(item => ({
@@ -20,13 +20,12 @@ const TableTitle = () => {
         value: item.id
     }));
     return <Space align="baseline" size="large">
-        <Title level={4}>Danh mục</Title>
+        <Typography>Danh mục:</Typography>
         <Select
             style={{minWidth: "10em"}}
             defaultValue={1}
             onChange={(value, option) => {
                 dispatch(searchProduct({categoryId: value}))
-                // alert(value);
             }}
         >
             {categories.map(element => (
@@ -49,7 +48,12 @@ const ProductList = (props) => {
     return (
         <Row gutter={[16, 16]}>
             <Col span={24}>
-                <TableTitle/>
+                <Row justify="space-between" align="middle">
+                    <Typography.Title level={4}>
+                        Sản phẩm
+                    </Typography.Title>
+                    <CategorySelect/>
+                </Row>
             </Col>
             <Col span={24} style={{minHeight: "100%"}}>
                 {!selector.isFetching ?

@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import DataTable from "../../components/common/DataTable";
 import {useDispatch, useSelector} from "react-redux";
 import {customerSelector, deleteCustomer, searchCustomer} from "../../redux";
 import {sort} from "../../utils/sort";
-import PropTypes, {bool} from "prop-types";
+import PropTypes from "prop-types";
 import LoadingPage from "../../components/common/LoadingPage";
 
 const resourceName = 'customers';
@@ -57,6 +57,12 @@ const CustomerList = (props) => {
                 resourceName={resourceName}
                 deleteAC={deleteCustomer}
                 searchAC={searchCustomer}
+                onSearch={(values) => {
+                    dispatch(searchCustomer(values))
+                }}
+                onReload={() => {
+                    dispatch(searchCustomer())
+                }}
             />
         </React.Fragment>
     );

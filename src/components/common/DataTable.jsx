@@ -1,17 +1,16 @@
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import PropTypes from "prop-types";
-import {Button, Card, Col, Dropdown, Menu, Modal, Popconfirm, Row, Table, Typography} from "antd";
+import {Button, Card, Col, Dropdown, Menu, Modal, Popconfirm, Row, Space, Table, Typography} from "antd";
 import {push} from 'connected-react-router';
-
-import AdvancedSearchForm from "./SearchForm";
-import IF from "./IF";
 import PlusCircleOutlined from "@ant-design/icons/lib/icons/PlusCircleOutlined";
 import InfoCircleOutlined from "@ant-design/icons/lib/icons/InfoCircleOutlined";
 import EditOutlined from "@ant-design/icons/lib/icons/EditOutlined";
 import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined";
 import ExclamationCircleOutlined from "@ant-design/icons/lib/icons/ExclamationCircleOutlined";
 import MenuOutlined from "@ant-design/icons/lib/icons/MenuOutlined";
+import SearchBar from "./SearchBar";
+import ReloadOutlined from "@ant-design/icons/lib/icons/ReloadOutlined";
 
 const {Title} = Typography;
 const {confirm} = Modal;
@@ -89,32 +88,20 @@ const DataTable = (props) => {
         <React.Fragment>
             <div>
                 <Row gutter={[16, 16]}>
-                    <IF condt={!(props.disabledActions && props.disabledActions.SEARCH)}>
-                        <Col span={24}>
-                            <AdvancedSearchForm
-                                disableFields={props.disableFields}
-                                resourceName={props.resourceName}
-                                searchAC={props.searchAC}
-                                fields={props.columns.map((e) => {
-                                    return {
-                                        label: e.title,
-                                        name: e.key,
-                                        placeholder: `Nhập ${e.title.toLowerCase()}`,
-                                    };
-                                })}
-                            />
-                        </Col>
-                    </IF>
                     <Col span={24}>
                         <Card>
                             <Row>
-                                <Col span={24}>
-                                    <Row justify="space-between" gutter={[16, 16]}>
-                                        <Col>
-                                            {typeof props.title === "string" ?
-                                                <Title level={4}>{props.title}</Title> : props.title}
-                                        </Col>
-                                        <Col>
+                                <Col md={8} sm={24}>
+                                    {typeof props.title === "string" ?
+                                        <Typography.Title
+                                            level={4}>{props.title}</Typography.Title> : props.title}
+                                </Col>
+                                <Col md={12} sm={24}>
+                                    <SearchBar onFinish={props.onSearch} columns={props.columns}/>
+                                </Col>
+                                <Col md={4} sm={24}>
+                                    <Row justify="end">
+                                        <Space>
                                             <Dropdown overlay={menu}>
                                                 <Button
                                                     onClick={e => e.preventDefault()}
@@ -123,33 +110,32 @@ const DataTable = (props) => {
                                                     <MenuOutlined/>
                                                 </Button>
                                             </Dropdown>
-                                        </Col>
+                                            <Button onClick={props.onReload}>
+                                                <ReloadOutlined/>
+                                            </Button>
+                                        </Space>
                                     </Row>
                                 </Col>
                                 <Col span={24}>
-                                    <Row>
-                                        <Col span={24}>
-                                            <Table
-                                                locale={{emptyText: 'Chưa có dữ liệu'}}
-                                                showSorterTooltip={false}
-                                                rowSelection={{
-                                                    type: "radio",
-                                                    onChange: (selectedRowKeys, selectedRows) => {
-                                                        console.log('selectedRows: ', selectedRows);
-                                                        setSelectedItem({...selectedRows[0]});
-                                                    }
-                                                }}
-                                                dataSource={props.dataSource}
-                                                columns={props.columns ? props.columns : []}
-                                                style={{flexFlow: 1}}
-                                                pagination={{
-                                                    defaultPageSize: 5,
-                                                    showSizeChanger: true,
-                                                    pageSizeOptions: ["5", "10", "20"],
-                                                }}
-                                            />
-                                        </Col>
-                                    </Row>
+                                    <Table
+                                        locale={{emptyText: 'Chưa có dữ liệu'}}
+                                        showSorterTooltip={false}
+                                        rowSelection={{
+                                            type: "radio",
+                                            onChange: (selectedRowKeys, selectedRows) => {
+                                                console.log('selectedRows: ', selectedRows);
+                                                setSelectedItem({...selectedRows[0]});
+                                            }
+                                        }}
+                                        dataSource={props.dataSource}
+                                        columns={props.columns ? props.columns : []}
+                                        style={{flexFlow: 1}}
+                                        pagination={{
+                                            defaultPageSize: 5,
+                                            showSizeChanger: true,
+                                            pageSizeOptions: ["5", "10", "20"],
+                                        }}
+                                    />
                                 </Col>
                             </Row>
                         </Card>
@@ -163,6 +149,8 @@ const DataTable = (props) => {
 DataTable.propTypes = {
     resourceName: PropTypes.string.isRequired,
     title: PropTypes.any.isRequired,
+    onSearch: PropTypes.func,
+    onReload: PropTypes.func.isRequired,
     columns: PropTypes.arrayOf(
         PropTypes.shape({
             title: PropTypes.string.isRequired,
