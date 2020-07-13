@@ -30,7 +30,11 @@ const SearchBar = (props) => {
                                 rules={[...requiredValidate('Trường tìm kiếm')]}
                                 noStyle
                             >
-                                <Select placeholder="Trường tìm kiếm" style={{width: '40%'}}>
+                                <Select
+                                    placeholder="Trường tìm kiếm"
+                                    style={{width: '40%'}}
+                                    defaultValue={props.defaultSearchField}
+                                >
                                     {
                                         searchFields.map(item => {
                                             return <Select.Option key={Math.random()} value={item.name}>
@@ -61,6 +65,7 @@ const SearchBar = (props) => {
 
 SearchBar.propTypes = {
     onFinish: PropTypes.func.isRequired,
-    columns: PropTypes.array
+    columns: PropTypes.array,
+    defaultSearchField: PropTypes.string
 };
 export default SearchBar;

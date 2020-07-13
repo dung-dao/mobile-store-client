@@ -18,8 +18,9 @@ const {Content, Sider} = Layout;
 
 const AppLayout = (props) => {
     const path = useSelector(pathSelector);
-    const permissions = useSelector(permissionSelector);
     const _user = useSelector(userSelector);
+
+    const permissions = useSelector(permissionSelector);
     const providerPer = checkPermission(permissions, 'READ', 'providers');
     const productPer = checkPermission(permissions, 'READ', 'products');
     const customerPer = checkPermission(permissions, 'READ', 'customers');

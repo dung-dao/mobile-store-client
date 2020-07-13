@@ -75,6 +75,7 @@ const OrderList = (props) => {
                 disableFields={['amount', 'createdAt']}
                 title={props.title ? props.title : "Danh sách đơn hàng"}
                 disabledActions={{UPDATE: true, DELETE: true, SEARCH: false, ...props.disabledActions}}
+                defaultSearchField="id"
             />
         </React.Fragment>
     );

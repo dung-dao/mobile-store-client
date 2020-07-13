@@ -71,6 +71,7 @@ const CategoryList = (props) => {
                         deleteAC={deleteCategory}
                         searchAC={searchCategory}
                         disableFields={['amount', 'manufactureName', 'categoryName']}
+                        defaultSearchField="name"
                     /> : <LoadingPage/>}
             </Col>
         </Row>);

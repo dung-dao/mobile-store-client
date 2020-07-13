@@ -32,7 +32,7 @@ const ProviderList = (props) => {
                         sorter: sort('id')
                     },
                     {
-                        title: "Tên",
+                        title: "Tên nhà cung cấp",
                         key: "name",
                         dataIndex: "name",
                         sorter: sort('name')
@@ -51,6 +51,7 @@ const ProviderList = (props) => {
                     },
                 ]}
                 dataSource={generateKey(selector.providers)}
+                defaultSearchField="name"
                 resourceName={"providers"}
                 deleteAC={deleteProvider}
                 searchAC={searchProvider}

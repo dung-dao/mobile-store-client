@@ -108,6 +108,7 @@ const ProductList = (props) => {
                         deleteAC={deleteProduct}
                         searchAC={searchProduct}
                         disableFields={['amount', 'manufactureName', 'categoryName']}
+                        defaultSearchField="name"
                     /> : <LoadingPage/>}
             </Col>
         </Row>);

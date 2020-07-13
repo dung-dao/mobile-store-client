@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {goBack} from 'connected-react-router';
 import _ from "lodash";
 import {useParams} from 'react-router-dom';
-import {Button, Card, Col, Input, message, Row, Table, Typography} from 'antd';
+import {Button, Card, Col, Input, message, Row, Space, Table, Typography} from 'antd';
 import {useDispatch, useSelector} from "react-redux";
 import {providerSelector} from "../../../redux";
 import {productSelector} from "../../../redux/ProductSlice";
@@ -37,6 +37,8 @@ const ImportDetail = (props) => {
     const [init, setInit] = useState(false);
     const _providerSelector = useSelector(providerSelector);
     const _productSelector = useSelector(productSelector);
+    const [author, setAuthor] = useState(null);
+    const [buyedDate, setBuyedDate] = useState(new Date());
 
     //Handle view
     //TODO: Edit use effect
@@ -45,7 +47,6 @@ const ImportDetail = (props) => {
             setInit(true);
             http.get(`/orders/${id}`).then((res) => {
                 const data = res.data;
-                console.log('data', data);
 
                 const prov = {...data.provider};
                 setProvider(prov);
@@ -63,6 +64,8 @@ const ImportDetail = (props) => {
                 });
                 // console.log(details);
                 setOrderDetails(details);
+                setAuthor(data.user);
+                setBuyedDate(new Date(data.createdAt));
             })
 
         }
@@ -109,15 +112,25 @@ const ImportDetail = (props) => {
                     <Row gutter={[16, 16]}>
                         <Col span={24}>
                             <Row justify="space-between" align="middle">
-                                <Title level={3} style={{margin: 0}}>Thông tin nhập hàng</Title>
+                                <Col>
+                                    <Title level={3} style={{margin: 0}}>Thông tin nhập hàng</Title>
+                                </Col>
+                                <Col>
+                                    <Space>
+                                        <Typography>Ngày nhập: </Typography>
+                                        <Typography>{`${buyedDate.getDate()}/${buyedDate.getMonth()}/${buyedDate.getFullYear()}`}</Typography>
+                                    </Space>
+                                </Col>
                             </Row>
                         </Col>
                         <Col span={24}>
                             <Card>
                                 <Row>
-                                    <Col md={8} xs={24}>
-                                        <Title level={4}>Nhà cung cấp</Title>
-                                    </Col>
+                                    <IF condt={!id}>
+                                        <Col md={8} xs={24}>
+                                            <Title level={4}>Nhà cung cấp</Title>
+                                        </Col>
+                                    </IF>
                                     <IF condt={!id}>
                                         <Col md={16} xs={24}>
                                             <ProviderSelect
@@ -191,6 +204,20 @@ const ImportDetail = (props) => {
                                                     </Col>
                                                 </Row>
                                             </Col>
+                                            <IF condt={id}>
+                                                <Col xs={24} md={12}>
+                                                    <Row>
+                                                        <Col span={6}>
+                                                            <Typography.Text>Người nhập hàng </Typography.Text>
+                                                        </Col>
+                                                        <Col span={18}>
+                                                            <Input
+                                                                value={author ? author.fullname : ''}
+                                                                readOnly={true}/>
+                                                        </Col>
+                                                    </Row>
+                                                </Col>
+                                            </IF>
                                         </Row>
                                     </Col>
                                 </Row>

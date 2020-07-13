@@ -50,6 +50,7 @@ const UserList = (props) => {
                 resourceName={resourceName}
                 deleteAC={deleteUser}
                 searchAC={searchUser}
+                defaultSearchField="name"
             />
         </React.Fragment>
     );

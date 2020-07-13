@@ -97,7 +97,15 @@ const DataTable = (props) => {
                                             level={4}>{props.title}</Typography.Title> : props.title}
                                 </Col>
                                 <Col md={12} sm={24}>
-                                    <SearchBar onFinish={props.onSearch} columns={props.columns}/>
+                                    <SearchBar
+                                        onFinish={props.onSearch}
+                                        columns={
+                                            props.searchColumns?.length ?
+                                                props.searchColumns :
+                                                props.columns
+                                        }
+                                        defaultSearchField={props.defaultSearchField}
+                                    />
                                 </Col>
                                 <Col md={4} sm={24}>
                                     <Row justify="end">
@@ -150,6 +158,8 @@ DataTable.propTypes = {
     resourceName: PropTypes.string.isRequired,
     title: PropTypes.any.isRequired,
     onSearch: PropTypes.func,
+    searchColumns: PropTypes.array,
+    defaultSearchField: PropTypes.string,
     onReload: PropTypes.func.isRequired,
     columns: PropTypes.arrayOf(
         PropTypes.shape({

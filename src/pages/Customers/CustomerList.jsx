@@ -63,6 +63,7 @@ const CustomerList = (props) => {
                 onReload={() => {
                     dispatch(searchCustomer())
                 }}
+                defaultSearchField="name"
             />
         </React.Fragment>
     );

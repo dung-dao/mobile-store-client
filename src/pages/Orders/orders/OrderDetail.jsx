@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {goBack} from 'connected-react-router';
 import _ from "lodash";
 import {useParams} from 'react-router-dom';
-import {Button, Card, Col, Input, message, Row, Table, Typography} from 'antd';
+import {Button, Card, Col, Input, message, Row, Space, Table, Typography} from 'antd';
 import {useDispatch, useSelector} from "react-redux";
 import {customerSelector} from "../../../redux";
 import {productSelector} from "../../../redux/ProductSlice";
@@ -28,6 +28,9 @@ const OrderDetail = (props) => {
     const [orderDetails, setOrderDetails] = useState([]);
     const [visible, setVisible] = useState(false);
     const [modalLoading, setModalLoading] = useState(false);
+    const [author, setAuthor] = useState(null);
+    const [buyedDate, setBuyedDate] = useState(new Date());
+
     const [init, setInit] = useState(false);
     const _customerSelector = useSelector(customerSelector);
     const _productSelector = useSelector(productSelector);
@@ -50,7 +53,6 @@ const OrderDetail = (props) => {
                 setCustomer(cus);
 
                 //Details
-                console.log(data.orderDetail);
                 const details = data.orderDetail.map(item => {
                     const obj = {
                         ...item.product,
@@ -59,8 +61,9 @@ const OrderDetail = (props) => {
                     };
                     return obj;
                 });
-                console.log(details);
                 setOrderDetails(details);
+                setAuthor(data.user);
+                setBuyedDate(new Date(data.createdAt));
             })
 
         }
@@ -105,15 +108,25 @@ const OrderDetail = (props) => {
                 <Row gutter={[16, 16]}>
                     <Col span={24}>
                         <Row justify="space-between" align="middle">
-                            <Title level={2} style={{margin: 0}}>Thông tin đơn hàng</Title>
+                            <Col>
+                                <Title level={3} style={{margin: 0}}>Thông tin đơn hàng</Title>
+                            </Col>
+                            <Col>
+                                <Space>
+                                    <Typography>Ngày mua hàng: </Typography>
+                                    <Typography>{`${buyedDate.getDate()}/${buyedDate.getMonth()}/${buyedDate.getFullYear()}`}</Typography>
+                                </Space>
+                            </Col>
                         </Row>
                     </Col>
                     <Col span={24}>
                         <Card>
                             <Row>
-                                <Col md={8} xs={24}>
-                                    <Title level={4}>Khách hàng</Title>
-                                </Col>
+                                <IF condt={!id}>
+                                    <Col md={8} xs={24}>
+                                        <Title level={4}>Khách hàng</Title>
+                                    </Col>
+                                </IF>
                                 <IF condt={!id}>
                                     <Col md={16} xs={24}>
                                         <CustomerSelect
@@ -129,19 +142,7 @@ const OrderDetail = (props) => {
                                         <Col xs={24} md={12}>
                                             <Row>
                                                 <Col span={6}>
-                                                    <Typography.Text>Id</Typography.Text>
-                                                </Col>
-                                                <Col span={18}>
-                                                    <Input
-                                                        value={customer ? customer.id : ''}
-                                                        readOnly={true}/>
-                                                </Col>
-                                            </Row>
-                                        </Col>
-                                        <Col xs={24} md={12}>
-                                            <Row>
-                                                <Col span={6}>
-                                                    <Typography.Text>Họ và tên</Typography.Text>
+                                                    <Typography.Text>Tên khách hàng</Typography.Text>
                                                 </Col>
                                                 <Col span={18}>
                                                     <Input
@@ -189,6 +190,20 @@ const OrderDetail = (props) => {
                                                 </Col>
                                             </Row>
                                         </Col>
+                                        <IF condt={id}>
+                                            <Col xs={24} md={12}>
+                                                <Row>
+                                                    <Col span={6}>
+                                                        <Typography.Text>Người bán hàng </Typography.Text>
+                                                    </Col>
+                                                    <Col span={18}>
+                                                        <Input
+                                                            value={author ? author.fullname : ''}
+                                                            readOnly={true}/>
+                                                    </Col>
+                                                </Row>
+                                            </Col>
+                                        </IF>
                                     </Row>
                                 </Col>
                             </Row>

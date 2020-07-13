@@ -71,6 +71,7 @@ const ImportsList = (props) => {
                 disableFields={['amount', 'createdAt']}
                 title={props.title ? props.title : "Danh sách đơn nhập hàng"}
                 disabledActions={{UPDATE: true, DELETE: true, SEARCH: true, ...props.disabledActions}}
+                defaultSearchField="id"
             />
         </React.Fragment>
     );
