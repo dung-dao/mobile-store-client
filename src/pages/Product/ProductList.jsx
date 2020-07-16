@@ -74,6 +74,12 @@ const ProductList = (props) => {
                         title="Danh sách sản phẩm"
                         columns={[
                             {
+                                title: "Mã sản phẩm",
+                                key: "id",
+                                dataIndex: "id",
+                                sorter: sort('id')
+                            },
+                            {
                                 title: "Tên mã",
                                 key: "codeName",
                                 dataIndex: "codeName",
@@ -113,13 +119,29 @@ const ProductList = (props) => {
                                 title: "Còn tồn",
                                 key: "available",
                                 dataIndex: "available",
-                                sorter: sort('categoryName')
+                                sorter: sort('available')
                             },
+                        ]}
+                        searchColumns={[
+                            {
+                                title: "Mã sản phẩm",
+                                key: "id",
+                                dataIndex: "id",
+                            },
+                            {
+                                title: "Tên mã",
+                                key: "codeName",
+                                dataIndex: "codeName",
+                            },
+                            {
+                                title: "Tên sản phẩm",
+                                key: "name",
+                                dataIndex: "name",
+                            }
                         ]}
                         dataSource={products}
                         resourceName={resourceName}
                         deleteAC={deleteProduct}
-                        searchAC={searchProduct}
                         disableFields={['amount', 'manufactureName', 'categoryName']}
                         defaultSearchField="name"
                         disabledActions={{
@@ -127,6 +149,10 @@ const ProductList = (props) => {
                             UPDATE: _user?.user?.role !== 'admin',
                             DELETE: _user?.user?.role !== 'admin'
                         }}
+                        onSearch={(values) => {
+                            dispatch(searchProduct(values));
+                        }}
+                        onReload={() => dispatch(searchProduct())}
                     /> : <LoadingPage/>}
             </Col>
         </Row>);

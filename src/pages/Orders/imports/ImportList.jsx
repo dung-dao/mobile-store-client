@@ -2,12 +2,14 @@ import React, {useEffect} from 'react';
 import DataTable from "../../../components/common/DataTable";
 import {sort} from "../../../utils/sort";
 import {orderSelector, searchOrder} from "../../../redux/OrderSlice";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {formatToCurrency, mapNestedObject} from "../../../utils/ObjectUtils";
 import PropTypes from "prop-types";
+import LoadingPage from "../../../components/common/LoadingPage";
 
 const ImportsList = (props) => {
     const {type} = props;
+    const dispatch = useDispatch();
 
     const _orderSelector = useSelector(orderSelector);
     const rawOrders = _orderSelector.items.length ? _orderSelector.items : [];
@@ -60,6 +62,8 @@ const ImportsList = (props) => {
     ];
 
     columns = columns.filter(item => !props.excludeColumns || !props.excludeColumns.find(e => e === item.dataIndex));
+    if (_orderSelector.isFetching)
+        return <LoadingPage/>
 
     return (
         <React.Fragment>
@@ -72,6 +76,28 @@ const ImportsList = (props) => {
                 title={props.title ? props.title : "Danh sách đơn nhập hàng"}
                 disabledActions={{UPDATE: true, DELETE: true, SEARCH: true, ...props.disabledActions}}
                 defaultSearchField="id"
+                searchColumns={[
+                    {
+                        title: "Mã đơn hàng",
+                        key: "id",
+                        dataIndex: "id",
+                        sorter: sort('id')
+                    },
+                    {
+                        title: "Tên khách hàng",
+                        key: "name",
+                        dataIndex: "name",
+                        sorter: sort('name')
+                    },
+                    {
+                        title: "Số điện thoại",
+                        key: "phone",
+                        dataIndex: "phone",
+                        sorter: sort('phone')
+                    }
+                ]}
+                onReload={() => dispatch(searchOrder({orderTypeId: 1}))}
+                onSearch={(values) => dispatch(searchOrder({...values, orderTypeId: 1}))}
             />
         </React.Fragment>
     );

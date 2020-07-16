@@ -66,12 +66,30 @@ const CategoryList = (props) => {
                                 sorter: sort('description')
                             },
                         ]}
+                        searchColumns={[
+                            {
+                                title: "ID",
+                                key: "id",
+                                dataIndex: "id",
+                                sorter: sort('id')
+                            },
+                            {
+                                title: "Tên danh mục",
+                                key: "name",
+                                dataIndex: "name",
+                                sorter: sort('name')
+                            }
+                        ]}
                         dataSource={data}
                         resourceName={resourceName}
                         deleteAC={deleteCategory}
                         searchAC={searchCategory}
                         disableFields={['amount', 'manufactureName', 'categoryName']}
                         defaultSearchField="name"
+                        onReload={() => dispatch(searchCategory())}
+                        onSearch={values => {
+                            dispatch(searchCategory(values))
+                        }}
                     /> : <LoadingPage/>}
             </Col>
         </Row>);

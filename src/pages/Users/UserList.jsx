@@ -46,11 +46,33 @@ const UserList = (props) => {
                         sorter: sort('role')
                     }
                 ]}
+                searchColumns={[
+                    {
+                        title: "ID",
+                        key: "id",
+                        dataIndex: "id",
+                        sorter: sort('id')
+                    },
+                    {
+                        title: "Họ tên",
+                        key: "fullname",
+                        dataIndex: "fullname",
+                        sorter: sort('fullname')
+                    },
+                    {
+                        title: "Tên đăng nhập",
+                        key: "name",
+                        dataIndex: "name",
+                        sorter: sort('name')
+                    }
+                ]}
                 dataSource={selector['items']}
                 resourceName={resourceName}
                 deleteAC={deleteUser}
                 searchAC={searchUser}
                 defaultSearchField="name"
+                onSearch={(values) => dispatch(searchUser(values))}
+                onReload={() => dispatch(searchUser())}
             />
         </React.Fragment>
     );

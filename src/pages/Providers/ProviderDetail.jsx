@@ -6,12 +6,11 @@ import {createProvider, getProviderById, providerSelector, updateProvider} from 
 import {push} from 'connected-react-router';
 import IF from "../../components/common/IF";
 import LoadingPage from "../../components/common/LoadingPage";
-import {numberValidate, r_viInputRule, requiredValidate, phoneValidate} from "../../utils/validate";
+import {phoneValidate, r_viInputRule, requiredValidate} from "../../utils/validate";
 import DetailPageLayout from "../../components/common/DetailPageLayout";
 import {createLabel} from "../../utils/ObjectUtils";
 import ImportsList from "../Orders/imports/ImportList";
 import {searchOrder} from "../../redux/OrderSlice";
-import {clearProviderSelect} from '../../redux';
 
 const ProviderDetail = (props) => {
     //Hooks
@@ -111,6 +110,15 @@ const ProviderDetail = (props) => {
                                 rules={[
                                     ...requiredValidate('số điện thoại'),
                                     ...phoneValidate('số điện thoại')
+                                ]}
+                            >
+                                <Input readOnly={readOnly}/>
+                            </Form.Item>
+                            <Form.Item
+                                label="Địa chỉ email"
+                                name="email"
+                                rules={[
+                                    ...requiredValidate('Địa chỉ email')
                                 ]}
                             >
                                 <Input readOnly={readOnly}/>

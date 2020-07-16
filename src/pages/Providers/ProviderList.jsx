@@ -57,6 +57,8 @@ const ProviderList = (props) => {
                 searchAC={searchProvider}
                 getDetailObjectAC={getProviderById}
                 title="Danh sách nhà cung cấp"
+                onSearch={(values) => dispatch(searchProvider(values))}
+                onReload={() => dispatch(searchProvider())}
             />
         </React.Fragment>
     );

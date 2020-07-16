@@ -4,29 +4,6 @@ import {Axis, Chart, Geom} from "bizcharts";
 import {getOverall} from "./analytics.service";
 import RankList from "./Amin/RankList";
 
-const data = [
-    {genre: "Sports", sold: 275, income: 2300},
-    {genre: "Strategy", sold: 115, income: 667},
-    {genre: "Action", sold: 120, income: 982},
-    {genre: "Shooter", sold: 350, income: 5271},
-    {genre: "Other", sold: 150, income: 3710},
-];
-
-const fakeData = [
-    {month: 1, revenue: 100000000},
-    {month: 2, revenue: 160000000},
-    {month: 3, revenue: 140000000},
-    {month: 4, revenue: 170000000},
-    {month: 5, revenue: 120000000},
-    {month: 6, revenue: 150000000},
-    {month: 7, revenue: 180000000},
-    {month: 8, revenue: 260000000},
-    {month: 9, revenue: 180000000},
-    {month: 10, revenue: 179000000},
-    {month: 11, revenue: 250000000},
-    {month: 12, revenue: 300000000},
-];
-
 const scale = {
     month: {
         alias: "Thời gian",
@@ -49,7 +26,7 @@ const DashBoard = () => {
 
     let revenues = data ? data.revenues : [];
     let topProducts = data ? data.topProducts : [];
-    if (revenues.length > 0) {
+    if (revenues?.length > 0) {
         revenues = revenues.map(item => ({
             month: item.MONTH,
             revenue: parseInt(item.revenue),
@@ -77,7 +54,7 @@ const DashBoard = () => {
     const fetchData = (begin, end, by) => {
         // console.log(params);
         getOverall(begin, end, by).then(res => {
-            const [curMonthRevenue] = res.curMonthRevenue;
+            const [curMonthRevenue = 0] = res?.curMonthRevenue ? res?.curMonthRevenue : [0];
             setData({...res, curMonthRevenue: curMonthRevenue?.revenue});
         });
     }

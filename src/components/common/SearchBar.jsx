@@ -20,6 +20,9 @@ const SearchBar = (props) => {
             onFinish={values => {
                 props.onFinish(mapSearchVal(values));
             }}
+            initialValues={(function () {
+                return {searchField: props.defaultSearchField}
+            })()}
         >
             <Row>
                 <Col span={20}>

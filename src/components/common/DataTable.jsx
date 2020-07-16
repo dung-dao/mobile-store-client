@@ -19,8 +19,6 @@ const DataTable = (props) => {
     const [selectedItem, setSelectedItem] = useState(null);
     const dispatch = useDispatch();
 
-    const danger = selectedItem ? {danger: true} : null;
-
     const menu = (
         <Menu style={{minWidth: "8em"}}>
             <Menu.Item
