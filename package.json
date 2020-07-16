@@ -35,7 +35,7 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "craco build",
+    "build": "CI='' craco build",
     "test": "jest",
     "test:watch": "yarn test -- --watch",
     "eject": "react-scripts eject"
