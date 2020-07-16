@@ -19,13 +19,15 @@ const DataTable = (props) => {
     const [selectedItem, setSelectedItem] = useState(null);
     const dispatch = useDispatch();
 
+    const danger = selectedItem ? {danger: true} : null;
+
     const menu = (
         <Menu style={{minWidth: "8em"}}>
             <Menu.Item
                 onClick={() => {
                     dispatch(push(`/${props.resourceName}/${selectedItem.id}`));
                 }}
-                disabled={(!selectedItem || props.disabledActions && props.disabledActions.VIEW)}
+                disabled={(!selectedItem || props.disabledActions?.VIEW)}
             >
                 <Row align="middle" justify="space-between">
                     Chi tiết
@@ -33,6 +35,7 @@ const DataTable = (props) => {
                 </Row>
             </Menu.Item>
             <Menu.Item
+                disabled={props.disabledActions && props.disabledActions.CREATE}
                 onClick={() => {
                     dispatch(push(`/${props.resourceName}/create`))
                 }}
@@ -43,7 +46,7 @@ const DataTable = (props) => {
                 </Row>
             </Menu.Item>
             <Menu.Item
-                danger={selectedItem}
+                danger={selectedItem && !props.disabledActions?.DELETE ? true : false}
                 onClick={() => {
                     confirm({
                         title: 'Cảnh báo',
@@ -56,7 +59,7 @@ const DataTable = (props) => {
                         }
                     })
                 }}
-                disabled={!selectedItem || props.disabledActions && props.disabledActions.DELETE}
+                disabled={!selectedItem || props.disabledActions?.DELETE}
             >
                 <Row align="middle" justify="space-between">
                     <Popconfirm
@@ -175,7 +178,6 @@ DataTable.propTypes = {
     searchAC: PropTypes.func.isRequired,
     selectHandler: PropTypes.func,
     disableSearchBar: PropTypes.bool,
-    disableEdit: PropTypes.bool,
     disabledActions: PropTypes.shape({
         CREATE: PropTypes.bool,
         UPDATE: PropTypes.bool,

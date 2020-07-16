@@ -75,9 +75,9 @@ const AppPage = (props) => {
                     return <UserRouting {...props}/>
                 }}/> : null}
 
-                {productPer ? <Route path={"/products"} render={(props) => {
+                <Route path={"/products"} render={(props) => {
                     return <ProductRouting {...props}/>
-                }}/> : null}
+                }}/>
 
                 {productPer ? <Route path={"/categories"} render={(props) => {
                     return <CategoryRouting {...props}/>

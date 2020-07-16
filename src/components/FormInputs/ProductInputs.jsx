@@ -3,8 +3,17 @@ import {Col, Form, Input, InputNumber, Row, Select} from "antd";
 import IF from "../common/IF";
 import {numberValidate, requiredValidate, viValidate} from "../../utils/validate";
 import PropTypes from "prop-types";
+import {useSelector} from "react-redux";
+import {categorySelector} from "../../redux/CategorySlice";
 
 const ProductInputs = (props) => {
+    const _selector = useSelector(categorySelector);
+
+    const categories = _selector?.items.map(item => ({
+        label: item.name,
+        value: item.id
+    }));
+
     const span = {span: 6};
     const readOnly = props.action === 'VIEW';
     return (
@@ -43,8 +52,13 @@ const ProductInputs = (props) => {
                         labelAlign="left"
                     >
                         <Select disabled={readOnly} defaultValue={1}>
-                            <Select.Option value={1}>Điện thoại</Select.Option>
-                            <Select.Option value={2}>Máy tính bảng</Select.Option>
+                            {categories.map(element => (
+                                <Select.Option
+                                    key={element.value}
+                                    value={element.value}
+                                >
+                                    {element.label}
+                                </Select.Option>))}
                         </Select>
                     </Form.Item>
                 </Col>

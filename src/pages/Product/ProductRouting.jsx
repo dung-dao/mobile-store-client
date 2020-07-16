@@ -15,6 +15,7 @@ const ProductRouting = (props) => {
             <Route
                 path={`/${resourceName}/create`}
                 render={() => {
+                    dispatch(searchCategory());
                     return <ProductDetail action="CREATE"/>
                 }}
                 exact
@@ -22,6 +23,7 @@ const ProductRouting = (props) => {
             <Route
                 path={`/${resourceName}/:id/update`}
                 render={() => {
+                    dispatch(searchCategory());
                     return <ProductDetail action="UPDATE"/>
                 }}
                 exact
@@ -29,12 +31,14 @@ const ProductRouting = (props) => {
             <Route
                 path={`/${resourceName}/:id`}
                 render={() => {
+                    dispatch(searchCategory());
                     return <ProductDetail action="VIEW"/>;
                 }}
                 exact
             />
             <Route path="/" render={(props) => {
                 dispatch(searchProduct());
+                dispatch(searchCategory());
                 dispatch(searchCategory());
                 return <ProductList/>
             }}/>

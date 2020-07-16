@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import DataTable from "../../../components/common/DataTable";
 import {sort} from "../../../utils/sort";
 import {orderSelector, searchOrder} from "../../../redux/OrderSlice";
@@ -70,7 +70,7 @@ const OrderList = (props) => {
                 searchAC={searchOrder}
                 disableFields={['amount', 'createdAt']}
                 title={props.title ? props.title : "Danh sách đơn hàng"}
-                disabledActions={{UPDATE: true, DELETE: true, SEARCH: false, ...props.disabledActions}}
+                disabledActions={{UPDATE: true, DELETE: true, SEARCH: false}}
                 defaultSearchField="id"
             />
         </React.Fragment>

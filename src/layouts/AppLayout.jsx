@@ -72,12 +72,10 @@ const AppLayout = (props) => {
                         </Menu.Item>) : null}
 
 
-                        {productPer ?
-                            (<Menu.Item key={3}>
-                                <MobileOutlined/>
-                                <Link to={"/products"}>Sản phẩm</Link>
-                            </Menu.Item>) : null
-                        }
+                        <Menu.Item key={3}>
+                            <MobileOutlined/>
+                            <Link to={"/products"}>Sản phẩm</Link>
+                        </Menu.Item>
 
                         {_user?.user?.role === 'salesman' ? (<Menu.Item key={4}>
                             <TeamOutlined/>

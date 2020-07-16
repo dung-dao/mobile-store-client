@@ -9,16 +9,19 @@ import {deleteProduct, productSelector, searchProduct} from "../../redux/Product
 import {formatToCurrency, mapNestedObject} from "../../utils/ObjectUtils";
 import {Col, Row, Select, Space, Typography} from 'antd';
 import {categorySelector} from "../../redux/CategorySlice";
+import {userSelector} from "../../redux";
 
 const {Title} = Typography;
 
 const CategorySelect = () => {
     const dispatch = useDispatch();
     const _selector = useSelector(categorySelector);
+
     const categories = _selector?.items.map(item => ({
         label: item.name,
         value: item.id
     }));
+
     return <Space align="baseline" size="large">
         <Typography>Danh mục:</Typography>
         <Select
@@ -38,6 +41,10 @@ const ProductList = (props) => {
     //Data Hook
     const dispatch = useDispatch();
     const selector = useSelector(productSelector);
+    const _user = useSelector(userSelector);
+    const _categories = useSelector(categorySelector);
+
+    console.log(_categories?.items);
     const products = (selector['items'] ? selector['items'].map(item => {
         return mapNestedObject(item, [
             {key: 'manufactureName', path: ['manufacture', 'name']},
@@ -115,6 +122,11 @@ const ProductList = (props) => {
                         searchAC={searchProduct}
                         disableFields={['amount', 'manufactureName', 'categoryName']}
                         defaultSearchField="name"
+                        disabledActions={{
+                            CREATE: _user?.user?.role !== 'admin',
+                            UPDATE: _user?.user?.role !== 'admin',
+                            DELETE: _user?.user?.role !== 'admin'
+                        }}
                     /> : <LoadingPage/>}
             </Col>
         </Row>);
