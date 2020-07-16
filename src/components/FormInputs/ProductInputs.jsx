@@ -5,11 +5,18 @@ import {numberValidate, requiredValidate, viValidate} from "../../utils/validate
 import PropTypes from "prop-types";
 import {useSelector} from "react-redux";
 import {categorySelector} from "../../redux/CategorySlice";
+import {manufactureSelector} from "../../redux/manufactureSlice";
 
 const ProductInputs = (props) => {
     const _selector = useSelector(categorySelector);
+    const _manufacture = useSelector(manufactureSelector);
 
     const categories = _selector?.items.map(item => ({
+        label: item.name,
+        value: item.id
+    }));
+
+    const manufacture = _manufacture?.items.map(item => ({
         label: item.name,
         value: item.id
     }));
@@ -84,8 +91,13 @@ const ProductInputs = (props) => {
                         labelAlign="left"
                     >
                         <Select disabled={readOnly} defaultValue={1}>
-                            <Select.Option value={1}>Samsung</Select.Option>
-                            <Select.Option value={2}>Apple</Select.Option>
+                            {manufacture.map(element => (
+                                <Select.Option
+                                    key={element.value}
+                                    value={element.value}
+                                >
+                                    {element.label}
+                                </Select.Option>))}
                         </Select>
                     </Form.Item>
                 </Col>

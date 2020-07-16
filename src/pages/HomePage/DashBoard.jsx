@@ -3,6 +3,7 @@ import {Button, Card, Col, DatePicker, Form, Row, Select, Space, Statistic, Tool
 import {Axis, Chart, Geom} from "bizcharts";
 import {getOverall} from "./analytics.service";
 import RankList from "./Amin/RankList";
+import LoadingPage from "../../components/common/LoadingPage";
 
 const scale = {
     month: {
@@ -25,7 +26,7 @@ const DashBoard = () => {
     });
 
     let revenues = data ? data.revenues : [];
-    let topProducts = data ? data.topProducts : [];
+    let topProducts = data?.topProducts;
     if (revenues?.length > 0) {
         revenues = revenues.map(item => ({
             month: item.MONTH,
@@ -33,7 +34,7 @@ const DashBoard = () => {
             year: item.YEAR
         }));
     }
-    if (topProducts.length > 0) {
+    if (topProducts?.length > 0) {
         topProducts = topProducts.map(item => {
             return {title: item.name};
         })
@@ -63,6 +64,9 @@ const DashBoard = () => {
         {label: "Tháng", value: "MONTH"},
         {label: "Năm", value: "YEAR"},
     ];
+
+    if (!data)
+        return <LoadingPage/>;
 
     return (
         <Row gutter={[16, 16]}>
@@ -129,14 +133,14 @@ const DashBoard = () => {
                                 // width={1000}
                                 forceFit={true}
                                 height={320}
-                                data={revenues.map((e) => {
+                                data={revenues ? revenues.map((e) => {
                                     const res = e;
                                     e.month = `${e.month ? e.month + '/' : ''}${e.year}`;
                                     // const value = e.revenue;
                                     // e.revenue = formatToCurrency(value)
                                     // console.log(formatToCurrency())
                                     return res;
-                                })}
+                                }) : []}
                             >
                                 <Axis name={_by.toLowerCase()} position="bottom" title/>
                                 <Axis name="revenue" position="left" title/>

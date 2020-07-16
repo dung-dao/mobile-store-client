@@ -6,6 +6,7 @@ import {useDispatch} from "react-redux";
 import {resourceName} from "./Config";
 import {searchProduct} from "../../redux/ProductSlice";
 import {searchCategory} from "../../redux/CategorySlice";
+import {searchManufacture} from "../../redux/manufactureSlice";
 
 const ProductRouting = (props) => {
     const match = useRouteMatch();
@@ -16,6 +17,7 @@ const ProductRouting = (props) => {
                 path={`/${resourceName}/create`}
                 render={() => {
                     dispatch(searchCategory());
+                    dispatch(searchManufacture());
                     return <ProductDetail action="CREATE"/>
                 }}
                 exact
@@ -24,6 +26,7 @@ const ProductRouting = (props) => {
                 path={`/${resourceName}/:id/update`}
                 render={() => {
                     dispatch(searchCategory());
+                    dispatch(searchManufacture());
                     return <ProductDetail action="UPDATE"/>
                 }}
                 exact
@@ -32,11 +35,13 @@ const ProductRouting = (props) => {
                 path={`/${resourceName}/:id`}
                 render={() => {
                     dispatch(searchCategory());
+                    dispatch(searchManufacture());
                     return <ProductDetail action="VIEW"/>;
                 }}
                 exact
             />
             <Route path="/" render={(props) => {
+                dispatch(searchManufacture());
                 dispatch(searchProduct());
                 dispatch(searchCategory());
                 dispatch(searchCategory());

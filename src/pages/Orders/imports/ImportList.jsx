@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import DataTable from "../../../components/common/DataTable";
 import {sort} from "../../../utils/sort";
 import {orderSelector, searchOrder} from "../../../redux/OrderSlice";
@@ -25,10 +25,6 @@ const ImportsList = (props) => {
         const date = new Date(val.createdAt);
         val.createdAt = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
         return val;
-    });
-
-    useEffect(() => {
-        console.log(viewOrders);
     });
 
     let columns = [
@@ -82,18 +78,6 @@ const ImportsList = (props) => {
                         key: "id",
                         dataIndex: "id",
                         sorter: sort('id')
-                    },
-                    {
-                        title: "Tên khách hàng",
-                        key: "name",
-                        dataIndex: "name",
-                        sorter: sort('name')
-                    },
-                    {
-                        title: "Số điện thoại",
-                        key: "phone",
-                        dataIndex: "phone",
-                        sorter: sort('phone')
                     }
                 ]}
                 onReload={() => dispatch(searchOrder({orderTypeId: 1}))}

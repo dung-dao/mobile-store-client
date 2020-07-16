@@ -5,7 +5,7 @@ const resourceName = 'orders';
 
 //Action creator
 
-export const searchOrder = searchThunkBase(resourceName, 'orders/v2');
+export const searchOrder = searchThunkBase(resourceName);
 
 export const getOrderById = getByIdThunkBase(resourceName);
 
