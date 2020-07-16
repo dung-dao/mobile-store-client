@@ -38,12 +38,18 @@ const ProductList = (props) => {
     //Data Hook
     const dispatch = useDispatch();
     const selector = useSelector(productSelector);
-    const products = selector['items'] ? selector['items'].map(item => {
+    const products = (selector['items'] ? selector['items'].map(item => {
         return mapNestedObject(item, [
             {key: 'manufactureName', path: ['manufacture', 'name']},
             {key: 'categoryName', path: ['category', 'name']},
         ])
-    }) : [];
+    }) : []).map(item => {
+        const res = {...item};
+        if (!res.available) {
+            res.available = 0;
+        }
+        return res;
+    });
 
     return (
         <Row gutter={[16, 16]}>
@@ -97,9 +103,9 @@ const ProductList = (props) => {
                                 sorter: sort('manufactureName')
                             },
                             {
-                                title: "Danh mục",
-                                key: "categoryName",
-                                dataIndex: "categoryName",
+                                title: "Còn tồn",
+                                key: "available",
+                                dataIndex: "available",
                                 sorter: sort('categoryName')
                             },
                         ]}

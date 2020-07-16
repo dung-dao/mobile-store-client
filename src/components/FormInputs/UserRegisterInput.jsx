@@ -48,7 +48,7 @@ const UserRegisterInput = (props) => {
                         options={[
                             {label: "Admin", value: "admin"},
                             {label: "Nhân viên", value: "salesman"},
-                            {label: "Thủ kho", value: "storekeeper"}
+                            {label: "Thủ kho", value: "warehouseman"}
                         ]}
                     />
                 </Form.Item>

@@ -71,7 +71,8 @@ const OrderDetail = (props) => {
 
     //#Map data
     const customers = _customerSelector ? _customerSelector.items : [];
-    const products = (!_productSelector.items.length == 0) ? _productSelector.items : [];
+    const products = (!_productSelector.items.length == 0) ? _productSelector.items.filter(item => item.available) : [];
+    console.log(products);
 
     //Event Handler
     //Select

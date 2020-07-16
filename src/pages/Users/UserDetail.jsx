@@ -37,15 +37,19 @@ const UserDetail = (props) => {
         console.log('values', values);
         switch (action) {
             case "CREATE":
-                dispatch(createUser(values));
+                dispatch(createUser(values)).then(() => {
+                    dispatch(goBack());
+                });
                 break;
             case "UPDATE":
-                dispatch(updateUser(values));
+                dispatch(updateUser(values)).then(() => {
+                    dispatch(goBack());
+                })
                 break;
             default:
                 console.log('Unreachable code');
         }
-        dispatch(goBack());
+
     }
 
     const detailItem = selector.detailItem;

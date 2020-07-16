@@ -23,10 +23,6 @@ const OrderList = (props) => {
         return val;
     });
 
-    useEffect(() => {
-        console.log(viewOrders);
-    });
-
     let columns = [
         {
             title: "Mã đơn hàng",

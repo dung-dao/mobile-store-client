@@ -9,7 +9,7 @@ import OrderRouting from "../Orders/orders/OrderRouting";
 import ProductRouting from "../Product/ProductRouting";
 import ProviderRouting from "../Providers/ProviderRouting";
 import {useDispatch, useSelector} from "react-redux";
-import {authUser, logout, permissionSelector} from "../../redux";
+import {authUser, logout, permissionSelector, userSelector} from "../../redux";
 import LoadingPage from "../../components/common/LoadingPage";
 import CategoryRouting from "../Category/CategoryRouting";
 import {checkPermission} from "../../utils/Permission";
@@ -26,6 +26,7 @@ const AppPage = (props) => {
     const userPer = checkPermission(permissions, 'READ', 'users');
     const orderPer = checkPermission(permissions, 'READ', 'orders');
     const importPer = checkPermission(permissions, 'READ', 'imports');
+    const _user = useSelector(userSelector);
 
 
     useEffect(() => {
@@ -53,7 +54,7 @@ const AppPage = (props) => {
                 }}
                 /> : null}
 
-                {customerPer ?
+                {_user?.user?.role === 'salesman' ?
                     <Route
                         path={"/customers"}
                         render={(props) => {
@@ -61,12 +62,12 @@ const AppPage = (props) => {
                         }}/>
                     : null}
 
-                {orderPer ? <Route path={"/orders"} render={(props) => {
+                {orderPer || _user?.user?.role === 'salesman' ? <Route path={"/orders"} render={(props) => {
                     return <OrderRouting {...props}/>
                 }}/> : null}
 
 
-                {importPer ? <Route path={"/imports"} render={(props) => {
+                {importPer || _user?.user?.role === 'warehouseman' ? <Route path={"/imports"} render={(props) => {
                     return <ImportsRouting{...props}/>
                 }}/> : null}
 

@@ -27,6 +27,7 @@ const AppLayout = (props) => {
     const userPer = checkPermission(permissions, 'READ', 'users');
     const orderPer = checkPermission(permissions, 'READ', 'orders');
     const importPer = checkPermission(permissions, 'READ', 'imports');
+    const categoryPer = checkPermission(permissions, 'READ', 'categories');
 
     let initPath = path.split('/')[1];
 
@@ -78,7 +79,7 @@ const AppLayout = (props) => {
                             </Menu.Item>) : null
                         }
 
-                        {customerPer ? (<Menu.Item key={4}>
+                        {_user?.user?.role === 'salesman' ? (<Menu.Item key={4}>
                             <TeamOutlined/>
                             <Link to={"/customers"}>Khách hàng</Link>
                         </Menu.Item>) : null}
@@ -88,20 +89,20 @@ const AppLayout = (props) => {
                             <Link to={"/users"}>Tài khoản</Link>
                         </Menu.Item>) : null}
 
-                        {orderPer ? (<Menu.Item key={6}>
+                        {_user?.user?.role === 'salesman' || _user?.user?.role === 'admin' ? (<Menu.Item key={6}>
                             <ReconciliationOutlined/>
                             <Link to={"/orders"}>Đơn hàng</Link>
                         </Menu.Item>) : null}
 
-                        {importPer ? (<Menu.Item key={7}>
+                        {importPer || _user?.user?.role === 'warehouseman' ? (<Menu.Item key={7}>
                             <ReconciliationOutlined/>
                             <Link to={"/imports"}>Nhập hàng</Link>
                         </Menu.Item>) : null}
 
-                        <Menu.Item key={8}>
+                        {categoryPer ? <Menu.Item key={8}>
                             <ReconciliationOutlined/>
                             <Link to={"/categories"}>Danh mục</Link>
-                        </Menu.Item>
+                        </Menu.Item> : null}
                     </Menu>
                 </Sider>
 

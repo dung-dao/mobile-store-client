@@ -6,7 +6,6 @@ import {useDispatch} from "react-redux";
 import {logout} from "../redux/UserSlice";
 import {push} from "connected-react-router";
 import Avatar from "antd/es/avatar";
-import {string} from "prop-types";
 
 const {Header} = Layout;
 
@@ -28,13 +27,26 @@ const AppHeader = (props) => {
         </Menu>
     );
 
+    function roleToLabel(role) {
+        switch (role) {
+            case 'admin':
+                return 'Quản lý';
+            case  'salesman':
+                return 'Nhân viên bán hàng';
+            case 'warehouseman':
+                return 'Thủ kho';
+            default:
+                return '';
+        }
+    }
+
     return (
         <React.Fragment>
             <Header>
                 <Row align="middle" justify="space-between">
                     <img src={require('../app/logo.png')} height={64}/>
                     <Space>
-                        {props.role ? (<Tag color="red">{props.role.toUpperCase()}</Tag>) : null}
+                        {props.role ? (<Tag color="red">{roleToLabel(props.role).toUpperCase()}</Tag>) : null}
                         <Dropdown
                             overlay={userMenu}
                             placement="bottomLeft"
