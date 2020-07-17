@@ -104,7 +104,7 @@ const CustomerDetail = (props) => {
                         </Form>
                     </Card>
                 </Col>
-                <Col span={24}>
+                {action === 'VIEW' ? <Col span={24}>
                     <OrderList
                         title="Lịch sử mua hàng"
                         excludeColumns={[
@@ -113,7 +113,7 @@ const CustomerDetail = (props) => {
                         ]}
                         disabledActions={{CREATE: true}}
                     />
-                </Col>
+                </Col> : null}
             </Row>
         </React.Fragment>
     );

@@ -1,6 +1,5 @@
 import axios from "axios";
 import LocalStorageService from "./LocalStorageService";
-import {message} from "antd";
 
 const localStorageService = LocalStorageService.getService();
 
