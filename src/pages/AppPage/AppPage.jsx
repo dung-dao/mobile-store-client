@@ -54,7 +54,7 @@ const AppPage = (props) => {
                 }}
                 /> : null}
 
-                {_user?.user?.role === 'salesman' ?
+                {_user?.user?.role === 'salesman' || customerPer ?
                     <Route
                         path={"/customers"}
                         render={(props) => {
