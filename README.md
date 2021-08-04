@@ -43,10 +43,6 @@ yarn start
 - Create order
 - Simple statistic
 
-## Demo
-
-You can use find demo for this project here: [Demo](https://sphone.netlify.app/)
-
 ## Meta
 
 Đào Mạnh Dũng –  daomanhdung@hotmail.com [Github](https://github.com/manhdung99)
