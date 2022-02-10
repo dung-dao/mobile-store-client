@@ -23,7 +23,7 @@
     "immutable": "4.0.0-rc.12",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
-    "node-sass": "4.13.1",
+    "node-sass": "7.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.1.3",
